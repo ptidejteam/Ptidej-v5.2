@@ -1,0 +1,138 @@
+package sun.reflect;
+public class ReflectionFactory
+{
+final public static class GetReflectionFactoryAction
+implements java.security.PrivilegedAction
+{
+public void <init>()
+{
+
+}
+
+public sun.reflect.ReflectionFactory run()
+{
+
+}
+
+
+}
+
+private static java.lang.Object initted;
+
+private static java.lang.Object reflectionFactoryAccessPerm;
+
+private static java.lang.Object soleInstance;
+
+private static volatile java.lang.Object langReflectAccess;
+
+private static java.lang.Object noInflation;
+
+private static java.lang.Object inflationThreshold;
+
+private void <init>()
+{
+
+}
+
+public static sun.reflect.ReflectionFactory getReflectionFactory()
+{
+
+}
+
+public void setLangReflectAccess(java.lang.Object arg0)
+{
+
+}
+
+public sun.reflect.FieldAccessor newFieldAccessor(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+public sun.reflect.MethodAccessor newMethodAccessor(java.lang.Object arg0)
+{
+
+}
+
+public sun.reflect.ConstructorAccessor newConstructorAccessor(java.lang.Object arg0)
+{
+
+}
+
+public java.lang.reflect.Field newField(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2, java.lang.Object arg3, java.lang.Object arg4, java.lang.Object arg5, java.lang.Object arg6)
+{
+
+}
+
+public java.lang.reflect.Method newMethod(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2, java.lang.Object arg3, java.lang.Object arg4, java.lang.Object arg5, java.lang.Object arg6, java.lang.Object arg7, java.lang.Object arg8, java.lang.Object arg9, java.lang.Object arg10)
+{
+
+}
+
+public java.lang.reflect.Constructor newConstructor(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2, java.lang.Object arg3, java.lang.Object arg4, java.lang.Object arg5, java.lang.Object arg6, java.lang.Object arg7)
+{
+
+}
+
+public sun.reflect.MethodAccessor getMethodAccessor(java.lang.Object arg0)
+{
+
+}
+
+public void setMethodAccessor(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+public sun.reflect.ConstructorAccessor getConstructorAccessor(java.lang.Object arg0)
+{
+
+}
+
+public void setConstructorAccessor(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+public java.lang.reflect.Method copyMethod(java.lang.Object arg0)
+{
+
+}
+
+public java.lang.reflect.Field copyField(java.lang.Object arg0)
+{
+
+}
+
+public java.lang.reflect.Constructor copyConstructor(java.lang.Object arg0)
+{
+
+}
+
+public java.lang.reflect.Constructor newConstructorForSerialization(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+static int inflationThreshold()
+{
+
+}
+
+private static void checkInitted()
+{
+
+}
+
+private static sun.reflect.LangReflectAccess langReflectAccess()
+{
+
+}
+
+static void <clinit>()
+{
+
+}
+
+
+}

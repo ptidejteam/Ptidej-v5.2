@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="lib" path="libraries/gl4java.jar"/>
+	<classpathentry exported="true" kind="lib" path="libraries/gl4java-glffonts.jar"/>
+	<classpathentry exported="true" kind="lib" path="libraries/gl4java-glutfonts.jar"/>
+	<classpathentry exported="true" kind="lib" path="libraries/grappa1_2.jar"/>
+	<classpathentry exported="true" kind="lib" path="libraries/log4j.jar"/>
+	<classpathentry exported="true" kind="lib" path="libraries/png.jar"/>
+	<classpathentry exported="true" kind="lib" path="libraries/xerces.jar"/>
+	<classpathentry kind="src" path="/DRAM Libraries"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

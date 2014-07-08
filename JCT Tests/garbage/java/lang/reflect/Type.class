@@ -1,0 +1,5 @@
+package java.lang.reflect;
+abstract public interface Type
+{
+
+}

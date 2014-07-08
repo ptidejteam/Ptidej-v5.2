@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.4"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/CPL"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PADL"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PADL Analyses"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PADL Creator ClassFile"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PADL Generator"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PADL Serialiser DB4O"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

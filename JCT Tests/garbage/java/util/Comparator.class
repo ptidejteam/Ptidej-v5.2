@@ -1,0 +1,15 @@
+package java.util;
+abstract public interface Comparator
+{
+abstract public int compare(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+abstract public boolean equals(java.lang.Object arg0)
+{
+
+}
+
+
+}

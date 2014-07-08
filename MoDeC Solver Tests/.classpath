@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="/MoDeC Solver"/>
+	<classpathentry kind="src" path="/JChoco"/>
+	<classpathentry kind="src" path="/MoDeC Metamodel"/>
+	<classpathentry kind="src" path="/MoDeC Bytecode Instrumentation"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/CPL"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PADL"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PADL Creator ClassFile"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Ptidej"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

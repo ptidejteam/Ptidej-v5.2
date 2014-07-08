@@ -1,0 +1,275 @@
+/*
+ * (c) Copyright 2001-2003 Yann-Gaël Guéhéneuc,
+ * Ecole des Mines de Nantes
+ * Object Technology International, Inc.
+ * 
+ * Use and copying of this software and preparation of derivative works
+ * based upon this software are permitted. Any copy of this software or
+ * of any derivative work must include the above copyright notice of
+ * the authors, this paragraph and the one after it.
+ * 
+ * This software is made available AS IS, and THE AUTHOR DISCLAIMS
+ * ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE, AND NOT WITHSTANDING ANY OTHER PROVISION CONTAINED HEREIN,
+ * ANY LIABILITY FOR DAMAGES RESULTING FROM THE SOFTWARE OR ITS USE IS
+ * EXPRESSLY DISCLAIMED, WHETHER ARISING IN CONTRACT, TORT (INCLUDING
+ * NEGLIGENCE) OR STRICT LIABILITY, EVEN IF THE AUTHORS ARE ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGES.
+ * 
+ * All Rights Reserved.
+ */
+package padl.motif.kernel.impl;
+
+import java.util.Iterator;
+import padl.kernel.IConstituent;
+import padl.kernel.impl.AbstractModel;
+import padl.kernel.impl.Constituent;
+import padl.motif.IDesignMotifModel;
+import padl.motif.detector.IDetector;
+import padl.motif.visitor.IMotifGenerator;
+import padl.motif.visitor.IMotifWalker;
+import padl.path.IConstants;
+import padl.visitor.IGenerator;
+import padl.visitor.IVisitor;
+import padl.visitor.IWalker;
+import util.io.ProxyConsole;
+
+class DesignMotifModel extends AbstractModel implements IDesignMotifModel {
+	private static final long serialVersionUID = 5943218392258815564L;
+
+	private int classification;
+	private IDetector defaultDetector;
+	private IConstituent embeddedConstituent;
+	private String intent;
+
+	public DesignMotifModel(final char[] anID) {
+		super(anID);
+		this.embeddedConstituent = new Constituent(anID) {
+			private static final long serialVersionUID = -4888313345209939932L;
+
+			protected char getPathSymbol() {
+				return 0;
+			}
+		};
+	}
+	public void accept(final IVisitor aVisitor) {
+		if (aVisitor instanceof IWalker) {
+			this.walk((IWalker) aVisitor);
+		}
+		else if (aVisitor instanceof IGenerator) {
+			this.generate((IGenerator) aVisitor);
+		}
+		else {
+			aVisitor.unknownConstituentHandler(
+				"Object DesignMotifModel.walk(IWalker)",
+				this);
+		}
+	}
+	public Object clone() throws CloneNotSupportedException {
+		final DesignMotifModel clonedModel = (DesignMotifModel) super.clone();
+		this.embeddedConstituent.startCloneSession();
+		this.embeddedConstituent.performCloneSession();
+		this.embeddedConstituent.endCloneSession();
+		clonedModel.embeddedConstituent = this.embeddedConstituent.getClone();
+		return clonedModel;
+	}
+	public void endCloneSession() {
+		// Do nothing, see clone();
+	}
+	public final String generate(final IGenerator aGenerator) {
+		if (aGenerator instanceof IMotifGenerator) {
+			((IMotifGenerator) aGenerator).open(this);
+			final Iterator iterator = this.getIteratorOnConstituents();
+			while (iterator.hasNext()) {
+				((IConstituent) iterator.next()).accept(aGenerator);
+			}
+			((IMotifGenerator) aGenerator).close(this);
+			return aGenerator.getCode();
+		}
+		else if (aGenerator instanceof IGenerator) {
+			return super.generate(aGenerator);
+		}
+		else {
+			aGenerator.unknownConstituentHandler(
+				"String DesignMotifModel.generate(IGenerator)",
+				this);
+			return "";
+		}
+	}
+	public int getClassification() {
+		return this.classification;
+	}
+	public IConstituent getClone() {
+		try {
+			return (IConstituent) this.clone();
+		}
+		catch (final CloneNotSupportedException e) {
+			e.printStackTrace(ProxyConsole.getInstance().errorOutput());
+			return null;
+		}
+	}
+	public String[] getCodeLines() {
+		return this.embeddedConstituent.getCodeLines();
+	}
+	public String getComment() {
+		return this.embeddedConstituent.getComment();
+	}
+	/**
+	 * This method returns a list of hashtable. Each hashtable represents a solution
+	 * found. A solution is a set of keys representing the entities, associated to the
+	 * real entities found in the given source code.
+	 */
+	//	public List compare(final IAbstractModel model) {
+	//		final List solutions = new ArrayList();
+	//		Map partialSolutions;
+	//
+	//		if (this.getDetector() == null) {
+	//			OutputManager.getCurrentOutputManager().getErrorOutput().println(
+	//				MultilanguageManager.getStrResource(
+	//					"Err_INIT_ALMD",
+	//					resourceBaseName
+	//				)
+	//			);
+	//			return new ArrayList();
+	//		}
+	//		this.getDetector().setPattern(this);
+	//		partialSolutions =
+	//			((Detector) this.getDetector()).buildPartialSolution(model);
+	//		if (partialSolutions.size() > 0) {
+	//			partialSolutions =
+	//				((Detector) this.getDetector()).applyCriterias(
+	//					partialSolutions,
+	//					Detector.AllCriterias);
+	//			if (partialSolutions.size() > 0) {
+	//				solutions.add(partialSolutions);
+	//			}
+	//		}
+	//		return solutions;
+	//	}
+	public final IDetector getDetector() {
+		return this.defaultDetector;
+	}
+	public String getDisplayID() {
+		return this.embeddedConstituent.getDisplayID();
+	}
+	public char[] getID() {
+		return this.embeddedConstituent.getID();
+	}
+	public String getIntent() {
+		return this.intent;
+	}
+	public char[] getPath() {
+		return this.getID();
+	}
+	protected char getPathSymbol() {
+		return IConstants.DESIGN_MOTIF_MODEL_SYMBOL;
+	}
+	public int getVisibility() {
+		return this.embeddedConstituent.getVisibility();
+	}
+	public int getWeight() {
+		return this.embeddedConstituent.getWeight();
+	}
+	public boolean isAbstract() {
+		return this.embeddedConstituent.isAbstract();
+	}
+	public boolean isFinal() {
+		return this.embeddedConstituent.isFinal();
+	}
+	public boolean isPrivate() {
+		return this.embeddedConstituent.isPrivate();
+	}
+	public boolean isProtected() {
+		return this.embeddedConstituent.isProtected();
+	}
+	public boolean isPublic() {
+		return this.embeddedConstituent.isPublic();
+	}
+	public boolean isStatic() {
+		return this.embeddedConstituent.isStatic();
+	}
+	public void performCloneSession() {
+		// Do nothing, see clone();
+	}
+	public void resetCodeLines() {
+		this.embeddedConstituent.resetCodeLines();
+	}
+	public void setAbstract(boolean aBoolean) {
+		this.embeddedConstituent.setAbstract(aBoolean);
+	}
+	public void setClassification(final int aClassification) {
+		this.classification = aClassification;
+	}
+	public void setCodeLines(String someCode) {
+		this.embeddedConstituent.setCodeLines(someCode);
+	}
+	public void setCodeLines(String[] someCode) {
+		this.embeddedConstituent.setCodeLines(someCode);
+	}
+	public void setComment(String aComment) {
+		this.embeddedConstituent.setComment(aComment);
+	}
+	public final void setDetector(final IDetector aPatternDetector) {
+		this.defaultDetector = aPatternDetector;
+	}
+	public void setDisplayName(String aName) {
+		this.embeddedConstituent.setDisplayName(aName);
+	}
+	public void setFinal(boolean aBoolean) {
+		this.embeddedConstituent.setFinal(aBoolean);
+	}
+	public void setIntent(final String anIntent) {
+		this.intent = anIntent;
+	}
+	public void setName(char[] aName) {
+		this.embeddedConstituent.setName(aName);
+	}
+	public void setPrivate(boolean aBoolean) {
+		this.embeddedConstituent.setPrivate(aBoolean);
+	}
+	public void setProtected(boolean aBoolean) {
+		this.embeddedConstituent.setProtected(aBoolean);
+	}
+	public void setPublic(boolean aBoolean) {
+		this.embeddedConstituent.setPublic(aBoolean);
+	}
+	public void setStatic(boolean aBoolean) {
+		this.embeddedConstituent.setStatic(aBoolean);
+	}
+	public void setVisibility(int aVisibility) {
+		this.embeddedConstituent.setVisibility(aVisibility);
+	}
+	public void setWeight(int aWeight) {
+		this.embeddedConstituent.setWeight(aWeight);
+	}
+	public void startCloneSession() {
+		// Do nothing, see clone();
+	}
+	public String toString(final int tab) {
+		final StringBuffer codeEq = new StringBuffer();
+		codeEq.append("Model of design motif ");
+		codeEq.append(this.getName());
+		return codeEq.toString();
+	}
+	public final Object walk(final IWalker aWalker) {
+		if (aWalker instanceof IMotifWalker) {
+			((IMotifWalker) aWalker).open(this);
+			final Iterator iterator = this.getIteratorOnConstituents();
+			while (iterator.hasNext()) {
+				((IConstituent) iterator.next()).accept(aWalker);
+			}
+			((IMotifWalker) aWalker).close(this);
+			return aWalker.getResult();
+		}
+		else if (aWalker instanceof IWalker) {
+			return super.walk(aWalker);
+		}
+		else {
+			aWalker.unknownConstituentHandler(
+				"Object DesignMotifModel.walk(IWalker)",
+				this);
+			return null;
+		}
+	}
+}

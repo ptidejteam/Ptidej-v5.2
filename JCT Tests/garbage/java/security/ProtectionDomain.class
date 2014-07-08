@@ -1,0 +1,91 @@
+package java.security;
+public class ProtectionDomain
+{
+final class Key
+{
+void <init>()
+{
+
+}
+
+
+}
+
+private java.lang.Object codesource;
+
+private java.lang.Object classloader;
+
+private java.lang.Object principals;
+
+private java.lang.Object permissions;
+
+private java.lang.Object hasAllPerm;
+
+private java.lang.Object staticPermissions;
+
+final java.lang.Object key;
+
+final private static java.lang.Object debug;
+
+public void <init>(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+public void <init>(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2, java.lang.Object arg3)
+{
+
+}
+
+final public java.security.CodeSource getCodeSource()
+{
+
+}
+
+final public java.lang.ClassLoader getClassLoader()
+{
+
+}
+
+final public java.security.Principal[] getPrincipals()
+{
+
+}
+
+final public java.security.PermissionCollection getPermissions()
+{
+
+}
+
+public boolean implies(java.lang.Object arg0)
+{
+
+}
+
+boolean impliesCreateAccessControlContext()
+{
+
+}
+
+public java.lang.String toString()
+{
+
+}
+
+private static boolean seeAllp()
+{
+
+}
+
+private java.security.PermissionCollection mergePermissions()
+{
+
+}
+
+static void <clinit>()
+{
+
+}
+
+
+}

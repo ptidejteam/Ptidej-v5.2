@@ -1,0 +1,10 @@
+package java.lang.reflect;
+abstract public interface GenericDeclaration
+{
+abstract public java.lang.reflect.TypeVariable[] getTypeParameters()
+{
+
+}
+
+
+}

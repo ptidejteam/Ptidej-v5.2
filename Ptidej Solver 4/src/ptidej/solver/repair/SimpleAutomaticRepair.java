@@ -1,0 +1,119 @@
+/*
+ * Writen in CLAIRE by
+ * @author Yann-Gaël Guéhéneuc
+ * Translated and adapted from CLAIRE version to JAVA by
+ * @author Iyadh Sidhom
+ * @author Salim Bensemmane
+ * @author Fayçal Skhiri
+ *
+ * (c) Copyright 2000-2004 Yann-Gaël Guéhéneuc,
+ */
+package ptidej.solver.repair;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+
+import ptidej.solver.Branching;
+import ptidej.solver.Constraint;
+import ptidej.solver.Problem;
+import ptidej.solver.Solver;
+import choco.AbstractConstraint;
+import choco.palm.explain.Explanation;
+import choco.palm.explain.PalmConstraintPlugin;
+import choco.palm.search.PalmContradiction;
+
+public class SimpleAutomaticRepair extends NoMemoryRepair {
+	private String solutionMessage = "# Solution with all constraints.";
+	private int percentage = 100;
+	private String xCommand =
+		"XCommand = System.out.println(\"No source transformation needed.\");";
+	private Branching jPtidejBranching = null;
+
+	public SimpleAutomaticRepair(final Problem problem) {
+		super(problem);
+	}
+
+	public ArrayList[] ptidejSelectDecisionToUndo(Explanation expl)
+		throws PalmContradiction {
+		if (this.jPtidejBranching == null) {
+
+			this.jPtidejBranching =
+				((Solver) this.getManager()).getNextBranching();
+		}
+
+		//array of 2 arrayList of abstractConstraint	
+		ArrayList[] re = { new ArrayList(), new ArrayList()};
+		AbstractConstraint ct =
+			(AbstractConstraint) Collections.min(
+				expl.toSet(),
+				new choco.palm.explain.BetterConstraintComparator());
+		PalmConstraintPlugin plug1 = (PalmConstraintPlugin) ct.getPlugIn();
+		if (plug1.getWeight() == 0) {
+			re[0].add(ct);
+
+		}
+		else {
+
+			ArrayList cts = new ArrayList();
+			Iterator iterator = (expl.toSet()).iterator();
+			while (iterator.hasNext()) {
+				cts.add((AbstractConstraint) iterator.next());
+
+			}
+			Collections.sort(
+				cts,
+				new choco.palm.explain.BetterConstraintComparator());
+
+			final int lightestConstraint = 0;
+			PalmConstraintPlugin plug =
+				(PalmConstraintPlugin) ((AbstractConstraint) cts
+					.get(lightestConstraint))
+					.getPlugIn();
+			Problem pb = (Problem) (this.getManager().getProblem());
+			//if not a negation Constraint
+			if (plug.getWeight() != Integer.MAX_VALUE) {
+
+				if (plug.getWeight() < pb.getMaxRelaxLevel()) {
+					this.percentage = (this.percentage * plug.getWeight()) / 100;
+
+					if ((((Constraint) cts.get(lightestConstraint))
+						.getXCommand())
+						.length()
+						> 0) {
+						this.xCommand =
+							((Constraint) cts.get(lightestConstraint))
+								.getXCommand();
+					}
+					else {
+						this.xCommand =
+							"XCommand = System.out.println(\"No source transformation needed.\");";
+					}
+					this.solutionMessage =
+						"# More solution without constraint "
+							+ lightestConstraint
+							+ ": "
+							+ ((Constraint) cts.get(lightestConstraint))
+								.getName()
+							+ " of weight "
+							+ plug.getWeight()
+							+ '\n';
+					re[0].add(
+						(AbstractConstraint) cts.get(lightestConstraint));
+
+					this.jPtidejBranching.setMessage(this.solutionMessage);
+					this.jPtidejBranching.setWeight(this.percentage);
+					this.jPtidejBranching.setXCommand(this.xCommand);
+				}
+				else {
+					pb.getWriter().close();
+					throw new PalmContradiction();
+
+				}
+			}
+
+		}
+		return re;
+	}
+
+}

@@ -1,0 +1,20 @@
+package java.util;
+abstract public interface Iterator
+{
+abstract public boolean hasNext()
+{
+
+}
+
+abstract public java.lang.Object next()
+{
+
+}
+
+abstract public void remove()
+{
+
+}
+
+
+}
