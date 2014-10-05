@@ -1,6 +1,6 @@
 /*
- * (c) Copyright 2001-2004 Yann-Gaël Guéhéneuc,
- * University of Montréal.
+ * (c) Copyright 2001-2004 Yann-GaÃ«l GuÃ©hÃ©neuc,
+ * University of MontrÃ©al.
  * 
  * Use and copying of this software and preparation of derivative works
  * based upon this software are permitted. Any copy of this software or
@@ -23,19 +23,90 @@ package ptidej.solver.problem;
 import java.util.List;
 
 import ptidej.solver.Problem;
+import ptidej.solver.Variable;
+import ptidej.solver.approximation.DefaultNoApproximations;
+import ptidej.solver.constraint.repository.AggregationConstraint;
+import ptidej.solver.constraint.repository.AssociationConstraint;
+import ptidej.solver.constraint.repository.CreationConstraint;
+import ptidej.solver.constraint.repository.IgnoranceConstraint;
+import ptidej.solver.constraint.repository.NoGhostEntityConstraint;
 
 /**
- * @author Yann-Gaël Guéhéneuc
- * @since  2007/02/24 
+ * @author Lucas Nelaupe, Ferrand Anthony, Tran Quang Dung, Verdier FrÃ©dÃ©ric 
+ * @since  2014/06/01 
  */
 public final class FacadeMotif {
 	public static Problem getProblem(final List allEntities) {
-		final Problem pb =
-			new Problem(
-				90,
-				"Facade Design Motif",
-				allEntities);
+		final Problem pb = new Problem(90, "Facade Design Motif", allEntities);
 
+		final Variable client = new Variable(pb, "client", false);
+		final Variable facadedCode = new Variable(pb, "facadedCode", false);
+		final Variable facade = new Variable(pb, "facade", true);
+
+		pb.addVar(client);
+		pb.addVar(facadedCode);
+		pb.addVar(facade);
+
+		// Constraints
+		/* --- Facade constraints --- */
+		pb.post(
+			new AggregationConstraint(
+				"facade ---Â­> facadedCode",
+				"",
+				facade,
+				facadedCode,
+				100,
+				DefaultNoApproximations.getDefaultApproximations()));
+		
+		pb.post(
+				new CreationConstraint(
+					"facade -1--> facadedCode",
+					"",
+					facade,
+					facadedCode,
+					100,
+					DefaultNoApproximations.getDefaultApproximations()));
+		
+		pb.post(
+				new NoGhostEntityConstraint(
+					"facade <> ?",
+					"",
+					facade,
+					100,
+					DefaultNoApproximations.getDefaultApproximations()));
+		
+		/* -------------------------- */
+		
+		/* --- Client constraints --- */
+		pb.post(
+			new AssociationConstraint(
+				"client ---Â­> facade",
+				"",
+				client,
+				facade,
+				100,
+				DefaultNoApproximations.getDefaultApproximations()));
+		
+		pb.post(
+				new IgnoranceConstraint(
+					"client -/--> facadedCode",
+					"",
+					client,
+					facadedCode,
+					100,
+					DefaultNoApproximations.getDefaultApproximations()));
+		
+		pb.post(
+				new NoGhostEntityConstraint(
+					"client <> ?",
+					"",
+					client,
+					100,
+					DefaultNoApproximations.getDefaultApproximations()));
+
+		
+		/* -------------------------- */
+		
 		return pb;
 	}
 }

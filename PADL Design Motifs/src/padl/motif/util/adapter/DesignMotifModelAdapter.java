@@ -29,6 +29,7 @@ import padl.event.IEvent;
 import padl.event.IModelListener;
 import padl.kernel.IAbstractModel;
 import padl.kernel.IConstituent;
+import padl.kernel.IConstituentExtension;
 import padl.kernel.IConstituentOfModel;
 import padl.kernel.IFactory;
 import padl.kernel.IFilter;
@@ -66,6 +67,9 @@ public abstract class DesignMotifModelAdapter implements IDesignMotifModel,
 	public final void addConstituent(final IConstituentOfModel aConstituent) {
 
 		this.wrappedDesignMotifModel.addConstituent(aConstituent);
+	}
+	public void addExtension(final IConstituentExtension anExtension) {
+		this.wrappedDesignMotifModel.addExtension(anExtension);
 	}
 	public void addModelListener(final IModelListener aModelListener) {
 		this.wrappedDesignMotifModel.addModelListener(aModelListener);
@@ -151,6 +155,9 @@ public abstract class DesignMotifModelAdapter implements IDesignMotifModel,
 	public String getDisplayPath() {
 		return this.wrappedDesignMotifModel.getDisplayPath();
 	}
+	public IConstituentExtension getExtension(final char[] anExtensionName) {
+		return this.wrappedDesignMotifModel.getExtension(anExtensionName);
+	}
 	public IFactory getFactory() {
 		return this.wrappedDesignMotifModel.getFactory();
 	}
@@ -228,7 +235,7 @@ public abstract class DesignMotifModelAdapter implements IDesignMotifModel,
 	public boolean isStatic() {
 		return this.wrappedDesignMotifModel.isStatic();
 	}
-	public void moveIn(final IAbstractModel anAbstractModel){
+	public void moveIn(final IAbstractModel anAbstractModel) {
 		this.wrappedDesignMotifModel.moveIn(anAbstractModel);
 	}
 	public void performCloneSession() {

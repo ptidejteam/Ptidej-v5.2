@@ -88,4 +88,9 @@ public interface IConstituent extends Cloneable, INavigable, Serializable {
 	void startCloneSession();
 	String toString();
 	String toString(final int aTab);
+	/**
+	 * Implementation of the Extension Pattern
+	 */
+	void addExtension(final IConstituentExtension anExtension);
+	IConstituentExtension getExtension(final char[] anExtensionName);
 }

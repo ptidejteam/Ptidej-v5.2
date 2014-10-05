@@ -26,6 +26,7 @@ import padl.event.IEvent;
 import padl.event.IModelListener;
 import padl.kernel.IClass;
 import padl.kernel.IConstituent;
+import padl.kernel.IConstituentExtension;
 import padl.kernel.IConstituentOfEntity;
 import padl.kernel.IElement;
 import padl.kernel.IFilter;
@@ -60,6 +61,9 @@ public abstract class ClassAdapter implements IClass {
 	}
 	public void addConstituent(final IElement anElement) {
 		this.wrappedClass.addConstituent(anElement);
+	}
+	public void addExtension(final IConstituentExtension anExtension) {
+		this.wrappedClass.addExtension(anExtension);
 	}
 	public void addImplementedInterface(final IInterfaceActor anInterface) {
 		this.wrappedClass.addImplementedInterface(anInterface);
@@ -130,6 +134,9 @@ public abstract class ClassAdapter implements IClass {
 	}
 	public String getDisplayPath() {
 		return this.wrappedClass.getDisplayPath();
+	}
+	public IConstituentExtension getExtension(final char[] anExtensionName) {
+		return this.wrappedClass.getExtension(anExtensionName);
 	}
 	public char[] getID() {
 		return this.wrappedClass.getID();

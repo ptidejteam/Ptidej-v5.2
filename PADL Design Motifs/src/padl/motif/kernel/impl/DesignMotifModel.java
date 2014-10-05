@@ -21,10 +21,14 @@
  */
 package padl.motif.kernel.impl;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import padl.kernel.IConstituent;
+import padl.kernel.IConstituentExtension;
+import padl.kernel.exception.ModelDeclarationException;
 import padl.kernel.impl.AbstractModel;
 import padl.kernel.impl.Constituent;
+import padl.kernel.impl.GenericContainerConstants;
 import padl.motif.IDesignMotifModel;
 import padl.motif.detector.IDetector;
 import padl.motif.visitor.IMotifGenerator;
@@ -41,7 +45,10 @@ class DesignMotifModel extends AbstractModel implements IDesignMotifModel {
 	private int classification;
 	private IDetector defaultDetector;
 	private IConstituent embeddedConstituent;
+	private IConstituentExtension[] extensions;
+	private int indexInPrimeNumbersArray;
 	private String intent;
+	private int numberOfExtensions;
 
 	public DesignMotifModel(final char[] anID) {
 		super(anID);
@@ -64,6 +71,36 @@ class DesignMotifModel extends AbstractModel implements IDesignMotifModel {
 			aVisitor.unknownConstituentHandler(
 				"Object DesignMotifModel.walk(IWalker)",
 				this);
+		}
+	}
+	public void addExtension(final IConstituentExtension anExtension) {
+		if (anExtension instanceof IConstituentExtension) {
+			final int minCapacity = this.numberOfExtensions + 1;
+			final int oldCapacity = this.extensions.length;
+			if (minCapacity > oldCapacity) {
+				final IConstituentExtension[] oldData = this.extensions;
+				this.indexInPrimeNumbersArray++;
+				int newCapacity =
+					GenericContainerConstants.PRIME_NUMBERS[this.indexInPrimeNumbersArray];
+				if (newCapacity < minCapacity)
+					newCapacity = minCapacity;
+				this.extensions = new IConstituentExtension[newCapacity];
+				System.arraycopy(
+					oldData,
+					0,
+					this.extensions,
+					0,
+					this.numberOfExtensions);
+			}
+			this.extensions[this.numberOfExtensions] = anExtension;
+			this.numberOfExtensions++;
+
+			anExtension.setExtendedConstituent(this);
+		}
+		else {
+			throw new ModelDeclarationException(anExtension
+				.getClass()
+				.getName() + " must be a subtype of IConstituentExtension");
 		}
 	}
 	public Object clone() throws CloneNotSupportedException {
@@ -152,6 +189,15 @@ class DesignMotifModel extends AbstractModel implements IDesignMotifModel {
 	}
 	public String getDisplayID() {
 		return this.embeddedConstituent.getDisplayID();
+	}
+	public IConstituentExtension getExtension(final char[] anExtensionName) {
+		for (int i = 0; i < this.extensions.length; i++) {
+			final IConstituentExtension extension = this.extensions[i];
+			if (Arrays.equals(extension.getName(), anExtensionName)) {
+				return extension;
+			}
+		}
+		return null;
 	}
 	public char[] getID() {
 		return this.embeddedConstituent.getID();
