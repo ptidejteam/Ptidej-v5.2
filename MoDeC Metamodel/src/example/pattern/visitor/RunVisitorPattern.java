@@ -1,7 +1,6 @@
 package example.pattern.visitor;
 
 //[C] 2002 Sun Microsystems, Inc.---
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

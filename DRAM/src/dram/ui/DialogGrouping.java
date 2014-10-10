@@ -1,9 +1,13 @@
-/*
- * Created on 2004-10-06
- *
- * To change the template for this generated file go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
- */
+/*******************************************************************************
+ * Copyright (c) 2001-2014 Yann-Gaël Guéhéneuc and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v2.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * 
+ * Contributors:
+ *     Yann-Gaël Guéhéneuc and others, see in file; API and its implementation
+ ******************************************************************************/
 package dram.ui;
 
 import java.awt.BorderLayout;
@@ -22,9 +26,6 @@ import javax.swing.JScrollPane;
 
 /**
  * @author Samah
- * 
- * To change the template for this generated type comment go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
 public class DialogGrouping {
 	CheckBoxListener checkBoxListener = new CheckBoxListener();

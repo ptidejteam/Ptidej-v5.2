@@ -2,7 +2,6 @@
  * Duplicate of class from CFParse library to
  * allow public access to method read().
  */
-
 package com.ibm.toad.cfparse.attributes;
 
 import java.io.DataInputStream;

@@ -1,13 +1,13 @@
-/*
- * Writen in CLAIRE by
- * @author Yann-Gaël Guéhéneuc
- * Translated and adapted from CLAIRE version to JAVA by
- * @author Iyadh Sidhom
- * @author Salim Bensemmane
- * @author Fayçal Skhiri
- *
- * (c) Copyright 2000-2004 Yann-Gaël Guéhéneuc,
- */
+/*******************************************************************************
+ * Copyright (c) 2001-2014 Yann-Gaël Guéhéneuc and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v2.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * 
+ * Contributors:
+ *     Yann-Gaël Guéhéneuc and others, see in file; API and its implementation
+ ******************************************************************************/
 package ptidej.solver.repair;
 
 import java.io.BufferedReader;
@@ -16,7 +16,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-
 import ptidej.solver.Constraint;
 import ptidej.solver.Problem;
 import util.io.ProxyConsole;
@@ -26,15 +25,23 @@ import choco.palm.explain.Explanation;
 import choco.palm.explain.PalmConstraintPlugin;
 import choco.palm.search.PalmContradiction;
 
+/**
+ * Writen in CLAIRE by
+ * @author Yann-Gaël Guéhéneuc
+ * Translated and adapted from CLAIRE version to JAVA by
+ * @author Iyadh Sidhom
+ * @author Salim Bensemmane
+ * @author Fayçal Skhiri
+ */
 public class SimpleInteractiveRepair extends NoMemoryRepair {
 	public SimpleInteractiveRepair(final Problem problem) {
 		super(problem);
 	}
 
 	public ArrayList[] ptidejSelectDecisionToUndo(final Explanation expl)
-		throws PalmContradiction {
+			throws PalmContradiction {
 		//		we save the withdrawn and the added constraint
-		ArrayList[] re = { new ArrayList(), new ArrayList()};
+		ArrayList[] re = { new ArrayList(), new ArrayList() };
 
 		AbstractConstraint ct =
 			(AbstractConstraint) Collections.min(
@@ -57,28 +64,22 @@ public class SimpleInteractiveRepair extends NoMemoryRepair {
 			Collections.sort(
 				cts,
 				new choco.palm.explain.BetterConstraintComparator());
-			System.out.println(
-				MultilingualManager.getString(
-					"NO_MORE_SOL",
-					SimpleInteractiveRepair.class));
+			System.out.println(MultilingualManager.getString(
+				"NO_MORE_SOL",
+				SimpleInteractiveRepair.class));
 
 			//we print the listing of the constarints to be removed 
 			for (int i = 0; i < cts.size(); i++) {
 				PalmConstraintPlugin plug2 =
 					(PalmConstraintPlugin) ((AbstractConstraint) cts.get(i))
 						.getPlugIn();
-				System.out.println(
-					i
-						+ "."
-						+ ((Constraint) cts.get(i)).getName()
-						+ ' '
-						+ "weight "
+				System.out.println(i + "."
+						+ ((Constraint) cts.get(i)).getName() + ' ' + "weight "
 						+ plug2.getWeight());
 			}
-			System.out.println(
-				MultilingualManager.getString(
-					"WHICH_TO_RELAX",
-					SimpleInteractiveRepair.class));
+			System.out.println(MultilingualManager.getString(
+				"WHICH_TO_RELAX",
+				SimpleInteractiveRepair.class));
 			BufferedReader keyBoard =
 				new BufferedReader(new InputStreamReader(System.in));
 			int selectC = -1;

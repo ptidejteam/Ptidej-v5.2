@@ -1,9 +1,6 @@
 /**
- * @author Mathieu Lemoine
- * @created 2008-10-19 (日)
- * 
  * Licensed under 4-clause BSD License:
- * Copyright © 2009, Mathieu Lemoine
+ * Copyright (c) 2009, Mathieu Lemoine
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,7 +28,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package util.reference;
 
 import java.util.List;
@@ -45,6 +41,7 @@ import java.util.List;
  * </span></emph></strong>
  *
  * @author Mathieu Lemoine
+ * @created 08/10/19
  */
 public interface NotNullableReference extends List<Object> {
 	public Object get();

@@ -1,20 +1,19 @@
-/*
- * Writen in CLAIRE by
- * @author Yann-Gaël Guéhéneuc
- * Translated and adapted from CLAIRE version to JAVA by
- * @author Iyadh Sidhom
- * @author Salim Bensemmane
- * @author Fayçal Skhiri
- *
- * (c) Copyright 2000-2004 Yann-Gaël Guéhéneuc,
- */
+/*******************************************************************************
+ * Copyright (c) 2001-2014 Yann-Gaël Guéhéneuc and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v2.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * 
+ * Contributors:
+ *     Yann-Gaël Guéhéneuc and others, see in file; API and its implementation
+ ******************************************************************************/
 package ptidej.solver.branching;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
-
 import ptidej.solver.Branching;
 import ptidej.solver.Problem;
 import ptidej.solver.Variable;
@@ -28,6 +27,14 @@ import choco.palm.integer.PalmIntDomain;
 import choco.palm.prop.PalmEngine;
 import choco.util.IntIterator;
 
+/**
+ * Writen in CLAIRE by
+ * @author Yann-Gaël Guéhéneuc
+ * Translated and adapted from CLAIRE version to JAVA by
+ * @author Iyadh Sidhom
+ * @author Salim Bensemmane
+ * @author Fayçal Skhiri
+ */
 public class InteractiveBranching extends Branching {
 	public Object selectBranchingObject() {
 		Problem pb = (Problem) this.extender.getManager().getProblem();
@@ -37,11 +44,10 @@ public class InteractiveBranching extends Branching {
 		String outputText = "";
 
 		this.setSolutionNumber(this.getSolutionNumber() + 1);
-		System.out.print(
-			MultilingualManager.getString(
-				"SOL",
-				InteractiveBranching.class,
-				new Object[] { new Integer(this.getSolutionNumber())}));
+		System.out.print(MultilingualManager.getString(
+			"SOL",
+			InteractiveBranching.class,
+			new Object[] { new Integer(this.getSolutionNumber()) }));
 
 		IntVar[] vars = pb.getVars();
 		for (int i = 0; i < vars.length; ++i) {
@@ -49,12 +55,8 @@ public class InteractiveBranching extends Branching {
 			if (var.isInstantiated()) {
 
 				outputText =
-					outputText
-						+ "\t"
-						+ var.toString()
-						+ " = "
-						+ allEntities.get(var.getValue()).toString()
-						+ "  ";
+					outputText + "\t" + var.toString() + " = "
+							+ allEntities.get(var.getValue()).toString() + "  ";
 			}
 			else {
 				int nbROTW = 0;
@@ -64,14 +66,9 @@ public class InteractiveBranching extends Branching {
 					int value = itr.next();
 					nbROTW = nbROTW++;
 					outputText =
-						outputText
-							+ "\t"
-							+ var.toString()
-							+ "-"
-							+ nbROTW
-							+ " = "
-							+ allEntities.get(value).toString()
-							+ "\n";
+						outputText + "\t" + var.toString() + "-" + nbROTW
+								+ " = " + allEntities.get(value).toString()
+								+ "\n";
 				}
 
 			}
@@ -79,10 +76,9 @@ public class InteractiveBranching extends Branching {
 		}
 
 		System.out.println(outputText + "\n");
-		System.out.println(
-			MultilingualManager.getString(
-				"ANOTHER_SOL",
-				InteractiveBranching.class));
+		System.out.println(MultilingualManager.getString(
+			"ANOTHER_SOL",
+			InteractiveBranching.class));
 		BufferedReader keyBoard =
 			new BufferedReader(new InputStreamReader(System.in));
 		String choix = null;
@@ -108,7 +104,7 @@ public class InteractiveBranching extends Branching {
 			IntVar lastVar = vars[vars.length - 1];
 			//equivalent de la methode getExplanation(pb.vars,expl) In claire Version
 			for (int i = 0; i < vars.length; ++i)
-				 ((Variable) vars[i]).self_explain(PalmIntDomain.DOM, expl);
+				((Variable) vars[i]).self_explain(PalmIntDomain.DOM, expl);
 
 			//POSTING DECISION CONSTRAINT TO lastVAR
 			IntDomain domain = lastVar.getDomain();

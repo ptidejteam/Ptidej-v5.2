@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2001-2014 Yann-Gaël Guéhéneuc and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v2.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * 
+ * Contributors:
+ *     Yann-Gaël Guéhéneuc and others, see in file; API and its implementation
+ ******************************************************************************/
 /**
  * WMC - Weighted Methods Per Class Computed as the sum of VG of all methods implemented by the class - VG(m) is McCabe's cyclomatic complexity number.
  * It is given by the size of the basis set of paths through the control flow graph of function m. For a single entry, single-exit control flow graph consisting of e edges and n nodes, VG(m) =e-m+n 

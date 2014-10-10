@@ -1,18 +1,17 @@
-/*
- * Writen in CLAIRE by
- * @author Yann-Gaël Guéhéneuc
- * Translated and adapted from CLAIRE version to JAVA by
- * @author Iyadh Sidhom
- * @author Salim Bensemmane
- * @author Fayçal Skhiri
- *
- * (c) Copyright 2000-2004 Yann-Gaël Guéhéneuc,
- */
+/*******************************************************************************
+ * Copyright (c) 2001-2014 Yann-Gaël Guéhéneuc and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v2.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * 
+ * Contributors:
+ *     Yann-Gaël Guéhéneuc and others, see in file; API and its implementation
+ ******************************************************************************/
 package ptidej.solver;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
-
 import choco.AbstractConstraint;
 import choco.Constraint;
 import choco.ContradictionException;
@@ -30,6 +29,14 @@ import choco.palm.search.PalmRepair;
 import choco.palm.search.PalmSolver;
 import choco.palm.search.PalmState;
 
+/**
+ * Writen in CLAIRE by
+ * @author Yann-Gaël Guéhéneuc
+ * Translated and adapted from CLAIRE version to JAVA by
+ * @author Iyadh Sidhom
+ * @author Salim Bensemmane
+ * @author Fayçal Skhiri
+ */
 public class Solver extends PalmSolver {
 	public Solver(final Problem pb) {
 		super(pb);
@@ -60,8 +67,8 @@ public class Solver extends PalmSolver {
 			else {
 				// First, I deal with the removal of a constraint.
 				final ArrayList[] re =
-					((Repair) this.getRepair()).ptidejSelectDecisionToUndo(
-						expl);
+					((Repair) this.getRepair())
+						.ptidejSelectDecisionToUndo(expl);
 
 				if (re != null) {
 					boolean hasAnyConstraintBeenRemoved = false;
@@ -80,7 +87,7 @@ public class Solver extends PalmSolver {
 							}
 							else {
 								// I save the relaxed constraint.
-								 ((Repair) this.getRepair()).remove(ct);
+								((Repair) this.getRepair()).remove(ct);
 							}
 							// I remove the constraint from the problem.
 							pb.remove(ct);

@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2001-2014 Yann-Gaël Guéhéneuc and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v2.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * 
+ * Contributors:
+ *     Yann-Gaël Guéhéneuc and others, see in file; API and its implementation
+ ******************************************************************************/
 package pom.test.classfile.general;
 
 import java.util.ArrayList;
@@ -18,9 +28,6 @@ import pom.metrics.MetricsRepository;
 
 /**
  * @author zaidifar
- *
- * To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Generation - Code and Comments
  * 
  * We consider the package java.lang. The arborescence seems to be good for doing tests.
  * We consider some classes on the middle of the hierarchy. We are using JDK1.2.2. However,

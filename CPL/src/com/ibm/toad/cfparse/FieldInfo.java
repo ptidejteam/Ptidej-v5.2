@@ -1,9 +1,8 @@
 /**
  * Duplicate of class from CFParse library to
  * fix some problems with initialisers when 
- * adding fields .
+ * adding fields.
  */
-
 package com.ibm.toad.cfparse;
 
 import java.io.DataInputStream;

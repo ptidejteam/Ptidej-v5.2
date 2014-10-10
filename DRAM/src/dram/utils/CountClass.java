@@ -1,9 +1,13 @@
-/*
-* Created on 2005-02-08
-*
-* TODO To change the template for this generated file go to
-* Window - Preferences - Java - Code Style - Code Templates
-*/
+/*******************************************************************************
+ * Copyright (c) 2001-2014 Yann-Gaël Guéhéneuc and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v2.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * 
+ * Contributors:
+ *     Yann-Gaël Guéhéneuc and others, see in file; API and its implementation
+ ******************************************************************************/
 package dram.utils;
 
 import java.io.BufferedReader;
@@ -14,11 +18,8 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 /**
-* @author Samah
-*
-* TODO To change the template for this generated type comment go to Window -
-* Preferences - Java - Code Style - Code Templates
-*/
+ * @author Samah
+ */
 public class CountClass {
 	private static FileReader rd;
 
@@ -36,7 +37,8 @@ public class CountClass {
 			String method = null;
 
 			rd =
-				new FileReader("C:\\Documents and Settings\\rachedsa\\Bureau\\RJhotDrawRectCercle.txt");
+				new FileReader(
+					"C:\\Documents and Settings\\rachedsa\\Bureau\\RJhotDrawRectCercle.txt");
 			buf = new BufferedReader(rd);
 
 			while ((chaine = buf.readLine()) != null) {
@@ -66,8 +68,7 @@ public class CountClass {
 					}
 					else {
 						if (hashMapMethodClass2.containsKey(method)) {
-							String n =
-								(String) hashMapMethodClass2.get(method);
+							String n = (String) hashMapMethodClass2.get(method);
 							nbre = Integer.parseInt(n) + 1;
 							hashMapMethodClass2.put(
 								method,
@@ -75,9 +76,8 @@ public class CountClass {
 							hashMapClass.put(class2, hashMapMethodClass2);
 						}
 						else {
-							hashMapMethodClass2.put(
-								method,
-								Integer.toString(1));
+							hashMapMethodClass2
+								.put(method, Integer.toString(1));
 							hashMapClass.put(class2, hashMapMethodClass2);
 						}
 					}

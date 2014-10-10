@@ -1,9 +1,13 @@
-/*
- * Created on 2004-09-02
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
+/*******************************************************************************
+ * Copyright (c) 2001-2014 Yann-Gaël Guéhéneuc and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v2.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * 
+ * Contributors:
+ *     Yann-Gaël Guéhéneuc and others, see in file; API and its implementation
+ ******************************************************************************/
 package dram.utils;
 
 import java.io.BufferedReader;
@@ -18,9 +22,6 @@ import java.util.Vector;
 
 /**
  * @author rachedsa
- * 
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
  */
 public class TxtReaderSansExit {
 	private FileReader rd;
@@ -32,11 +33,13 @@ public class TxtReaderSansExit {
 	public TxtReaderSansExit() {
 		try {
 			this.rd =
-				new FileReader("C:\\Documents and Settings\\rachedsa\\Bureau\\toto40.txt");
+				new FileReader(
+					"C:\\Documents and Settings\\rachedsa\\Bureau\\toto40.txt");
 			this.buf = new BufferedReader(this.rd);
 
 			this.outputFile =
-				new File("C:\\Documents and Settings\\rachedsa\\Bureau\\totoSansExit42.txt");
+				new File(
+					"C:\\Documents and Settings\\rachedsa\\Bureau\\totoSansExit42.txt");
 			this.fos = new FileOutputStream(this.outputFile);
 			this.osw = new OutputStreamWriter(this.fos);
 
@@ -65,7 +68,7 @@ public class TxtReaderSansExit {
 				StringTokenizer st = new StringTokenizer(chaine, "|");
 				token = st.nextToken();
 				if (token.equals("methodEntry0")
-					| token.equals("constructorEntry0")) {
+						| token.equals("constructorEntry0")) {
 					token1 = st.nextToken();
 					String n = (String) hashtable.get(token1);
 					if (n != null) {

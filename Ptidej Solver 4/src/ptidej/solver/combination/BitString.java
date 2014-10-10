@@ -1,27 +1,25 @@
-/*
- * (c) Copyright 2001-2004 Yann-Gaël Guéhéneuc,
- * University of Montréal.
+/*******************************************************************************
+ * Copyright (c) 2001-2014 Yann-Gaël Guéhéneuc and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v2.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * 
- * Use and copying of this software and preparation of derivative works
- * based upon this software are permitted. Any copy of this software or
- * of any derivative work must include the above copyright notice of
- * the author, this paragraph and the one after it.
- * 
- * This software is made available AS IS, and THE AUTHOR DISCLAIMS
- * ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE, AND NOT WITHSTANDING ANY OTHER PROVISION CONTAINED HEREIN,
- * ANY LIABILITY FOR DAMAGES RESULTING FROM THE SOFTWARE OR ITS USE IS
- * EXPRESSLY DISCLAIMED, WHETHER ARISING IN CONTRACT, TORT (INCLUDING
- * NEGLIGENCE) OR STRICT LIABILITY, EVEN IF THE AUTHOR IS ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGES.
- * 
- * All Rights Reserved.
- */
+ * Contributors:
+ *     Yann-Gaël Guéhéneuc and others, see in file; API and its implementation
+ ******************************************************************************/
 package ptidej.solver.combination;
 
 import util.multilingual.MultilingualManager;
 
+/**
+ * Writen in CLAIRE by
+ * @author Yann-Gaël Guéhéneuc
+ * Translated and adapted from CLAIRE version to JAVA by
+ * @author Iyadh Sidhom
+ * @author Salim Bensemmane
+ * @author Fayçal Skhiri
+ */
 public final class BitString {
 	private final int numberOfBits;
 	private int value;
@@ -79,11 +77,10 @@ public final class BitString {
 	}
 	public void set(final boolean[] bits) {
 		if (bits.length != this.numberOfBits) {
-			throw new RuntimeException(
-				MultilingualManager.getString(
-					"NB_OF_BITS",
-					BitString.class,
-					new Object[] { new Integer(this.numberOfBits)}));
+			throw new RuntimeException(MultilingualManager.getString(
+				"NB_OF_BITS",
+				BitString.class,
+				new Object[] { new Integer(this.numberOfBits) }));
 		}
 		this.value = BitString.compose(bits);
 	}
@@ -92,11 +89,10 @@ public final class BitString {
 	}
 	public void set(final String v) {
 		if (v.length() != this.numberOfBits) {
-			throw new RuntimeException(
-				MultilingualManager.getString(
-					"NB_OF_BITS",
-					BitString.class,
-					new Object[] { new Integer(this.numberOfBits)}));
+			throw new RuntimeException(MultilingualManager.getString(
+				"NB_OF_BITS",
+				BitString.class,
+				new Object[] { new Integer(this.numberOfBits) }));
 		}
 
 		final boolean[] bits = new boolean[this.numberOfBits];

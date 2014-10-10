@@ -1,19 +1,18 @@
-/*
- * Writen in CLAIRE by
- * @author Yann-Gaël Guéhéneuc
- * Translated and adapted from CLAIRE version to JAVA by
- * @author Iyadh Sidhom
- * @author Salim Bensemmane
- * @author Fayçal Skhiri
- *
- * (c) Copyright 2000-2004 Yann-Gaël Guéhéneuc,
- */
+/*******************************************************************************
+ * Copyright (c) 2001-2014 Yann-Gaël Guéhéneuc and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v2.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * 
+ * Contributors:
+ *     Yann-Gaël Guéhéneuc and others, see in file; API and its implementation
+ ******************************************************************************/
 package ptidej.solver.repair;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-
 import ptidej.solver.Branching;
 import ptidej.solver.Constraint;
 import ptidej.solver.Problem;
@@ -23,6 +22,14 @@ import choco.palm.explain.Explanation;
 import choco.palm.explain.PalmConstraintPlugin;
 import choco.palm.search.PalmContradiction;
 
+/**
+ * Writen in CLAIRE by
+ * @author Yann-Gaël Guéhéneuc
+ * Translated and adapted from CLAIRE version to JAVA by
+ * @author Iyadh Sidhom
+ * @author Salim Bensemmane
+ * @author Fayçal Skhiri
+ */
 public class SimpleAutomaticRepair extends NoMemoryRepair {
 	private String solutionMessage = "# Solution with all constraints.";
 	private int percentage = 100;
@@ -35,7 +42,7 @@ public class SimpleAutomaticRepair extends NoMemoryRepair {
 	}
 
 	public ArrayList[] ptidejSelectDecisionToUndo(Explanation expl)
-		throws PalmContradiction {
+			throws PalmContradiction {
 		if (this.jPtidejBranching == null) {
 
 			this.jPtidejBranching =
@@ -43,7 +50,7 @@ public class SimpleAutomaticRepair extends NoMemoryRepair {
 		}
 
 		//array of 2 arrayList of abstractConstraint	
-		ArrayList[] re = { new ArrayList(), new ArrayList()};
+		ArrayList[] re = { new ArrayList(), new ArrayList() };
 		AbstractConstraint ct =
 			(AbstractConstraint) Collections.min(
 				expl.toSet(),
@@ -68,19 +75,17 @@ public class SimpleAutomaticRepair extends NoMemoryRepair {
 			final int lightestConstraint = 0;
 			PalmConstraintPlugin plug =
 				(PalmConstraintPlugin) ((AbstractConstraint) cts
-					.get(lightestConstraint))
-					.getPlugIn();
+					.get(lightestConstraint)).getPlugIn();
 			Problem pb = (Problem) (this.getManager().getProblem());
 			//if not a negation Constraint
 			if (plug.getWeight() != Integer.MAX_VALUE) {
 
 				if (plug.getWeight() < pb.getMaxRelaxLevel()) {
-					this.percentage = (this.percentage * plug.getWeight()) / 100;
+					this.percentage =
+						(this.percentage * plug.getWeight()) / 100;
 
 					if ((((Constraint) cts.get(lightestConstraint))
-						.getXCommand())
-						.length()
-						> 0) {
+						.getXCommand()).length() > 0) {
 						this.xCommand =
 							((Constraint) cts.get(lightestConstraint))
 								.getXCommand();
@@ -91,15 +96,12 @@ public class SimpleAutomaticRepair extends NoMemoryRepair {
 					}
 					this.solutionMessage =
 						"# More solution without constraint "
-							+ lightestConstraint
-							+ ": "
-							+ ((Constraint) cts.get(lightestConstraint))
-								.getName()
-							+ " of weight "
-							+ plug.getWeight()
-							+ '\n';
-					re[0].add(
-						(AbstractConstraint) cts.get(lightestConstraint));
+								+ lightestConstraint
+								+ ": "
+								+ ((Constraint) cts.get(lightestConstraint))
+									.getName() + " of weight "
+								+ plug.getWeight() + '\n';
+					re[0].add((AbstractConstraint) cts.get(lightestConstraint));
 
 					this.jPtidejBranching.setMessage(this.solutionMessage);
 					this.jPtidejBranching.setWeight(this.percentage);

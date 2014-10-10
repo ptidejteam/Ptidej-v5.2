@@ -1,32 +1,22 @@
-/**
- * <p>Title: PtidejResourceBundle_fr</p>
- * <p>Description: French Resource Bundle for Ptidej Projects</p>
- * <p>Copyright: (c) Copyright 2005, Mehdi Lahlou,<br>
- * Université de Montréal</p>
+/*******************************************************************************
+ * Copyright (c) 2001-2014 Yann-Gaël Guéhéneuc and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v2.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * 
- * <p>Use and copying of this software and preparation of derivative works<br>
- * based upon this software are permitted. Any copy of this software or<br>
- * of any derivative work must include the above copyright notice of<br>
- * Yann-Gaël Guéhéneuc, this paragraph and the one after it.</p>
- * 
- * <p>This software is made available AS IS, and THE AUTHOR DISCLAIMS<br>
- * ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION THE<br>
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR<br>
- * PURPOSE, AND NOT WITHSTANDING ANY OTHER PROVISION CONTAINED HEREIN, ANY<br>
- * LIABILITY FOR DAMAGES RESULTING FROM THE SOFTWARE OR ITS USE IS<br>
- * EXPRESSLY DISCLAIMED, WHETHER ARISING IN CONTRACT, TORT (INCLUDING<br>
- * NEGLIGENCE) OR STRICT LIABILITY, EVEN IF YANN-GAEL GUEHENEUC IS ADVISED<br>
- * OF THE POSSIBILITY OF SUCH DAMAGES.</p>
- * 
- * <p>All Rights Reserved.</p>
- * @author Mehdi Lahlou
- * @version 1.0 (May,18 2005)
- */
-
+ * Contributors:
+ *     Yann-Gaël Guéhéneuc and others, see in file; API and its implementation
+ ******************************************************************************/
 package util.multilingual;
 
 import java.util.ListResourceBundle;
 
+/**
+ * @author	Mehdi Lahlou
+ * @since	05/05/18
+ * @version 1.0
+ */
 public class PtidejResourceBundle_fr extends ListResourceBundle {
 	private static final Object[][] CONTENTS =
 		{

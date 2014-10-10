@@ -1,24 +1,13 @@
-/**
- * Copyright ï¿½ 2010, Wei Wu  All rights reserved.
+/*******************************************************************************
+ * Copyright (c) 2001-2014 Yann-Gaël Guéhéneuc and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v2.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * 
- * @author Wei Wu
- * @created 2010-12-15
- *
- * This program is free for non-profit use. For the purpose, you can 
- * redistribute it and/or modify it under the terms of the GNU General 
- * Public License as published by the Free Software Foundation, either 
- * version 3 of the License, or (at your option) any later version.
-
- * For other uses, please contact the author at:
- * wu.wei.david@gmail.com
-
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
-
- * For the GNU General Public License, see <http://www.gnu.org/licenses/>.
- */
+ * Contributors:
+ *     Yann-Gaël Guéhéneuc and others, see in file; API and its implementation
+ ******************************************************************************/
 package parser.parser.test;
 
 import junit.framework.Assert;

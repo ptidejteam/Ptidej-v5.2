@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2001-2014 Yann-Gaël Guéhéneuc and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v2.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * 
+ * Contributors:
+ *     Yann-Gaël Guéhéneuc and others, see in file; API and its implementation
+ ******************************************************************************/
 /**
  *NOTC: numbers of invocations of JUNIT assert methods that occur in the code of a test case.
  *only direct invocations because it can call also a method that contains the asserts ... in that case, we will not have the number of asserts--- recursively??? it will be long!!!

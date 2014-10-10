@@ -1,13 +1,13 @@
-/*
- * Writen in CLAIRE by
- * @author Yann-Gaël Guéhéneuc
- * Translated and adapted from CLAIRE version to JAVA by
- * @author Iyadh Sidhom
- * @author Salim Bensemmane
- * @author Fayçal Skhiri
- *
- * (c) Copyright 2000-2004 Yann-Gaël Guéhéneuc,
- */
+/*******************************************************************************
+ * Copyright (c) 2001-2014 Yann-Gaël Guéhéneuc and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v2.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * 
+ * Contributors:
+ *     Yann-Gaël Guéhéneuc and others, see in file; API and its implementation
+ ******************************************************************************/
 package ptidej.solver.repair;
 
 import java.io.BufferedReader;
@@ -18,7 +18,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-
 import ptidej.solver.Branching;
 import ptidej.solver.Constraint;
 import ptidej.solver.Problem;
@@ -31,6 +30,14 @@ import choco.palm.explain.Explanation;
 import choco.palm.explain.PalmConstraintPlugin;
 import choco.palm.search.PalmContradiction;
 
+/**
+ * Writen in CLAIRE by
+ * @author Yann-Gaël Guéhéneuc
+ * Translated and adapted from CLAIRE version to JAVA by
+ * @author Iyadh Sidhom
+ * @author Salim Bensemmane
+ * @author Fayçal Skhiri
+ */
 public class InteractiveRepair extends MemoryRepair {
 	public InteractiveRepair(final Problem problem) {
 		super(problem);
@@ -39,7 +46,7 @@ public class InteractiveRepair extends MemoryRepair {
 	public ArrayList[] ptidejSelectDecisionToUndo(Explanation expl) {
 		// we save the withdrawn constraints in the first arrayList
 		// and the added constraint on the second.
-		ArrayList[] re = { new ArrayList(), new ArrayList()};
+		ArrayList[] re = { new ArrayList(), new ArrayList() };
 
 		AbstractConstraint ct =
 			(AbstractConstraint) Collections.min(
@@ -65,10 +72,9 @@ public class InteractiveRepair extends MemoryRepair {
 			Collections.sort(
 				cts,
 				new choco.palm.explain.BetterConstraintComparator());
-			System.out.print(
-				MultilingualManager.getString(
-					"NO_MORE_SOL",
-					InteractiveRepair.class));
+			System.out.print(MultilingualManager.getString(
+				"NO_MORE_SOL",
+				InteractiveRepair.class));
 			if (cts.size() > 1)
 				System.out.println("s : ");
 			else
@@ -79,31 +85,24 @@ public class InteractiveRepair extends MemoryRepair {
 				PalmConstraintPlugin plug2 =
 					(PalmConstraintPlugin) ((AbstractConstraint) cts.get(i))
 						.getPlugIn();
-				System.out.println(
-					i
-						+ "  "
-						+ ((Constraint) cts.get(i)).getSymbol()
-						+ ":"
-						+ ((Constraint) cts.get(i)).getName()
-						+ ' '
-						+ "weight "
+				System.out.println(i + "  "
+						+ ((Constraint) cts.get(i)).getSymbol() + ":"
+						+ ((Constraint) cts.get(i)).getName() + ' ' + "weight "
 						+ plug2.getWeight());
 				String nextConstraint =
 					((Constraint) cts.get(i)).getNextConstraint();
 
 				// print the next constraint(if exist) of each constraint of the above listing 
 				if (nextConstraint != null) {
-					System.out.println(
-						MultilingualManager.getString(
-							"TO_BE_REPLACED",
-							InteractiveRepair.class,
-							new Object[] { nextConstraint.substring(25)}));
+					System.out.println(MultilingualManager.getString(
+						"TO_BE_REPLACED",
+						InteractiveRepair.class,
+						new Object[] { nextConstraint.substring(25) }));
 				}
 			}
-			System.out.println(
-				MultilingualManager.getString(
-					"WHICH_TO_RELAX",
-					InteractiveRepair.class));
+			System.out.println(MultilingualManager.getString(
+				"WHICH_TO_RELAX",
+				InteractiveRepair.class));
 
 			BufferedReader keyBoard =
 				new BufferedReader(new InputStreamReader(System.in));
@@ -139,30 +138,35 @@ public class InteractiveRepair extends MemoryRepair {
 				if (nextConstraint != null) {
 					//Instantiation of the next constraint by reflection
 					Class nClass =
-						(
-							(
-								Constraint) constraint)
-									.getNextConstraintConstructor(
-							nextConstraint);
+						((Constraint) constraint)
+							.getNextConstraintConstructor(nextConstraint);
 					Constructor[] constructeurs = nClass.getConstructors();
 					Constructor constr = constructeurs[0];
 					AbstractConstraint nextConstraintInst = null;
 					try {
 						nextConstraintInst =
-							(AbstractConstraint) constr.newInstance(
-								args.toArray());
+							(AbstractConstraint) constr.newInstance(args
+								.toArray());
 					}
 					catch (IllegalArgumentException e) {
-						e.printStackTrace(ProxyConsole.getInstance().errorOutput());
+						e.printStackTrace(ProxyConsole
+							.getInstance()
+							.errorOutput());
 					}
 					catch (InstantiationException e) {
-						e.printStackTrace(ProxyConsole.getInstance().errorOutput());
+						e.printStackTrace(ProxyConsole
+							.getInstance()
+							.errorOutput());
 					}
 					catch (IllegalAccessException e) {
-						e.printStackTrace(ProxyConsole.getInstance().errorOutput());
+						e.printStackTrace(ProxyConsole
+							.getInstance()
+							.errorOutput());
 					}
 					catch (InvocationTargetException e) {
-						e.printStackTrace(ProxyConsole.getInstance().errorOutput());
+						e.printStackTrace(ProxyConsole
+							.getInstance()
+							.errorOutput());
 					}
 					PalmConstraintPlugin plugX =
 						(PalmConstraintPlugin) constraint.getPlugIn();
@@ -183,46 +187,38 @@ public class InteractiveRepair extends MemoryRepair {
 					new choco.palm.explain.BetterConstraintComparator());
 				int selectC2 = 0;
 				while (selectC2 != -1
-					&& this.getRemovedConstraints().size() > 0) {
-					System.out.println(
-						MultilingualManager.getString(
-							"CONST_CONTRADICTION",
-							InteractiveRepair.class));
-					for (int i = 0;
-						i < this.getRemovedConstraints().size();
-						i++) {
+						&& this.getRemovedConstraints().size() > 0) {
+					System.out.println(MultilingualManager.getString(
+						"CONST_CONTRADICTION",
+						InteractiveRepair.class));
+					for (int i = 0; i < this.getRemovedConstraints().size(); i++) {
 						PalmConstraintPlugin plug3 =
 							(PalmConstraintPlugin) ((AbstractConstraint) this
 								.getRemovedConstraints()
-								.get(i))
-								.getPlugIn();
-						System.out.println(
-							i
+								.get(i)).getPlugIn();
+						System.out.println(i
 								+ ":"
 								+ ((Constraint) this
 									.getRemovedConstraints()
-									.get(i))
-									.getSymbol()
+									.get(i)).getSymbol()
 								+ ((Constraint) this
 									.getRemovedConstraints()
-									.get(i))
-									.getName()
-								+ ' '
-								+ "weight "
+									.get(i)).getName() + ' ' + "weight "
 								+ plug3.getWeight());
 					}
 
-					System.out.println(
-						MultilingualManager.getString(
-							"WHICH_TO_PUT_BACK",
-							InteractiveRepair.class));
+					System.out.println(MultilingualManager.getString(
+						"WHICH_TO_PUT_BACK",
+						InteractiveRepair.class));
 
 					try {
 						String choix2 = keyBoard.readLine();
 						selectC2 = Integer.parseInt(choix2);
 					}
 					catch (IOException e) {
-						e.printStackTrace(ProxyConsole.getInstance().errorOutput());
+						e.printStackTrace(ProxyConsole
+							.getInstance()
+							.errorOutput());
 					}
 					if (selectC2 != -1) {
 						Constraint addedConstraint =

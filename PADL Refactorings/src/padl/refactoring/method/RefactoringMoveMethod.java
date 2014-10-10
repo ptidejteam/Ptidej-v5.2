@@ -1,11 +1,13 @@
-/** (c) Copyright 2001 and following years, Yann-Gaël Guéhéneuc,
- * University of Montreal.
+/*******************************************************************************
+ * Copyright (c) 2001-2014 Yann-Gaël Guéhéneuc and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v2.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * 
- * /**
- * @author Saliha Bouden
- * @since 2006/03/31
- * 
- */
+ * Contributors:
+ *     Yann-Gaël Guéhéneuc and others, see in file; API and its implementation
+ ******************************************************************************/
 package padl.refactoring.method;
 
 import java.util.Iterator;
@@ -16,6 +18,11 @@ import padl.kernel.IFirstClassEntity;
 import padl.kernel.IMethod;
 import padl.refactoring.exception.ModelDeclarationException;
 
+/**
+ * @author Saliha Bouden
+ * @since 2006/03/31
+ * 
+ */
 public class RefactoringMoveMethod extends RefactoringMethod {
 
 	public RefactoringMoveMethod(final IAbstractLevelModel anAbstractLevelModel) {
