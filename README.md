@@ -4,6 +4,8 @@ In the Ptidej Team (Pattern Trace Identification, Detection, and Enhancement in 
 
 Since October 10th, 2014, the source code of the Ptidej Tool Suite is open and released under the GNU Public License v2.
 
+Since December 10th, 2004, the runnable versions of the Ptidej Tool Suite are available at http://www.ptidej.net/downloads/tools/ptidejtoolsuite.
+
 ### What is this repository for? ###
 
 * Ptidej 
