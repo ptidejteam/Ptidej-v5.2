@@ -13,6 +13,7 @@ package padl.motif.repository;
 import padl.kernel.Constants;
 import padl.kernel.IClass;
 import padl.kernel.IUseRelationship;
+import padl.motif.IDesignMotifModel;
 import padl.motif.models.BehaviouralMotifModel;
 import util.multilingual.MultilingualManager;
 
@@ -20,7 +21,8 @@ import util.multilingual.MultilingualManager;
  * @author Foutse Khomh
  * @since  2007/03/01
  */
-public class Mediator extends BehaviouralMotifModel implements Cloneable {
+public class Mediator extends BehaviouralMotifModel implements Cloneable,
+		IDesignMotifModel {
 	public static final char[] CLIENT1 = "Client1".toCharArray();
 	private static final char[] CLIENT1_MEDIATOR = "client1Mediator"
 		.toCharArray();

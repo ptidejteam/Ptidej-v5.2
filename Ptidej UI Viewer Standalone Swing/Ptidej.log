@@ -445,3 +445,115 @@ util.repository.impl.FileFolderRepository is the current repository on: D:/Share
 util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/POM/bin/pom/metrics
 util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/pqmod
 util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/qmood
+
+
+---------------------------------
+Ptidej run on 2014-10-20 17:05:07
+---------------------------------
+
+util.repository.impl.FileRepositoryFactory has for running path: /D:/Shared/Dropbox/Ptidej Workspaces/v5.2/CPL/bin/
+util.repository.impl.FileRepositoryFactory is creating a ClassFileRepository for: util.repository.impl.FileFolderRepository
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Design Motifs/bin/padl/motif
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Layouts/bin/ptidej/ui/layout
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Analyses/bin/padl/analysis
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Analyses/bin/ptidej/ui/analysis
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Viewer Extensions/bin/ptidej/viewer/extension
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SAD/bin/sad/codesmell/detection
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SAD/bin/sad/designsmell/detection
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Micro-pattern Analysis/bin/padl/micropattern
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL/bin/padl/visitor
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Design Motifs/bin/padl/motif/visitor
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/POM/bin/pom/metrics
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/pqmod
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/qmood
+Loading class files in: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej Tests/rsc/ptidej/Examples/../../../bin/ptidej/example/composite2/
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL/bin/padl/kernel/impl
+!SESSION 2014-10-20 17:06:14.395 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.7.0_51
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_CA
+Framework arguments:  -application PADL_Creator_Cpp_Eclipse.Launcher -directoryCPPFiles=D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej Tests/rsc/ptidej/Examples/../../../../PADL Creator C++ (Eclipse) Tests/data/Simple/ -directoryPtidej=D:/Shared/Dropbox/Ptidej Workspaces/v5.2/
+Command-line arguments:  -application PADL_Creator_Cpp_Eclipse.Launcher -data D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Creator C++ (Eclipse) Helper/Runtime Workspace/ -configuration file:D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Creator C++ (Eclipse) Helper/Configuration Area/ -dev file:D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Creator C++ (Eclipse) Helper/Configuration Area/dev.properties -directoryCPPFiles=D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej Tests/rsc/ptidej/Examples/../../../../PADL Creator C++ (Eclipse) Tests/data/Simple/ -directoryPtidej=D:/Shared/Dropbox/Ptidej Workspaces/v5.2/
+
+!ENTRY org.eclipse.osgi 4 0 2014-10-20 17:06:14.475
+!MESSAGE Bundle reference:file:D:/Shared/Dropbox/Ptidej Workspaces/v5.2/plugins/PADL_Creator_Cpp_Eclipse_1.5.0.jar not found.
+class util.io.UnclosablePrintWriter reports that someone is trying to close it!
+Number of classes: 3
+Number of ghosts: 2
+Number of interfaces: 0
+Number of association relationships: 0
+Number of aggregation relationships [1,n]: 0
+Number of aggregation relationships [1,1]: 0
+Number of composition relationships: 0
+Number of container-aggregation relationships [1,n]: 0
+Number of container-aggregation relationships [1,1]: 0
+Number of container-composition relationships: 0
+Number of creation relationships: 0
+Number of use relationships: 0
+Number of fields: 1
+Number of methods: 4
+Number of message sends: 9
+
+
+---------------------------------
+Ptidej run on 2014-10-21 16:34:38
+---------------------------------
+
+util.repository.impl.FileRepositoryFactory has for running path: /D:/Shared/Dropbox/Ptidej Workspaces/v5.2/CPL/bin/
+util.repository.impl.FileRepositoryFactory is creating a ClassFileRepository for: util.repository.impl.FileFolderRepository
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Design Motifs/bin/padl/motif
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Layouts/bin/ptidej/ui/layout
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Analyses/bin/padl/analysis
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Analyses/bin/ptidej/ui/analysis
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Viewer Extensions/bin/ptidej/viewer/extension
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SAD/bin/sad/codesmell/detection
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SAD/bin/sad/designsmell/detection
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Micro-pattern Analysis/bin/padl/micropattern
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL/bin/padl/visitor
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Design Motifs/bin/padl/motif/visitor
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/POM/bin/pom/metrics
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/pqmod
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/qmood
+
+
+---------------------------------
+Ptidej run on 2014-10-21 16:39:52
+---------------------------------
+
+util.repository.impl.FileRepositoryFactory has for running path: /D:/Shared/Dropbox/Ptidej Workspaces/v5.2/CPL/bin/
+util.repository.impl.FileRepositoryFactory is creating a ClassFileRepository for: util.repository.impl.FileFolderRepository
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Design Motifs/bin/padl/motif
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Layouts/bin/ptidej/ui/layout
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Analyses/bin/padl/analysis
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Analyses/bin/ptidej/ui/analysis
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Viewer Extensions/bin/ptidej/viewer/extension
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SAD/bin/sad/codesmell/detection
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SAD/bin/sad/designsmell/detection
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Micro-pattern Analysis/bin/padl/micropattern
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL/bin/padl/visitor
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Design Motifs/bin/padl/motif/visitor
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/POM/bin/pom/metrics
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/pqmod
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/qmood
+
+
+---------------------------------
+Ptidej run on 2014-10-21 17:17:14
+---------------------------------
+
+util.repository.impl.FileRepositoryFactory has for running path: /D:/Shared/Dropbox/Ptidej Workspaces/v5.2/CPL/bin/
+util.repository.impl.FileRepositoryFactory is creating a ClassFileRepository for: util.repository.impl.FileFolderRepository
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Design Motifs/bin/padl/motif
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Layouts/bin/ptidej/ui/layout
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Analyses/bin/padl/analysis
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Analyses/bin/ptidej/ui/analysis
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Viewer Extensions/bin/ptidej/viewer/extension
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SAD/bin/sad/codesmell/detection
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SAD/bin/sad/designsmell/detection
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Micro-pattern Analysis/bin/padl/micropattern
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL/bin/padl/visitor
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Design Motifs/bin/padl/motif/visitor
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/POM/bin/pom/metrics
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/pqmod
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/qmood

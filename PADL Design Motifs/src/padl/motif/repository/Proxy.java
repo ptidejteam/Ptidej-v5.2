@@ -14,10 +14,12 @@ import padl.kernel.IAssociation;
 import padl.kernel.IClass;
 import padl.kernel.IDelegatingMethod;
 import padl.kernel.IMethod;
+import padl.motif.IDesignMotifModel;
 import padl.motif.models.StructuralMotifModel;
 import util.multilingual.MultilingualManager;
 
-public class Proxy extends StructuralMotifModel implements Cloneable {
+public class Proxy extends StructuralMotifModel implements Cloneable,
+		IDesignMotifModel {
 	private static final char[] PROXY = "Proxy".toCharArray();
 	private static final char[] REAL_SUBJECT = "realSubject".toCharArray();
 	private static final char[] REQUEST = "request".toCharArray();

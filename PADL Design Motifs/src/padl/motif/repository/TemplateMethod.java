@@ -12,6 +12,7 @@ package padl.motif.repository;
 
 import padl.kernel.IClass;
 import padl.kernel.IMethod;
+import padl.motif.IDesignMotifModel;
 import padl.motif.models.BehaviouralMotifModel;
 import util.multilingual.MultilingualManager;
 
@@ -19,7 +20,8 @@ import util.multilingual.MultilingualManager;
  * @author Foutse Khomh
  * @since  2007/03/01
  */
-public class TemplateMethod extends BehaviouralMotifModel implements Cloneable {
+public class TemplateMethod extends BehaviouralMotifModel implements Cloneable,
+		IDesignMotifModel {
 	private static final char[] ABSTRACT_CLASS = "AbstractClass".toCharArray();
 	private static final char[] CONCREATE_CLASS = "ConcreateClass"
 		.toCharArray();

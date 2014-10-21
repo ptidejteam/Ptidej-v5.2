@@ -11,10 +11,12 @@
 package padl.motif.repository;
 
 import padl.kernel.IClass;
+import padl.motif.IDesignMotifModel;
 import padl.motif.models.ArchitecturalQualityMotifModel;
 import util.multilingual.MultilingualManager;
 
-public final class GoodInheritance extends ArchitecturalQualityMotifModel {
+public final class GoodInheritance extends ArchitecturalQualityMotifModel
+		implements Cloneable, IDesignMotifModel {
 	private static final char[] GOOD_INHERITANCE = "GoodInheritance"
 		.toCharArray();
 	private static final long serialVersionUID = -53928198062516626L;

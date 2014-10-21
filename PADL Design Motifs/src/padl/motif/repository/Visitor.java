@@ -18,13 +18,15 @@ import padl.kernel.IClass;
 import padl.kernel.IFirstClassEntity;
 import padl.kernel.IInterface;
 import padl.kernel.IMethod;
+import padl.motif.IDesignMotifModel;
 import padl.motif.models.StructuralMotifModel;
 import util.multilingual.MultilingualManager;
 
 /**
  * @author Yann-Gaël Guéhéneuc
  */
-public class Visitor extends StructuralMotifModel implements Cloneable {
+public class Visitor extends StructuralMotifModel implements Cloneable,
+		IDesignMotifModel {
 	private static final char[] ACCEPT = "accept".toCharArray();
 	private static final char[] ACCEPT_VISITOR = "acceptVisitor".toCharArray();
 	private static final char[] ENTITY = "entity".toCharArray();

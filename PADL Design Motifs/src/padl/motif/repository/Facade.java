@@ -15,6 +15,7 @@ import padl.kernel.IAssociation;
 import padl.kernel.IClass;
 import padl.kernel.IDelegatingMethod;
 import padl.kernel.IMethod;
+import padl.motif.IDesignMotifModel;
 import padl.motif.models.StructuralMotifModel;
 import util.multilingual.MultilingualManager;
 
@@ -22,7 +23,8 @@ import util.multilingual.MultilingualManager;
  * @author Hervé Albin-Amiot
  * @author Yann-Gaël Guéhéneuc
  */
-public class Facade extends StructuralMotifModel implements Cloneable {
+public class Facade extends StructuralMotifModel implements Cloneable,
+		IDesignMotifModel {
 	private static final char[] AFACADE_SIDE_OPERATION_ON =
 		"aFacadeSideOperationOn".toCharArray();
 	private static final char[] AFACADE_SIDE_OPERATION_ON_A_REAL_OPERATION =

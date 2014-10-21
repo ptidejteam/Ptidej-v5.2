@@ -16,6 +16,7 @@ import padl.kernel.IAggregation;
 import padl.kernel.IClass;
 import padl.kernel.ICreation;
 import padl.kernel.IMethod;
+import padl.motif.IDesignMotifModel;
 import padl.motif.models.BehaviouralMotifModel;
 import util.multilingual.MultilingualManager;
 
@@ -23,7 +24,8 @@ import util.multilingual.MultilingualManager;
  * @author Foutse Khomh
  * @since  2007/03/01
  */
-public class Memento extends BehaviouralMotifModel implements Cloneable {
+public class Memento extends BehaviouralMotifModel implements Cloneable,
+		IDesignMotifModel {
 	private static final char[] CARETAKER = "Caretaker".toCharArray();
 	private static final char[] CREATE = "create".toCharArray();
 	private static final char[] GET_STATE = "GetState".toCharArray();

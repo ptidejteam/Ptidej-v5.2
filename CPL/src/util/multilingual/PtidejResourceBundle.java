@@ -18,7 +18,7 @@ import java.util.ListResourceBundle;
  * @since  18/05/2005
  */
 public class PtidejResourceBundle extends ListResourceBundle {
-	private static final String VERSION = "v5.8";
+	private static final String VERSION = "v5.8.1";
 	private static final Object[][] CONTENTS =
 		{
 				// *********** CPL ***********

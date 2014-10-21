@@ -16,6 +16,7 @@ import padl.kernel.ICreation;
 import padl.kernel.IInterface;
 import padl.kernel.IMethod;
 import padl.kernel.IUseRelationship;
+import padl.motif.IDesignMotifModel;
 import padl.motif.models.CreationalMotifModel;
 import util.multilingual.MultilingualManager;
 import com.ibm.toad.cfparse.utils.Access;
@@ -24,7 +25,8 @@ import com.ibm.toad.cfparse.utils.Access;
  * @author Foutse Khomh
  * @since  2007/03/01
  */
-public class AbstractFactory extends CreationalMotifModel implements Cloneable {
+public class AbstractFactory extends CreationalMotifModel implements Cloneable,
+		IDesignMotifModel {
 	public static final char[] CREATOR = "Creator".toCharArray();
 	public static final char[] PRODUCT = "Product".toCharArray();
 	private static final char[] CLIENT = "Client".toCharArray();
@@ -136,7 +138,7 @@ public class AbstractFactory extends CreationalMotifModel implements Cloneable {
 	}
 
 	public char[] getName() {
-		return AbstractFactory.CREATOR;
+		return "AbstractFactory".toCharArray();
 	}
 
 	public void removeProduct(final String[] names) {

@@ -13,14 +13,16 @@ package padl.motif.repository;
 import padl.kernel.IClass;
 import padl.kernel.IMethod;
 import padl.kernel.IUseRelationship;
+import padl.motif.IDesignMotifModel;
 import padl.motif.models.CreationalMotifModel;
 import util.multilingual.MultilingualManager;
 
 /**
- * @author Yann-Gael Gueheneuc
+ * @author Yann-Gaël Guéhéneuc
  * @since  2008/12/13
  */
-public class Builder extends CreationalMotifModel implements Cloneable {
+public class Builder extends CreationalMotifModel implements Cloneable,
+		IDesignMotifModel {
 	private static final char[] BUILD_PART = "buildPart".toCharArray();
 	private static final char[] BUILDER = "Builder".toCharArray();
 	private static final char[] CONCRETE_BUILDER = "ConcreteBuilder"

@@ -10,10 +10,12 @@
  ******************************************************************************/
 package padl.motif.repository;
 
+import padl.motif.IDesignMotifModel;
 import padl.motif.models.BehaviouralMotifModel;
 import util.multilingual.MultilingualManager;
 
-public class Prototype extends BehaviouralMotifModel implements Cloneable {
+public class Prototype extends BehaviouralMotifModel implements Cloneable,
+		IDesignMotifModel {
 	private static final char[] PROTOTYPE = "Prototype".toCharArray();
 	private static final long serialVersionUID = 520438833419263601L;
 

@@ -16,6 +16,7 @@ import padl.kernel.IAssociation;
 import padl.kernel.IClass;
 import padl.kernel.IDelegatingMethod;
 import padl.kernel.IMethod;
+import padl.motif.IDesignMotifModel;
 import padl.motif.models.BehaviouralMotifModel;
 import util.multilingual.MultilingualManager;
 
@@ -23,7 +24,8 @@ import util.multilingual.MultilingualManager;
  * @author Foutse Khomh
  * @since  2007/03/01
  */
-public class Command extends BehaviouralMotifModel implements Cloneable {
+public class Command extends BehaviouralMotifModel implements Cloneable,
+		IDesignMotifModel {
 	private static final char[] ACTION = "Action".toCharArray();
 	private static final char[] CLIENT = "Client".toCharArray();
 	private static final char[] COMMAND = "Command".toCharArray();

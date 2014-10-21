@@ -15,10 +15,12 @@ import padl.kernel.IAggregation;
 import padl.kernel.IClass;
 import padl.kernel.IDelegatingMethod;
 import padl.kernel.IMethod;
+import padl.motif.IDesignMotifModel;
 import padl.motif.models.BehaviouralMotifModel;
 import util.multilingual.MultilingualManager;
 
-public class State extends BehaviouralMotifModel implements Cloneable {
+public class State extends BehaviouralMotifModel implements Cloneable,
+		IDesignMotifModel {
 	private static final char[] CONCRETE_STATE = "concreteState".toCharArray();
 	private static final char[] CONTEXT = "Context".toCharArray();
 	private static final char[] HANDLE = "handle".toCharArray();

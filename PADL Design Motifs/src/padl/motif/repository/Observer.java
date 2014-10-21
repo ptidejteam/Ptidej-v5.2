@@ -19,11 +19,12 @@ import padl.kernel.IDelegatingMethod;
 import padl.kernel.IFirstClassEntity;
 import padl.kernel.IInterface;
 import padl.kernel.IMethod;
+import padl.motif.IDesignMotifModel;
 import padl.motif.models.BehaviouralMotifModel;
 import util.multilingual.MultilingualManager;
 
 public class Observer extends BehaviouralMotifModel implements
-		PropertyChangeListener, Cloneable {
+		PropertyChangeListener, Cloneable, IDesignMotifModel {
 
 	private static final char[] CONCRETE_OBSERVER = "ConcreteObserver"
 		.toCharArray();

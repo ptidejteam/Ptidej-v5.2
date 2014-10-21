@@ -47,7 +47,7 @@
  * <h2>License:</h2>
  *
  * <div>
- * Licensed under 4-clause BSD License:<br>
+ * Licensed under 3-clause BSD License:<br>
  * Copyright © 2009, Mathieu Lemoine<br>
  * All rights reserved.<br>
  *<br>
@@ -58,9 +58,6 @@
  *  * Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.<br>
- *  * All advertising materials mentioning features or use of this software
- *    must display the following acknowledgement:<br>
- *    This product includes software developed by Mathieu Lemoine and contributors.<br>
  *  * Neither the name of Mathieu Lemoine nor the
  *    names of contributors may be used to endorse or promote products
  *    derived from this software without specific prior written permission.<br>

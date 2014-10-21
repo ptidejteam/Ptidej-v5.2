@@ -26,6 +26,7 @@ import padl.kernel.IElement;
 import padl.kernel.IFirstClassEntity;
 import padl.kernel.IInterface;
 import padl.kernel.IMethod;
+import padl.motif.IDesignMotifModel;
 import padl.motif.detector.repository.ReflectiveDetector;
 import padl.motif.models.StructuralMotifModel;
 import util.io.ProxyConsole;
@@ -40,7 +41,8 @@ import util.multilingual.MultilingualManager;
 // (through the lgrind package for LaTeX).
 
 // %%D\'eclaration de la m\'eta-entit\'e \ygg@code{Composite} :%%
-public class Composite extends StructuralMotifModel implements Cloneable {
+public class Composite extends StructuralMotifModel implements Cloneable,
+		IDesignMotifModel {
 	public static final char[] COMPONENT = "Component".toCharArray();
 	public static final char[] COMPOSITE = "Composite".toCharArray();
 	private static final char[] DEFAULT_ID = Composite.COMPOSITE;

@@ -14,10 +14,12 @@ import padl.kernel.IAssociation;
 import padl.kernel.IClass;
 import padl.kernel.IDelegatingMethod;
 import padl.kernel.IMethod;
+import padl.motif.IDesignMotifModel;
 import padl.motif.models.StructuralMotifModel;
 import util.multilingual.MultilingualManager;
 
-public class Adapter extends StructuralMotifModel implements Cloneable {
+public class Adapter extends StructuralMotifModel implements Cloneable,
+		IDesignMotifModel {
 	private static final char[] ADAPTEE = "Adaptee".toCharArray();
 	private static final char[] ADAPTER = "Adapter".toCharArray();
 	private static final char[] CLIENT = "Client".toCharArray();

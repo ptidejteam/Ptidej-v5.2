@@ -17,6 +17,7 @@ import padl.kernel.IContainerComposition;
 import padl.kernel.IDelegatingMethod;
 import padl.kernel.IInterface;
 import padl.kernel.IMethod;
+import padl.motif.IDesignMotifModel;
 import padl.motif.models.StructuralMotifModel;
 import util.multilingual.MultilingualManager;
 
@@ -24,7 +25,8 @@ import util.multilingual.MultilingualManager;
  * @author Foutse Khomh
  * @since  2007/03/01
  */
-public class Flyweight extends StructuralMotifModel implements Cloneable {
+public class Flyweight extends StructuralMotifModel implements Cloneable,
+		IDesignMotifModel {
 	private static final char[] CLIENT = "Client".toCharArray();
 	private static final char[] CONCRETE_FLYWEIGHT = "ConcreteFlyweight"
 		.toCharArray();

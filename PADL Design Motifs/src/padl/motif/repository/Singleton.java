@@ -10,10 +10,12 @@
  ******************************************************************************/
 package padl.motif.repository;
 
+import padl.motif.IDesignMotifModel;
 import padl.motif.models.BehaviouralMotifModel;
 import util.multilingual.MultilingualManager;
 
-public class Singleton extends BehaviouralMotifModel implements Cloneable {
+public class Singleton extends BehaviouralMotifModel implements Cloneable,
+		IDesignMotifModel {
 	private static final long serialVersionUID = -1693694069786129452L;
 	private static final char[] SINGLETON = "Singleton".toCharArray();
 
