@@ -15,10 +15,22 @@ Since December 10th, 2004, the runnable versions of the Ptidej Tool Suite are av
 ### How do I get set up? ###
 
 * Summary of set up
+
+Microsoft Windows and Intel x86 processors, because of DLL dependent on Windows for parsing C++ source code.
+
+Any Java virtual machine.
+
 * Configuration
+
+You must use Eclipse with the Plug-in Development Environment installed. Most of the projects composing the Ptidej Tool Suite are plug-ins and their Java Build Paths require the PDE plug-in to be set properly by Eclipse before compilation.
+
+Some projects depend upon the JDT core and, thus, reference the Eclipse plug-in "jdt.core". Depending on the version of Eclipse, you must adjust the path of these projects to point to the current version of the plug-in "jdt.core".
+
 * Dependencies
-* Database configuration
 * How to run tests
+
+Run as JUnit test the class ptidej.test.all.TestAllPtidej
+
 * Deployment instructions
 
 ### Contribution guidelines ###
@@ -30,4 +42,9 @@ Since December 10th, 2004, the runnable versions of the Ptidej Tool Suite are av
 ### Who do I talk to? ###
 
 * Repo owner or admin
+
+Yann-Gaël Guéhéneuc at mailto://yann-gael.gueheneuc@polymtl.ca
+
 * Other community or team contact
+
+Wiki of the Ptidej Team at http://wiki.ptidej.net
