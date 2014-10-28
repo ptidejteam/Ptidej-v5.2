@@ -22,9 +22,11 @@ Any Java virtual machine.
 
 * Configuration
 
-You must use Eclipse with the Plug-in Development Environment installed. Most of the projects composing the Ptidej Tool Suite are plug-ins and their Java Build Paths require the PDE plug-in to be set properly by Eclipse before compilation.
+You *must* use Eclipse with the Plug-in Development Environment installed. Most of the projects composing the Ptidej Tool Suite are plug-ins and their Java Build Paths require the PDE plug-in to be set properly by Eclipse before compilation. After downloading the source code, make sure to select "/PADL/META-INF/MANIFEST.MF" and right click on it and then choose "Plug-in Tools -> Update Classpath... -> Select All -> Finish".
 
-Some projects depend upon the JDT core and, thus, reference the Eclipse plug-in "jdt.core". Depending on the version of Eclipse, you must adjust the path of these projects to point to the current version of the plug-in "jdt.core".
+In "Window -> Preferences -> Java -> Build Path -> Classpath Variable", add "ECLIPSE_HOME" pointing to the folder of your Eclipse installation, for example "/usr/eclipse/".
+
+Some projects depend upon JDT core and, thus, reference the Eclipse plug-in "jdt.core". Depending on the version of Eclipse, you must adjust the path of these projects to point to the current version of the plug-in "jdt.core". For example, for the project "Java Parser", you may have to select "/usr/eclipse/plugins/org.eclipse.jdt.core_3.8.3.v20130121-145325.jar" and also add "/usr/eclipse/plugins/org.eclipse.equinox.common_3.6.100.v20120522-1841.jar" and "/usr/eclipse/plugins/org.eclipse.core.runtime_3.8.0.v20120912-155025.jar".
 
 * Dependencies
 * How to run tests
