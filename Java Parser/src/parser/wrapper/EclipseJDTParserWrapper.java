@@ -11,11 +11,14 @@
 package parser.wrapper;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
+import org.eclipse.core.internal.preferences.EclipsePreferences;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
+import org.eclipse.jdt.internal.core.JavaModelManager;
 import parser.input.SourceInputsHolder;
 import parser.reader.NamedReader;
 import common.tools.constants.Constants;
@@ -24,12 +27,29 @@ public class EclipseJDTParserWrapper {
 	private final SourceInputsHolder javaProject;
 	private final ASTParser parser;
 
-	public EclipseJDTParserWrapper(final SourceInputsHolder javaProject) {
-		this.javaProject = javaProject;
+	public EclipseJDTParserWrapper(final SourceInputsHolder aJavaProject) {
+		this.javaProject = aJavaProject;
 
-		JavaCore.setComplianceOptions(
-			this.javaProject.getCompilerCompliance(),
-			JavaCore.getOptions());
+		// Yann 2015/01/06: Change how to set compliance...
+		// See http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.jdt.doc.isv%2Fguide%2Fjdt_api_options.htm&anchor=javacore
+		JavaModelManager.getJavaModelManager().preferencesLookup[0] =
+			new EclipsePreferences();
+		JavaModelManager.getJavaModelManager().preferencesLookup[1] =
+			new EclipsePreferences();
+		// Get the default options
+		final Hashtable<String, String> options = JavaCore.getDefaultOptions();
+		//	// Change the value of an option
+		options.put(
+			JavaCore.COMPILER_COMPLIANCE,
+			this.javaProject.getCompilerCompliance());
+		options.put(
+			JavaCore.COMPILER_SOURCE,
+			this.javaProject.getCompilerCompliance());
+		// Set the new options
+		//	JavaCore.setComplianceOptions(
+		//		this.javaProject.getCompilerCompliance(),
+		//		JavaCore.getOptions());
+		JavaCore.setOptions(options);
 
 		this.parser = ASTParser.newParser(AST.JLS4);
 	}
@@ -58,7 +78,6 @@ public class EclipseJDTParserWrapper {
 	 * @return SourceCode
 	 */
 	private String getSourceCode(final NamedReader compilationUnit) {
-
 		final StringBuffer sourceCode = new StringBuffer(Constants.EMPTY_STR);
 
 		for (final NamedReader reader : compilationUnit.read()) {
@@ -69,7 +88,6 @@ public class EclipseJDTParserWrapper {
 	}
 
 	public ASTNode[] parse() {
-
 		final List<ASTNode> astNodes = new ArrayList<ASTNode>();
 
 		for (final NamedReader compilationUnit : this.javaProject

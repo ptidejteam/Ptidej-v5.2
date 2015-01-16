@@ -17,7 +17,7 @@ public abstract class SourceInputsHolder {
 	private NamedReader[] classpathEntries;
 	private NamedReader[] sourcepathEntries;
 	private NamedReader[] compilationUnitList;
-	private String compilerCompliance = "1.6";
+	private String compilerCompliance = "1.7";
 
 	abstract protected NamedReader[] buildCompilationUnitList();
 
@@ -62,7 +62,9 @@ public abstract class SourceInputsHolder {
 
 	public SourceInputsHolder setCompilerCompliance(
 		final String compilerCompliance) {
+
 		this.compilerCompliance = compilerCompliance;
+
 		return this;
 	}
 
@@ -71,5 +73,4 @@ public abstract class SourceInputsHolder {
 		this.sourcepathEntries = sourcepathEntries;
 		return this;
 	}
-
 }

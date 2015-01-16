@@ -44,7 +44,7 @@ void
 demo.codeanalyzer.common.model.Location
 void
 demo/codeanalyzer/common/model/BaseJavaClassModelInfo.java
-Pb(77) The field BaseJavaClassModelInfo.privateFlag is never read locally at 22
+Pb(77) The value of the field BaseJavaClassModelInfo.privateFlag is not used at 22
 java.util.Collection<demo.codeanalyzer.common.model.Field>
 demo.codeanalyzer.common.model.Field
 java.util.Collection<? extends demo.codeanalyzer.common.model.Method>

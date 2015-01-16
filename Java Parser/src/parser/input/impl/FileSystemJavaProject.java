@@ -104,5 +104,4 @@ public class FileSystemJavaProject extends SourceInputsHolder {
 		}
 		return readersFound;
 	}
-
 }
