@@ -348,14 +348,6 @@ public class SourceHierarchicalModelWindow extends AbstractRepresentationWindow 
 	public IAbstractModel getSourceModel() {
 		return this.sourceModel;
 	}
-	public int getVisibleElements() {
-		if (this.sourceGraph == null) {
-			return 0;
-		}
-		else {
-			return this.sourceGraph.getVisibleElements();
-		}
-	}
 	private void processSourceModel(
 		final DefaultMutableTreeNode aRootNode,
 		final AWTCanvas anAWTCanvas,
@@ -394,7 +386,7 @@ public class SourceHierarchicalModelWindow extends AbstractRepresentationWindow 
 	}
 	protected void refreshSpecifics() {
 		if (this.canvas != null) {
-			this.canvas.setVisibleElements(this.getVisibility());
+			this.canvas.setVisibleElements(this.getVisibleElements());
 			this.canvas.build();
 
 			// Yann 2007/0206: Size matters!

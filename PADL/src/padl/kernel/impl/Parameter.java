@@ -100,6 +100,9 @@ public class Parameter extends Element implements IParameter {
 	public String toString() {
 		final StringBuffer buffer = new StringBuffer();
 		buffer.append(this.getTypeName());
+		for (int i = 1; i < this.cardinality; i++) {
+			buffer.append("[]");
+		}
 		buffer.append(' ');
 		buffer.append(this.getName());
 		return buffer.toString();

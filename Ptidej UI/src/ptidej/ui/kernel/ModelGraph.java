@@ -396,15 +396,20 @@ public class ModelGraph implements IVisibility {
 			this.setOfEntitiesToSelect = ModelGraph.EMPTY_SET;
 		}
 	}
-	public final void setVisibleElements(final int visibleElements) {
+	public final void setVisibleElements(final int someVisibleElements) {
 		// Yann 2002/12/15: Ghost are invisible!
 		// I add ghost entities if needed here by constructing the model.
-		if ((this.getVisibleElements() & IVisibility.GHOST_ENTITIES_DISPLAY) != (visibleElements & IVisibility.GHOST_ENTITIES_DISPLAY)) {
+		// Yann 2015/02/06: Hack => Bug
+		// See the class OptionPanel!
+		// Because I did not do anything, the visibility the graph was not set correctly.
+		this.visibility = someVisibleElements;
+
+		if ((this.getVisibleElements() & IVisibility.GHOST_ENTITIES_DISPLAY) != (someVisibleElements & IVisibility.GHOST_ENTITIES_DISPLAY)) {
 			this.construct();
 		}
 
 		for (int i = 0; i < this.graphModelConstituents.length; i++) {
-			this.graphModelConstituents[i].setVisibleElements(visibleElements);
+			this.graphModelConstituents[i].setVisibleElements(someVisibleElements);
 		}
 	}
 }

@@ -21,15 +21,12 @@ import padl.kernel.IFirstClassEntity;
 import util.io.ProxyDisk;
 
 public class ArgoUMLTest extends TestCase {
-
-	public ArgoUMLTest(final String name) {
-		super(name);
+	public ArgoUMLTest(final String aName) {
+		super(aName);
 	}
-
 	public void testArgouml() {
 		final String sourcePath =
 			"../PADL Creator JavaFile (Eclipse) Tests/data/argouml/";
-
 		final String classPathEntry = "";
 
 		final ICodeLevelModel model =
@@ -40,21 +37,24 @@ public class ArgoUMLTest extends TestCase {
 
 		try {
 			final Writer writer =
-				ProxyDisk.getInstance().fileTempOutput("result.txt");
-			writer.write("Summary for :\n");
+				ProxyDisk.getInstance().fileTempOutput("Result.txt");
+			writer.write("Summary for: ");
 			writer.write(model.getDisplayName());
 
 			//Print the model by the generator
 
-			writer.write("nombre de top level"
-					+ model.getNumberOfTopLevelEntities());
+			writer.write("\nNumber of top-level entities: ");
+			writer.write(model.getNumberOfTopLevelEntities());
 			final Iterator iter = model.getIteratorOnTopLevelEntities();
 			while (iter.hasNext()) {
 				final IFirstClassEntity entity =
 					(IFirstClassEntity) iter.next();
-				writer.write(entity.getDisplayID() + " "
-						+ entity.getNumberOfConstituents() + " "
-						+ entity.getClass() + "\n");
+				writer.write('\n');
+				writer.write(entity.getDisplayID());
+				writer.write(" ");
+				writer.write(entity.getNumberOfConstituents());
+				writer.write(" ");
+				writer.write(entity.getClass().getName());
 			}
 			writer.close();
 		}

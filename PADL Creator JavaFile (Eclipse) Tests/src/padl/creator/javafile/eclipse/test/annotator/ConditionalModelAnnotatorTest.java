@@ -50,15 +50,15 @@ public class ConditionalModelAnnotatorTest extends TestCase {
 		try {
 			int nbConditionalStatements =
 				m1.getNumberOfConstituents(Class
-					.forName("padl.kernel.impl.Conditional"));
+					.forName("padl.statement.kernel.impl.Conditional"));
 			Assert.assertEquals(1, nbConditionalStatements);
 			nbConditionalStatements =
 				m2.getNumberOfConstituents(Class
-					.forName("padl.kernel.impl.Conditional"));
+					.forName("padl.statement.kernel.impl.Conditional"));
 			Assert.assertEquals(3, nbConditionalStatements);
 			final Iterator iter =
 				m2.getConcurrentIteratorOnConstituents(Class
-					.forName("padl.kernel.impl.SwitchInstruction"));
+					.forName("padl.statement.kernel.impl.SwitchInstruction"));
 			while (iter.hasNext()) {
 				final ISwitchInstruction instruction =
 					(ISwitchInstruction) iter.next();

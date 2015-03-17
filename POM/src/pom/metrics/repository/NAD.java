@@ -26,18 +26,19 @@ import pom.metrics.IDependencyIndependentMetric;
 import pom.metrics.IMetric;
 import pom.metrics.IUnaryMetric;
 
-public class NAD extends AbstractMetric implements IMetric, IUnaryMetric, 
-	IDependencyIndependentMetric {
+public class NAD extends AbstractMetric implements IMetric, IUnaryMetric,
+		IDependencyIndependentMetric {
+
 	protected double concretelyCompute(
 		final IAbstractModel anAbstractModel,
 		final IFirstClassEntity firstClassEntity) {
 
-		return listOfElements(firstClassEntity).size();
+		return this.listOfElements(firstClassEntity).size();
 	}
-	private List listOfElements(IFirstClassEntity firstClassEntity) {
+	private List listOfElements(final IFirstClassEntity firstClassEntity) {
 		return super.classPrimitives.listOfImplementedFields(firstClassEntity);
 	}
 	public String getDefinition() {
-		return "number of attributes declared";
+		return "Number of attributes declared by an entity.";
 	}
 }

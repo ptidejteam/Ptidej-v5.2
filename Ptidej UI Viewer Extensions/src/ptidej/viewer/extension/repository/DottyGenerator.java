@@ -62,9 +62,14 @@ public final class DottyGenerator implements IGenerator {
 	private String currentEntityName;
 	private Map uses = new HashMap();
 	private final int visibleElements;
+	private boolean displayRelationshipsDetails;
 
-	public DottyGenerator(final int visibleElements) {
+	public DottyGenerator(
+		final int visibleElements,
+		final boolean shouldDisplayRelationshipsDetails) {
+
 		this.visibleElements = visibleElements;
+		this.displayRelationshipsDetails = shouldDisplayRelationshipsDetails;
 	}
 	private void addHierarchyRelationship(
 		final Iterator anIteratorOnHierarchyRelationships,
@@ -119,23 +124,43 @@ public final class DottyGenerator implements IGenerator {
 		if (!(targetEntity instanceof IGhost)
 				|| (this.visibleElements & IVisibility.GHOST_ENTITIES_DISPLAY) == IVisibility.GHOST_ENTITIES_DISPLAY) {
 
-			final StringBuffer relationshipNames;
-			if (relationships.containsKey(targetEntityName)) {
-				relationshipNames =
-					(StringBuffer) relationships.get(targetEntityName);
+			if (this.displayRelationshipsDetails) {
+				final StringBuffer relationshipNames;
+				if (relationships.containsKey(targetEntityName)) {
+					relationshipNames =
+						(StringBuffer) relationships.get(targetEntityName);
+					relationshipNames.append(" and:\\n");
+				}
+				else {
+					relationshipNames = new StringBuffer();
+
+					final String relationshipName =
+						relationship.getClass().getName();
+					relationshipNames.append(relationshipName
+						.substring(relationshipName.lastIndexOf('.') + 1));
+					relationshipNames.append(" through:\\n");
+
+					relationships.put(targetEntityName, relationshipNames);
+				}
+				relationshipNames.append(relationship.getName());
+				relationshipNames.append("\\n");
 			}
 			else {
-				relationshipNames = new StringBuffer();
-				relationships.put(targetEntityName, relationshipNames);
-
+				final StringBuffer relationshipNames;
+				if (relationships.containsKey(targetEntityName)) {
+					relationshipNames =
+						(StringBuffer) relationships.get(targetEntityName);
+					relationshipNames.append(' ');
+				}
+				else {
+					relationshipNames = new StringBuffer();
+					relationships.put(targetEntityName, relationshipNames);
+				}
 				final String relationshipName =
 					relationship.getClass().getName();
 				relationshipNames.append(relationshipName
 					.substring(relationshipName.lastIndexOf('.') + 1));
-				relationshipNames.append(" through:\\n");
 			}
-			relationshipNames.append(relationship.getName());
-			relationshipNames.append("\\n");
 		}
 	}
 	public void close(final IAbstractModel p) {
@@ -287,37 +312,31 @@ public final class DottyGenerator implements IGenerator {
 	}
 	public void visit(final IAggregation p) {
 		if ((this.visibleElements & IVisibility.AGGREGATION_DISPLAY_ELEMENTS) == IVisibility.AGGREGATION_DISPLAY_ELEMENTS) {
-
 			this.addRelationshipName(p, this.aggregations);
 		}
 	}
 	public void visit(final IAssociation p) {
 		if ((this.visibleElements & IVisibility.ASSOCIATION_DISPLAY_ELEMENTS) == IVisibility.ASSOCIATION_DISPLAY_ELEMENTS) {
-
 			this.addRelationshipName(p, this.associations);
 		}
 	}
 	public void visit(final IComposition p) {
 		if ((this.visibleElements & IVisibility.COMPOSITION_DISPLAY_ELEMENTS) == IVisibility.COMPOSITION_DISPLAY_ELEMENTS) {
-
 			this.addRelationshipName(p, this.compositions);
 		}
 	}
 	public void visit(final IContainerAggregation p) {
 		if ((this.visibleElements & IVisibility.CONTAINER_AGGREGATION_DISPLAY_ELEMENTS) == IVisibility.CONTAINER_AGGREGATION_DISPLAY_ELEMENTS) {
-
 			this.addRelationshipName(p, this.aggregations);
 		}
 	}
 	public void visit(final IContainerComposition p) {
 		if ((this.visibleElements & IVisibility.CONTAINER_COMPOSITION_DISPLAY_ELEMENTS) == IVisibility.CONTAINER_COMPOSITION_DISPLAY_ELEMENTS) {
-
 			this.addRelationshipName(p, this.compositions);
 		}
 	}
 	public void visit(final ICreation p) {
 		if ((this.visibleElements & IVisibility.CREATION_DISPLAY_ELEMENTS) == IVisibility.CREATION_DISPLAY_ELEMENTS) {
-
 			this.addRelationshipName(p, this.creations);
 		}
 	}
@@ -332,7 +351,6 @@ public final class DottyGenerator implements IGenerator {
 	}
 	public void visit(final IUseRelationship p) {
 		if ((this.visibleElements & IVisibility.USE_DISPLAY_ELEMENTS) == IVisibility.USE_DISPLAY_ELEMENTS) {
-
 			this.addRelationshipName(p, this.uses);
 		}
 	}

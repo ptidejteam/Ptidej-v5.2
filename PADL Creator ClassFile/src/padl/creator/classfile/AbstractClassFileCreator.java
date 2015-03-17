@@ -760,21 +760,24 @@ abstract class AbstractClassFileCreator {
 						// I must be careful with arrays (remove the
 						// brackets) and primitive types (do not attempt
 						// to create a Ghost from them).
+						// Yann 2009/05/02: No String anymore!
+						// Cool, eh?
 						char[] paramType = detectedParameters[i];
-						boolean isCardinalityMany = false;
+						int cardinality = 1;
 						final int bracketIndex =
 							ArrayUtils.indexOf(paramType, '[');
 						if (bracketIndex > -1) {
+							cardinality =
+								(paramType.length - bracketIndex) / 2 + 1;
 							paramType =
 								ArrayUtils.subarray(paramType, 0, bracketIndex);
-							isCardinalityMany = true;
 						}
 
 						final IParameter parameter =
 							this.createParameter(
 								aCodeLevelModel,
 								paramType,
-								isCardinalityMany);
+								cardinality);
 						currentConstructor.addConstituent(parameter);
 					}
 
@@ -806,8 +809,8 @@ abstract class AbstractClassFileCreator {
 	}
 	private IParameter createParameter(
 		final ICodeLevelModel aCodeLevelModel,
-		char[] someParamType,
-		boolean isCardinalityMany) {
+		final char[] someParamType,
+		final int cardinality) {
 
 		final IParameter parameter;
 		if (Util.isPrimtiveType(someParamType)) {
@@ -815,8 +818,7 @@ abstract class AbstractClassFileCreator {
 				aCodeLevelModel.getFactory().createParameter(
 					aCodeLevelModel.getFactory().createPrimitiveEntity(
 						someParamType),
-					isCardinalityMany ? Constants.CARDINALITY_MANY
-							: Constants.CARDINALITY_ONE);
+					cardinality);
 		}
 		else {
 			parameter =
@@ -825,8 +827,7 @@ abstract class AbstractClassFileCreator {
 						aCodeLevelModel,
 						someParamType,
 						this.mapOfIDsEntities),
-					isCardinalityMany ? Constants.CARDINALITY_MANY
-							: Constants.CARDINALITY_ONE);
+					cardinality);
 		}
 		return parameter;
 	}
@@ -1136,20 +1137,21 @@ abstract class AbstractClassFileCreator {
 						// Yann 2009/05/02: No String anymore!
 						// Cool, eh?
 						char[] paramType = detectedParameters[i];
-						boolean isCardinalityMany = false;
+						int cardinality = 1;
 						final int bracketIndex =
 							ArrayUtils.indexOf(paramType, '[');
 						if (bracketIndex > -1) {
+							cardinality =
+								(paramType.length - bracketIndex) / 2 + 1;
 							paramType =
 								ArrayUtils.subarray(paramType, 0, bracketIndex);
-							isCardinalityMany = true;
 						}
 
 						final IParameter parameter =
 							this.createParameter(
 								aCodeLevelModel,
 								paramType,
-								isCardinalityMany);
+								cardinality);
 						currentMethod.addConstituent(parameter);
 					}
 

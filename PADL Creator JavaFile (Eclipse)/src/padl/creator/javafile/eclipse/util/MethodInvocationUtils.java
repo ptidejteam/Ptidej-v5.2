@@ -107,7 +107,13 @@ public class MethodInvocationUtils {
 
 				// see comment PaldParserUtil.getListOfParameters
 				// Aminata 14/09/11
-				param.setComment(Integer.toString(typeBinding.getDimensions()));
+				// Yann 2015/03/16: Rationale?
+				// It just does not make sense to use comments to store information,
+				// remember never to use String when other data-types are available!
+				// Also, the old code:
+				//	param.setComment(Integer.toString(typeBinding.getDimensions()));
+				// is not the same as:
+				param.setComment(Integer.toString(paramDim));
 
 				parametersList.add(param);
 			}

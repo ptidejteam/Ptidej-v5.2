@@ -766,14 +766,6 @@ public class SourceDualHierarchicalModelWindow extends
 	public IAbstractModel getSourceModel() {
 		return this.sourceModel;
 	}
-	public int getVisibleElements() {
-		if (this.sourceGraphLeft == null) {
-			return 0;
-		}
-		else {
-			return this.sourceGraphLeft.getVisibleElements();
-		}
-	}
 	private JSplitPane helperToCreateFirstTreeAndGraph() {
 		this.treeRootLeft = new DefaultMutableTreeNode();
 		this.treeRootLeft.setUserObject(new JLabel(""));
@@ -984,7 +976,7 @@ public class SourceDualHierarchicalModelWindow extends
 		//	this.canvasPanelLeft.removeAll();
 		//	this.canvasPanelLeft.add(this.awtCanvasLeft);
 
-		this.canvasLeft.setVisibleElements(this.getVisibility());
+		this.canvasLeft.setVisibleElements(this.getVisibleElements());
 		this.canvasLeft.build();
 
 		// Yann 2007/0206: Size matters!
@@ -1043,7 +1035,7 @@ public class SourceDualHierarchicalModelWindow extends
 		//	this.canvasPanelRight.removeAll();
 		//	this.canvasPanelRight.add(this.awtCanvasRight);
 
-		this.canvasRight.setVisibleElements(this.getVisibility());
+		this.canvasRight.setVisibleElements(this.getVisibleElements());
 		this.canvasRight.build();
 
 		// Yann 2007/0206: Size matters!

@@ -613,7 +613,7 @@ public abstract class AbstractRepresentationWindow extends JInternalFrame
 	public Set getSourceFileTypes() {
 		return this.files.keySet();
 	}
-	public int getVisibility() {
+	public final int getVisibleElements() {
 		return this.visibleElements;
 	}
 	public final void refresh() {
@@ -684,8 +684,8 @@ public abstract class AbstractRepresentationWindow extends JInternalFrame
 		this.setTitle(title);
 	}
 	protected abstract void setSourceModelSpecifics();
-	public void setVisibleElements(final int aVisibility) {
-		this.visibleElements = aVisibility;
+	public final void setVisibleElements(final int someVisibleElements) {
+		this.visibleElements = someVisibleElements;
 		this.refresh();
 	}
 }

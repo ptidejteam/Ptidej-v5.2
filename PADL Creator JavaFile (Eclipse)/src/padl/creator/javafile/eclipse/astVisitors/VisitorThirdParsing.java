@@ -646,7 +646,6 @@ public class VisitorThirdParsing extends ExtendedASTVisitor {
 	 */
 	@Override
 	public void endVisit(final MethodDeclaration node) {
-
 		if (this.myCurrentOperation != null) {
 			final char[] operationID =
 				PadlParserUtil.computeMethodNodeSignature(

@@ -68,16 +68,16 @@ public final class OptionAction extends AbstractAction implements ItemListener {
 
 		final AbstractRepresentationWindow window =
 			DesktopPane.getInstance().getAbstractRepresentationWindow();
+		int currentVisibleElements = window.getVisibleElements();
 
-		int currentVisibility = window.getVisibility();
 		if (addVisibility) {
-			currentVisibility |= aVisibility;
+			currentVisibleElements |= aVisibility;
 		}
 		else {
-			currentVisibility &= (aVisibility ^ -1);
+			currentVisibleElements &= (aVisibility ^ -1);
 		}
 
-		window.setVisibleElements(currentVisibility);
+		window.setVisibleElements(currentVisibleElements);
 	}
 	public void itemStateChanged(final ItemEvent anItemEvent) {
 		// Yann 2014/06/20: Honour!

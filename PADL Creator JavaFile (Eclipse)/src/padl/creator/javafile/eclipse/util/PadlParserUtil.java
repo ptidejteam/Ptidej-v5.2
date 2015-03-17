@@ -111,7 +111,7 @@ public class PadlParserUtil {
 			// to take into account multiple dimensions arrays as I saw in padl
 			// .class
 			int arrayDim = Integer.parseInt(parameter.getComment());
-			for (int i = 0; i < arrayDim; i++) {
+			for (int i = 1; i < arrayDim; i++) {
 				methodSignature.append("[]");
 			}
 			// clear this field
@@ -121,7 +121,7 @@ public class PadlParserUtil {
 				parameter = iter.next();
 				methodSignature.append(parameter.getDisplayTypeName());
 				arrayDim = Integer.parseInt(parameter.getComment());
-				for (int i = 0; i < arrayDim; i++) {
+				for (int i = 1; i < arrayDim; i++) {
 					methodSignature.append("[]");
 				}
 				parameter.setComment("");
@@ -543,10 +543,22 @@ public class PadlParserUtil {
 			// ghosts in existing entities
 			tmpStringBuffer.append(entityBindingKey.substring(prefix.length()));
 			tmpStringBuffer.deleteCharAt(tmpStringBuffer.length() - 1);
-			ghostName = tmpStringBuffer.toString();
 
+			// Yann 2015/03/16: Symbols collision with IConstants!
+			// I make sure that the name of the entity does not contain
+			// any symbol used in the models, see IConstants, because
+			// the entityBindingKey will be of the form:
+			//	org.hibernate.envers.entities.mapper.relation.lazy.initializor.Initializor<List<U>>0<Ljava/util/List<Lorg/hibernate/envers/entities/mapper/relation/lazy/proxy/C:\Data\Java Programs\hibernate-orm-3.6.4.Final\hibernate-envers\src\main\java\org\hibernate\envers\entities\mapper\relation\lazy\proxy\ListProxy~ListProxy;:TU;>;>
+			if (entityBindingKey.indexOf('/') > -1
+					|| entityBindingKey.indexOf('\\') > -1) {
+
+				ghostName =
+					tmpStringBuffer.substring(0, tmpStringBuffer.indexOf("0"));
+			}
+			else {
+				ghostName = tmpStringBuffer.toString();
+			}
 			ghostPackagePath = anEntityTypeBinding.getPackage().getName();
-
 		}
 		else if (isDealingWithExtend
 				&& entityBindingKey.startsWith("Recovered#typeBinding")) {

@@ -246,7 +246,7 @@ public final class OptionPanel extends JPanel implements IGraphModelListener {
 
 		final int visibility =
 			((AbstractRepresentationWindow) aSourceModelEvent
-				.getRepresentation()).getVisibility();
+				.getRepresentation()).getVisibleElements();
 		final EmbeddedPanel panel =
 			(EmbeddedPanel) ((CollapsablePanel) ((EmbeddedPanel) this
 				.getComponent(0)).getComponent(1)).getComponent(1);
@@ -366,6 +366,15 @@ public final class OptionPanel extends JPanel implements IGraphModelListener {
 
 		// Yann 2014/06/20: Hack!!!
 		// this.graphModelAvailable(aSourceModelEvent);
+		// Yann 2015/02/06: Hack => Bug
+		// Because I did not do anything, the visibility the graph was not set correctly.
+		final int visibility =
+			((AbstractRepresentationWindow) aSourceModelEvent
+				.getRepresentation()).getVisibleElements();
+		aSourceModelEvent
+			.getRepresentation()
+			.getSourceGraph()
+			.setVisibleElements(visibility);
 	}
 	public void graphModelUnavailable() {
 	}

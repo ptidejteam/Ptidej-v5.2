@@ -84,12 +84,9 @@ public class SourceGraphicalModelWindow extends AbstractRepresentationWindow {
 	public IAbstractModel getSourceModel() {
 		return this.sourceModel;
 	}
-	public int getVisibleElements() {
-		return this.sourceGraph.getVisibleElements();
-	}
 	protected void refreshSpecifics() {
 		if (this.canvas != null) {
-			this.canvas.setVisibleElements(this.getVisibility());
+			this.canvas.setVisibleElements(this.getVisibleElements());
 			this.canvas.build();
 
 			// Yann 2007/0206: Size matters!

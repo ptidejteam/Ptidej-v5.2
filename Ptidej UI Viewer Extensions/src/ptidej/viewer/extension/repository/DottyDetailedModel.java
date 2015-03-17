@@ -23,8 +23,8 @@ import util.help.IHelpURL;
  * @author Yann-Gaël Guéhéneuc
  * @since  2007/10/06
  */
-public final class DottyModel extends Dotty implements IViewerExtension,
-		IHelpURL {
+public final class DottyDetailedModel extends Dotty implements
+		IViewerExtension, IHelpURL {
 
 	private static final long serialVersionUID = 1L;
 	private void callDotty(final IRepresentation aRepresentation) {
@@ -35,7 +35,7 @@ public final class DottyModel extends Dotty implements IViewerExtension,
 		final IGenerator builder =
 			new DottyGenerator(aRepresentation
 				.getSourceGraph()
-				.getVisibleElements());
+				.getVisibleElements(), true);
 		aRepresentation.getSourceModel().generate(builder);
 
 		try {
@@ -57,7 +57,7 @@ public final class DottyModel extends Dotty implements IViewerExtension,
 		return "http://www.graphviz.org/";
 	}
 	public String getName() {
-		return "Dotty on Model";
+		return "Dotty on Model (Detailed)";
 	}
 	public void invoke(final IRepresentation aRepresentation) {
 		this.callDotty(aRepresentation);

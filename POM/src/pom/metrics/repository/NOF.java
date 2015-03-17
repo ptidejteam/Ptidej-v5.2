@@ -13,20 +13,24 @@
  * 
  * @author Moha N. & Huynh D.L.
  * @since  2005/08/18
- * Copy of NAD by Aminata SabanŽ
+ * Copy of NAD by Aminata Sabané
  * 04/06/2012 for the study of testability of patterns by metrics (Bruntink paper)
  * 
  * Modifications made to fit the new architecture
  */
+
 package pom.metrics.repository;
 
 import java.util.List;
 import padl.kernel.IAbstractModel;
 import padl.kernel.IFirstClassEntity;
+import pom.metrics.IDependencyIndependentMetric;
 import pom.metrics.IMetric;
 import pom.metrics.IUnaryMetric;
 
-public class NOF extends AbstractMetric implements IMetric, IUnaryMetric {
+public class NOF extends AbstractMetric implements IMetric, IUnaryMetric,
+		IDependencyIndependentMetric {
+
 	protected double concretelyCompute(
 		final IAbstractModel anAbstractModel,
 		final IFirstClassEntity firstClassEntity) {
