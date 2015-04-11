@@ -63,13 +63,12 @@ public final class XMICreator implements ICodeLevelModelCreator {
 			final XMIReader xmiReader = new XMIReader(trans, model);
 			parser.parse(this.xmiFile, xmiReader);
 
-			this.print(metaModel, model);
+			// this.print(metaModel, model);
 
-			List<ModelElement> elements;
-			MetaModelElement metaModelElement;
-
-			metaModelElement = metaModel.getType("model");
-			elements = model.getAcceptedElements(metaModelElement);
+			final MetaModelElement metaModelElement =
+				metaModel.getType("model");
+			final List<ModelElement> elements =
+				model.getAcceptedElements(metaModelElement);
 			String modelName = "";
 			for (final ModelElement me : elements) {
 				final String elementName = me.getName();
