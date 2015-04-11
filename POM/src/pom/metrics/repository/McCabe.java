@@ -25,7 +25,7 @@ import util.io.ProxyConsole;
 
 public class McCabe extends AbstractMetric implements IMetric, IUnaryMetric, IDependencyIndependentMetric {
 	// Must be public because of reflection use to traverse the entity below...
-	public class McCabeComputer extends StatementWalkerAdapter {
+	public final class McCabeComputer extends StatementWalkerAdapter {
 		private int mcCabe;
 
 		public String getName() {

@@ -24,7 +24,7 @@ import ptidej.solver.constraint.repository.NoGhostEntityConstraint;
 import ptidej.solver.constraint.repository.StrictInheritanceConstraint;
 
 /**
- * @author Lucas Nelaupe, Ferrand Anthony, Tran Quang Dung, Verdier FrÃ©dÃ©ric 
+ * @author Lucas Nelaupe, Ferrand Anthony, Tran Quang Dung, Verdier Frédéric 
  * @since  2014/06/01 
  */
 public final class ChainOfResponsibilityMotif {

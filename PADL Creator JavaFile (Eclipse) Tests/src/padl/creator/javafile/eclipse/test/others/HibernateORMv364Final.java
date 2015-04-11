@@ -26,8 +26,10 @@ public class HibernateORMv364Final extends TestCase {
 		super(aName);
 	}
 	public void testHibernate() {
+		//	final String sourcePath =
+		//		"C:/Data/Java Programs/hibernate-orm-3.6.4.Final/";
 		final String sourcePath =
-			"C:/Data/Java Programs/hibernate-orm-3.6.4.Final/";
+			"C:/Data/Java Programs/hibernate-orm-3.6.1.Final/";
 		final String classPathEntry = "";
 
 		try {

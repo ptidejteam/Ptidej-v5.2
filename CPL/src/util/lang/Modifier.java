@@ -109,4 +109,16 @@ public class Modifier {
 		}
 		return "";
 	}
+	public static int fromString(final String aVisibility) {
+		if (aVisibility.equals("public")) {
+			return Modifier.PUBLIC;
+		}
+		else if (aVisibility.equals("private")) {
+			return Modifier.PRIVATE;
+		}
+		else if (aVisibility.equals("protected")) {
+			return Modifier.PROTECTED;
+		}
+		return 0;
+	}
 }

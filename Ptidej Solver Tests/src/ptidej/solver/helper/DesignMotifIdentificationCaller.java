@@ -1112,7 +1112,9 @@ public class DesignMotifIdentificationCaller {
 				problem.automaticSolve(true);
 
 				final Properties properties = new Properties();
-				properties.load(new ReaderInputStream(new FileReader(path)));
+				properties.load(new ReaderInputStream(ProxyDisk
+					.getInstance()
+					.fileTempInput(path)));
 				final OccurrenceBuilder solutionBuilder =
 					OccurrenceBuilder.getInstance();
 				final Occurrence[] solutions =

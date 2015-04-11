@@ -51,7 +51,7 @@ public class AbstractEntityConstraint extends UnaryConstraint {
 		return null;
 	}
 	public String getNextConstraint() {
-		return "ptidej.solver.constraint.NoAbstractEntityConstraint";
+		return "ptidej.solver.constraint.repository.NoAbstractEntityConstraint";
 	}
 	public Class getNextConstraintConstructor(final String nextConstraint) {
 		try {

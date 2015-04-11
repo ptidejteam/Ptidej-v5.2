@@ -39,7 +39,10 @@ package padl.kernel.exception;
 public class CreationException extends Exception {
 	private static final long serialVersionUID = 3562365864589547496L;
 
-	public CreationException(String message) {
+	public CreationException(final String message) {
 		super(message);
+	}
+	public CreationException(final Exception e) {
+		super(e);
 	}
 }
