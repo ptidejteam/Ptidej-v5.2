@@ -39,7 +39,6 @@ import padl.kernel.IConstituent;
 import padl.kernel.IConstituentOfEntity;
 import padl.kernel.IFilter;
 import padl.kernel.IFirstClassEntity;
-import padl.kernel.IMemberEntity;
 import padl.kernel.IRelationship;
 import padl.kernel.exception.ModelDeclarationException;
 import padl.path.IConstants;
@@ -142,7 +141,7 @@ public abstract class FirstClassEntity extends Constituent implements
 		if (this.listOfInheritedEntities.contains(anEntity)) {
 			throw new ModelDeclarationException(MultilingualManager.getString(
 				"ALREADY_INHERITED",
-				FirstClassEntity.class,
+				IFirstClassEntity.class,
 				new Object[] { anEntity.getDisplayID(), this.getDisplayID() }));
 		}
 		this.listOfInheritedEntities.add(anEntity);
@@ -194,13 +193,20 @@ public abstract class FirstClassEntity extends Constituent implements
 	}
 	public void endCloneSession() {
 		// I finish the clone session of the elements.
+
+		// Yann 2015/05/07: Why IFirstClassEntity in FirstClassEntity
+		// Because... with C++ others, an entity can also be an element
+		// and vice-versa, so I check here not to clone twice their
+		// constituents. Think Unions in C++ :-)
+		// See also startCloneSession() and performCloneSession() in this class.
 		final Iterator iterator = this.getIteratorOnConstituents();
 		while (iterator.hasNext()) {
 			final IConstituent element = (IConstituent) iterator.next();
-			if (!(element instanceof IMemberEntity)) {
+			if (!(element instanceof IFirstClassEntity)) {
 				element.endCloneSession();
 			}
 		}
+
 		super.endCloneSession();
 	}
 	// Yann 2013/09/26: Unnecessary!
@@ -420,7 +426,12 @@ public abstract class FirstClassEntity extends Constituent implements
 		iterator = this.getIteratorOnConstituents();
 		while (iterator.hasNext()) {
 			final IConstituent constituent = (IConstituent) iterator.next();
-			if (!(constituent instanceof IMemberEntity)) {
+			// Yann 2015/05/07: Why IFirstClassEntity in FirstClassEntity
+			// Because... with C++ others, an entity can also be an element
+			// and vice-versa, so I check here not to clone twice their
+			// constituents. Think Unions in C++ :-)
+			// See also startCloneSession() and endCloneSession() in this class.
+			if (!(constituent instanceof IFirstClassEntity)) {
 				constituent.startCloneSession();
 			}
 		}
@@ -435,10 +446,10 @@ public abstract class FirstClassEntity extends Constituent implements
 			// (in particular with the cache implemented in class
 			// AbstractContainer).
 			// Yann 2006/08/09: Clone and member entities...
-			// Once upon a time, there was a gug that prevented elements
-			// of member entities to be create. I fixed that bug but it
+			// Once upon a time, there was a bug that preventing elements
+			// of member entities to be created. I fixed that bug but it
 			// undercovered another bug in the cloning process: I was
-			// checking if an element was also en entity (case of a 
+			// checking if an element was also an entity (case of a 
 			// member entity) and put the test *before* calling
 			// "performCloneSession()" on this member entity, thus 
 			// preventing the elements of the member entity to be cloned!
@@ -446,10 +457,11 @@ public abstract class FirstClassEntity extends Constituent implements
 			// to make sure I am not adding a member entity already added
 			// (during "startCloneSession()"). Thanks to Saliha for
 			// revealing this bug!
-			if (!(constituent instanceof IMemberEntity)) {
+			if (!(constituent instanceof IFirstClassEntity)) {
 				constituent.performCloneSession();
 				try {
-					clonedEntity.addConstituent((IConstituent) constituent.getClone());
+					clonedEntity.addConstituent((IConstituent) constituent
+						.getClone());
 				}
 				catch (ModelDeclarationException mde) {
 					// Now that the ID changes has parameters are added,
@@ -505,8 +517,13 @@ public abstract class FirstClassEntity extends Constituent implements
 			new GenericContainerOfNaturallyOrderedConstituents(
 				((FirstClassEntity) this.getClone()));
 
+		// Yann 2015/05/07: Why IFirstClassEntity in FirstClassEntity
+		// Because... with C++ others, an entity can also be an element
+		// and vice-versa, so I check here not to clone twice their
+		// constituents. Think Unions in C++ :-)
+		// See also performCloneSession() and endCloneSession() in this class.
 		final Iterator iterator =
-			this.getIteratorOnConstituents(IMemberEntity.class);
+			this.getIteratorOnConstituents(IFirstClassEntity.class);
 		while (iterator.hasNext()) {
 			final IFirstClassEntity firstClassEntity =
 				(IFirstClassEntity) iterator.next();

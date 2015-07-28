@@ -889,25 +889,25 @@ public class PageRankCallerWithNoParameters {
 		//				"D:/Software/P-MARt Workspace/JHotDraw v6.0b1/" };
 		//	PageRankCallerWithNoParameters.callForSomeClassFiles(names, paths);
 
-		final String[] names =
-			new String[] { "Log4CPP v0.2.7", "Log4CPP v0.2.8",
-					"Log4CPP v0.3.3", "Log4CPP v0.3.4b", "Log4CPP v0.3.5rc1",
-					"Log4CPP v0.3.5rc2", "Log4CPP v0.3.5rc3", "Log4CPP v1.0",
-					"Log4CPP v1.1", "Log4CPP v1.1rc1", "Log4CPP v1.1rc2",
-					"Log4CPP v1.1rc3" };
-		final String[] paths =
-			new String[] { "D:/Software/C++ Programs/Log4CPP/log4cpp-0.2.7/",
-					"D:/Software/C++ Programs/Log4CPP/log4cpp-0.2.8/",
-					"D:/Software/C++ Programs/Log4CPP/log4cpp-0.3.3/",
-					"D:/Software/C++ Programs/Log4CPP/log4cpp-0.3.4b/",
-					"D:/Software/C++ Programs/Log4CPP/log4cpp-0.3.5rc1/",
-					"D:/Software/C++ Programs/Log4CPP/log4cpp-0.3.5rc2/",
-					"D:/Software/C++ Programs/Log4CPP/log4cpp-0.3.5rc3/",
-					"D:/Software/C++ Programs/Log4CPP/log4cpp-1.0",
-					"D:/Software/C++ Programs/Log4CPP/log4cpp-1.1/",
-					"D:/Software/C++ Programs/Log4CPP/log4cpp-1.1rc1/",
-					"D:/Software/C++ Programs/Log4CPP/log4cpp-1.1rc2/",
-					"D:/Software/C++ Programs/Log4CPP/log4cpp-1.1rc3/" };
+		//	final String[] names =
+		//		new String[] { "Log4CPP v0.2.7", "Log4CPP v0.2.8",
+		//				"Log4CPP v0.3.3", "Log4CPP v0.3.4b", "Log4CPP v0.3.5rc1",
+		//				"Log4CPP v0.3.5rc2", "Log4CPP v0.3.5rc3", "Log4CPP v1.0",
+		//				"Log4CPP v1.1", "Log4CPP v1.1rc1", "Log4CPP v1.1rc2",
+		//				"Log4CPP v1.1rc3" };
+		//	final String[] paths =
+		//		new String[] { "D:/Software/C++ Programs/Log4CPP/log4cpp-0.2.7/",
+		//				"D:/Software/C++ Programs/Log4CPP/log4cpp-0.2.8/",
+		//				"D:/Software/C++ Programs/Log4CPP/log4cpp-0.3.3/",
+		//				"D:/Software/C++ Programs/Log4CPP/log4cpp-0.3.4b/",
+		//				"D:/Software/C++ Programs/Log4CPP/log4cpp-0.3.5rc1/",
+		//				"D:/Software/C++ Programs/Log4CPP/log4cpp-0.3.5rc2/",
+		//				"D:/Software/C++ Programs/Log4CPP/log4cpp-0.3.5rc3/",
+		//				"D:/Software/C++ Programs/Log4CPP/log4cpp-1.0",
+		//				"D:/Software/C++ Programs/Log4CPP/log4cpp-1.1/",
+		//				"D:/Software/C++ Programs/Log4CPP/log4cpp-1.1rc1/",
+		//				"D:/Software/C++ Programs/Log4CPP/log4cpp-1.1rc2/",
+		//				"D:/Software/C++ Programs/Log4CPP/log4cpp-1.1rc3/" };
 
 		//	final String[] names =
 		//		new String[] { "Chrome v1.0.154.53 - Browser",
@@ -917,6 +917,11 @@ public class PageRankCallerWithNoParameters {
 		//				"D:/Software/C++ Programs/Chrome/Chrome v1.0.154.53/browser/",
 		//				"D:/Software/C++ Programs/Chrome/Chrome v15.0.837.0/browser/" };
 
+		final String[] names = new String[] { "files_before", "files_after" };
+		final String[] paths =
+			new String[] { "C:/Data/Change Types/files_before/",
+					"C:/Data/Change Types/files_after/" };
+
 		final IGenerator generator =
 			new InputDataGeneratorWith9RelationsForCPP(false, true);
 
@@ -925,6 +930,10 @@ public class PageRankCallerWithNoParameters {
 				ModelGenerator.generateModelFromCppFilesUsingEclipse(
 					names[i - 1],
 					new String[] { paths[i - 1] });
+			
+			// TO REMOVE
+			idiomLevelModel1.generate(generator);
+			
 			final IIdiomLevelModel idiomLevelModel2 =
 				ModelGenerator.generateModelFromCppFilesUsingEclipse(
 					names[i],

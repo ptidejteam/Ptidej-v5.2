@@ -23,14 +23,17 @@ import padl.event.IEvent;
 import padl.event.IModelListener;
 import padl.event.InvokeEvent;
 import padl.kernel.Constants;
+import padl.kernel.IAbstractModel;
 import padl.kernel.IConstituent;
 import padl.kernel.IConstituentOfEntity;
 import padl.kernel.IConstituentOfModel;
 import padl.kernel.IConstituentOfOperation;
 import padl.kernel.IContainer;
+import padl.kernel.IEntity;
 import padl.kernel.IFilter;
 import padl.kernel.INavigable;
 import padl.kernel.IObservable;
+import padl.kernel.IOperation;
 import padl.kernel.exception.ModelDeclarationException;
 import padl.path.IConstants;
 import padl.util.Util;
@@ -299,22 +302,37 @@ public abstract class AbstractGenericContainerOfConstituents implements
 
 		// Yann 2005/10/07: Packages!
 		// I should distinguish among entities and packages...
-		if (aConstituent instanceof IConstituentOfModel) {
-			this.fireModelChange(IModelListener.ENTITY_ADDED, new EntityEvent(
+		// Yann 2015/07/16: Law and Order!
+		// Aha, this code was too simplistic... The example was
+		// adding a IGlobalFunction (from CPP), which is both
+		// an entity and a method, into a class... I do not want
+		// to add this method as a top-level entity, because I
+		// want to add it to a class, not a package or model...
+		// So, rather than to trigger the notification on the
+		// type of the added constituent, I do that now in the 
+		// type of the receiving container and in reverse order.
+		
+		// TODO Test thoroughly!
+
+		// else if (aConstituent instanceof IConstituentOfOperation) {
+		if (this.containerConsitituent instanceof IOperation) {
+			this.fireModelChange(IModelListener.INVOKE_ADDED, new InvokeEvent(
 				(IContainer) this.containerConsitituent,
-				(IConstituentOfModel) aConstituent));
+				(IConstituentOfOperation) aConstituent));
 		}
-		else if (aConstituent instanceof IConstituentOfEntity) {
+		// else if (aConstituent instanceof IConstituentOfEntity) {
+		else if (this.containerConsitituent instanceof IEntity) {
 			this.fireModelChange(
 				IModelListener.ELEMENT_ADDED,
 				new ElementEvent(
 					(IContainer) this.containerConsitituent,
 					(IConstituentOfEntity) aConstituent));
 		}
-		else if (aConstituent instanceof IConstituentOfOperation) {
-			this.fireModelChange(IModelListener.INVOKE_ADDED, new InvokeEvent(
+		// if (aConstituent instanceof IConstituentOfModel) {
+		else if (this.containerConsitituent instanceof IAbstractModel) {
+			this.fireModelChange(IModelListener.ENTITY_ADDED, new EntityEvent(
 				(IContainer) this.containerConsitituent,
-				(IConstituentOfOperation) aConstituent));
+				(IConstituentOfModel) aConstituent));
 		}
 	}
 	private void broadcastRemovalOfConstituent(final IConstituent aConstituent) {
@@ -651,6 +669,13 @@ public abstract class AbstractGenericContainerOfConstituents implements
 			}
 			this.size--;
 			this.nciModCount++;
+			
+			// Yann 2015/05/24: Nullification!
+			// I do not forget to nullify the position of the constituent
+			// that I removed!!! Else, whenever I sort the array, I would
+			// get very weird results: a small array containing only the
+			// same constituent.
+			this.constituents[this.size] = null;
 
 			// Yann 2004/04/09: Listener!
 			// It is now the responsibility of this class to manage

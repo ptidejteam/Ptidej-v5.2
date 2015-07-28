@@ -17,6 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import padl.kernel.IClass;
+import padl.kernel.IConstituent;
 import padl.kernel.IElement;
 import padl.kernel.IField;
 import padl.kernel.IFirstClassEntity;
@@ -196,10 +197,11 @@ public class ClassPrimitives extends Primitives {
 			final Iterator iteratorOnElements =
 				nextEntity.getIteratorOnConstituents();
 			while (iteratorOnElements.hasNext()) {
-				final IElement element = (IElement) iteratorOnElements.next();
+				final IConstituent constituent =
+					(IConstituent) iteratorOnElements.next();
 
-				if (element instanceof IMethod) {
-					final IMethod method = (IMethod) element;
+				if (constituent instanceof IMethod) {
+					final IMethod method = (IMethod) constituent;
 					// Yann 2009/05/13: How did it work before?
 					// We must check if a method with a same signature does
 					// not already exist or we have twice overloaded methods

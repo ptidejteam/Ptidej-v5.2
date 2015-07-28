@@ -13,6 +13,7 @@ package padl.creator.cppfile.eclipse.plugin.internal;
 import java.util.Stack;
 import org.eclipse.cdt.core.dom.ast.ASTVisitor;
 import org.eclipse.cdt.core.dom.ast.DOMException;
+import org.eclipse.cdt.core.dom.ast.IASTDeclSpecifier;
 import org.eclipse.cdt.core.dom.ast.IASTDeclaration;
 import org.eclipse.cdt.core.dom.ast.IASTProblemDeclaration;
 import org.eclipse.cdt.core.dom.ast.IASTSimpleDeclaration;
@@ -47,6 +48,7 @@ public class VisitorGlobalFunctionsAndVariables extends ASTVisitor {
 		this.shouldVisitDeclarations = true;
 		this.shouldVisitNamespaces = true;
 		this.shouldVisitProblems = true;
+		this.shouldVisitDeclSpecifiers = true;
 
 		this.codeLevelModel = aModel;
 		this.generatorHelper = aGeneratorHelper;

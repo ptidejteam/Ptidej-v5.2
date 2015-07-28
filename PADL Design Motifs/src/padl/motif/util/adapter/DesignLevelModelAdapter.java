@@ -23,9 +23,11 @@ import padl.kernel.IFactory;
 import padl.kernel.IFilter;
 import padl.kernel.IFirstClassEntity;
 import padl.kernel.IIdiomLevelModel;
+import padl.kernel.exception.CreationException;
 import padl.kernel.exception.ModelDeclarationException;
 import padl.motif.IDesignMotifModel;
 import padl.motif.kernel.IDesignLevelModel;
+import padl.motif.kernel.IDesignLevelModelCreator;
 import padl.visitor.IGenerator;
 import padl.visitor.IWalker;
 import util.io.ProxyConsole;
@@ -107,6 +109,13 @@ public class DesignLevelModelAdapter implements IDesignLevelModel {
 
 	public Object clone() throws CloneNotSupportedException {
 		return this.wrappedIdiomLevelModel.clone();
+	}
+
+	public void create(final IDesignLevelModelCreator aDesignLevelModelCreator)
+			throws CreationException {
+
+		throw new ModelDeclarationException(
+			"A DesignLevelModelAdapter cannot be created using a builder");
 	}
 
 	public boolean doesContainConstituentWithID(final char[] anID) {

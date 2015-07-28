@@ -31,14 +31,14 @@ class CodeLevelModel extends AbstractLevelModel implements ICodeLevelModel,
 	public CodeLevelModel(final char[] aName) {
 		super(aName);
 	}
-	public void create(final ICodeLevelModelCreator aCodeLevelCreator)
+	public void create(final ICodeLevelModelCreator aCodeLevelModelCreator)
 			throws CreationException {
 
 		ConcreteReceiverGuard.getInstance().checkCallingClassName(
 			"padl.generator.helper.ModelGenerator",
 			"Please use the methods in \"padl.generator.helper.ModelGenerator\" to obtain code-level models.");
 
-		aCodeLevelCreator.create(this);
+		aCodeLevelModelCreator.create(this);
 	}
 	//	public IIdiomLevelModel convert(final String aName) {
 	//		final IIdiomLevelModel idiomLevelModel =

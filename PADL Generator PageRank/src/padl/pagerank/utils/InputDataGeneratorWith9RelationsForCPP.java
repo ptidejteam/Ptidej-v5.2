@@ -10,6 +10,7 @@
  ******************************************************************************/
 package padl.pagerank.utils;
 
+import java.util.Iterator;
 import padl.cpp.kernel.ICPPClass;
 import padl.cpp.kernel.ICPPGhost;
 import padl.cpp.kernel.ICPPMemberClass;
@@ -22,14 +23,17 @@ import padl.cpp.kernel.IMemberStructure;
 import padl.cpp.kernel.IStructure;
 import padl.cpp.kernel.IUnion;
 import padl.cpp.visitor.ICPPGenerator;
+import padl.kernel.Constants;
+import padl.kernel.IAbstractModel;
 import padl.kernel.IClass;
 import padl.kernel.IConstituent;
 import padl.kernel.IFirstClassEntity;
 import padl.kernel.IGhost;
 import padl.kernel.IMemberClass;
 import padl.kernel.IMemberGhost;
-import padl.kernel.IMethodInvocation;
 import padl.kernel.IOperation;
+import padl.kernel.IPackageDefault;
+import padl.kernel.impl.Factory;
 
 public class InputDataGeneratorWith9RelationsForCPP extends
 		InputDataGeneratorWith9Relations implements ICPPGenerator {
@@ -73,7 +77,37 @@ public class InputDataGeneratorWith9RelationsForCPP extends
 	public void close(final IUnion p) {
 		this.close((IFirstClassEntity) p);
 	}
-	public void open(ICPPClass p) {
+	public void open(final IAbstractModel aModel) {
+		super.open(aModel);
+
+		final IPackageDefault defaultPackage =
+			(IPackageDefault) aModel
+				.getConstituentFromID(Constants.DEFAULT_PACKAGE_ID);
+		final char[] dummyClassID = "DummyForGlobalFunctions".toCharArray();
+		// TODO The follow line should have the same effect as the enabled "if"
+		// but it does not because the dummyClass added to the default package
+		// does not seem to be added to the top-level entities?
+		// if (!aModel.doesContainTopLevelEntityWithID(dummyClassID)) {
+		if (!defaultPackage.doesContainConstituentWithID(dummyClassID)) {
+			// Yann 2015/07/07: Creation of a Dummy ghost to attach global functions
+			final IClass dummyClass =
+				Factory.getInstance().createClass(dummyClassID, dummyClassID);
+			defaultPackage.addConstituent(dummyClass);
+
+			// Yann 2015/07/16: I now remove all the global functions from the top-level
+			// entities and add them back into the dummy class to satisfy MadMatch parser.
+			final Iterator interator = aModel.getIteratorOnTopLevelEntities();
+			while (interator.hasNext()) {
+				final IConstituent constituent =
+					(IConstituent) interator.next();
+				if (constituent instanceof IGlobalFunction) {
+					aModel.removeTopLevelEntityFromID(constituent.getID());
+					dummyClass.addConstituent(constituent);
+				}
+			}
+		}
+	}
+	public void open(final ICPPClass p) {
 		this.open((IClass) p);
 	}
 	public void open(final ICPPGhost p) {
@@ -106,18 +140,8 @@ public class InputDataGeneratorWith9RelationsForCPP extends
 	public void open(final IUnion p) {
 		this.open((IFirstClassEntity) p);
 	}
-	public void visit(final IMethodInvocation p) {
-		super.visit(p);
-		if (p.getCalledMethod() != null) {
-			final IFirstClassEntity entity = p.getTargetEntity();
-			if (this.isInteresting(entity)
-					&& this.isInteresting(this.peekLastButOneConstituent())
-					&& entity instanceof IGlobalFunction) {
-
-				this.addRelationFromCurrentConstituent(
-					entity,
-					this.relationsCalledMethods);
-			}
-		}
+	protected boolean isInterestingTargetEntity(final IConstituent aConstituent) {
+		return !(aConstituent instanceof IGlobalFunction)
+				&& super.isInterestingTargetEntity(aConstituent);
 	}
 }

@@ -13,6 +13,7 @@ package padl.kernel.impl;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import padl.kernel.IFirstClassEntity;
 import padl.kernel.IInterfaceImplementer;
 import padl.kernel.exception.ModelDeclarationException;
 import util.multilingual.MultilingualManager;
@@ -53,7 +54,7 @@ class AbstractInterface extends AbstractClass {
 			// current interface...
 			throw new ModelDeclarationException(MultilingualManager.getString(
 				"ALREADY_INHERITED",
-				FirstClassEntity.class,
+				IFirstClassEntity.class,
 				new Object[] { aClass.getDisplayID(), this.getDisplayID() }));
 		}
 		this.listOfImplementingClasses.add(aClass);

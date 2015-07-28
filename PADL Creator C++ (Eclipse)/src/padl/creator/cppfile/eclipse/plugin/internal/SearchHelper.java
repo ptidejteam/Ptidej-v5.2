@@ -572,7 +572,7 @@ public abstract class SearchHelper {
 			// Here, I must manage the case of a constructor:
 			// it is possible that the constituent is not an 
 			// operation but an entity... in this case, I must 
-			// look into for its constructor.
+			// look into it for its constructor.
 			final IOperation possibleOperation =
 				(IOperation) ((IFirstClassEntity) constituent)
 					.getConstituentFromID(aFunctionName);
@@ -644,11 +644,18 @@ public abstract class SearchHelper {
 			}
 			else {
 				if (declaringEntity instanceof IPackage) {
+					// Yann 2015/07/16: Weird...
+					// Why does the simple name include parentheses???
+					final char[] simpleNameWithoutParameters =
+						ArrayUtils.subarray(
+							simpleName,
+							0,
+							ArrayUtils.indexOf(simpleName, '('));
 					operation =
 						((ICPPFactoryEclipse) CPPFactoryEclipse.getInstance())
 							.createGlobalFunctionGhost(
 								aFunctionName,
-								simpleName);
+								simpleNameWithoutParameters);
 				}
 				else {
 					operation =

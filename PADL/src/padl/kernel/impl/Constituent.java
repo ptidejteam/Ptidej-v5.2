@@ -34,7 +34,10 @@ import com.ibm.toad.cfparse.utils.Access;
 // Maybe class "Constituent" could be public, or classes "Elements"
 // and "Entities"?
 public abstract class Constituent implements IConstituent {
+	private static IVisitor cachedCurrentVisitor;
 	private static final Map cachedAcceptClassNames = new HashMap();
+	private static final Map cachedCorrespondingInterfaceNames = new HashMap();
+	private static final List cachedNotFoundClassNames = new ArrayList();
 	private static final long serialVersionUID = -3089376780834846438L;
 
 	private Constituent clone;
@@ -66,7 +69,7 @@ public abstract class Constituent implements IConstituent {
 		if (anID == null) {
 			throw new ModelDeclarationException(MultilingualManager.getString(
 				"ACTOR_ID_NULL",
-				Constituent.class));
+				IConstituent.class));
 		}
 		this.id = anID;
 		this.setName(anID);
@@ -76,6 +79,15 @@ public abstract class Constituent implements IConstituent {
 		this.accept(visitor, "visit");
 	}
 	protected void accept(final IVisitor visitor, final String methodName) {
+		// Yann 2015/05/24: Cache reset...
+		// If the visitor has changed, then I reset the cache.
+		if (cachedCurrentVisitor != visitor) {
+			cachedAcceptClassNames.clear();
+			cachedCorrespondingInterfaceNames.clear();
+			cachedCurrentVisitor = visitor;
+			cachedNotFoundClassNames.clear();
+		}
+
 		this.accept(this.getClass(), visitor, methodName, true);
 	}
 	private boolean accept(
@@ -84,6 +96,12 @@ public abstract class Constituent implements IConstituent {
 		final String methodName,
 		final boolean shouldRecurse) {
 
+		// Yann 2003/12/05: Interfaces!
+		// I must match a class a the kernel to the
+		// corresponding interface:
+		// padl.kernel.kernel.impl.Association
+		// ->
+		// padl.kernel.IAssociation
 		// Yann 2010/06/21: Performance
 		// The CreatorJCT spent a lot of time in this method,
 		// in which the call to String.replaceAll() was
@@ -91,36 +109,46 @@ public abstract class Constituent implements IConstituent {
 		// cache to avoid doing the same computations again
 		// and over again.
 		final String className = currentReceiver.getName();
-		final String acceptClassName;
 		if (!Constituent.cachedAcceptClassNames.containsKey(className)) {
 			Constituent.cachedAcceptClassNames.put(
 				className,
 				className.replaceAll(".impl.", ".I"));
 		}
-		acceptClassName = (String) cachedAcceptClassNames.get(className);
+		String acceptClassName = (String) cachedAcceptClassNames.get(className);
 
 		java.lang.Class argument = null;
-		try {
-			// Old : doesn't work with bundle
-			// final java.lang.Class[] argument =
-			// new java.lang.Class[] { java.lang.Class
-			// .forName(acceptClassName) };
-			// TODO understand the difference between forName and loadClass...
-			argument =
-				visitor.getClass().getClassLoader().loadClass(acceptClassName);
+		if (!Constituent.cachedNotFoundClassNames.contains(acceptClassName)) {
+			if (Constituent.cachedCorrespondingInterfaceNames
+				.containsKey(acceptClassName)) {
+
+				acceptClassName =
+					(String) Constituent.cachedCorrespondingInterfaceNames
+						.get(acceptClassName);
+			}
+
+			try {
+				// Old : doesn't work with bundle
+				// final java.lang.Class[] argument =
+				// new java.lang.Class[] { java.lang.Class
+				// .forName(acceptClassName) };
+				// TODO understand the difference between forName and loadClass...
+				argument =
+					visitor
+						.getClass()
+						.getClassLoader()
+						.loadClass(acceptClassName);
+			}
+			catch (final ClassNotFoundException e) {
+				Constituent.cachedNotFoundClassNames.add(acceptClassName);
+				visitor.unknownConstituentHandler(methodName, this);
+				return false;
+			}
 		}
-		catch (final ClassNotFoundException e) {
-			visitor.unknownConstituentHandler(methodName, this);
+		else {
 			return false;
 		}
 
 		try {
-			// Yann 2003/12/05: Interfaces!
-			// I must match a class a the kernel to the
-			// corresponding interface:
-			// padl.kernel.kernel.impl.Association
-			// ->
-			// padl.kernel.IAssociation
 			final Method method =
 				visitor.getClass().getMethod(
 					methodName,
@@ -131,7 +159,7 @@ public abstract class Constituent implements IConstituent {
 		catch (final Exception e) {
 			// Yann 2004/04/10: New constituents!
 			// In case I add new constituent and forget to update
-			// the method in the IVisitor interface, I foward such
+			// the method in the IVisitor interface, I forward such
 			// exceptions (to fail the appropriate tests).
 			// System.err.println(MultilingualManager.getString(
 			// "Exception_ACCEPT_METHOD",
@@ -155,19 +183,22 @@ public abstract class Constituent implements IConstituent {
 			boolean foundACandidateReceiver = false;
 			if (shouldRecurse) {
 				final java.lang.Class[] interfaces = argument.getInterfaces();
-				if (interfaces.length > 0) {
-					for (int i = 0; i < interfaces.length
-							&& !foundACandidateReceiver; i++) {
-
-						final java.lang.Class interfase = interfaces[i];
-						foundACandidateReceiver =
-							this.accept(interfase, visitor, methodName, false);
-					}
+				int i = 0;
+				while (i < interfaces.length && !foundACandidateReceiver) {
+					final java.lang.Class interfase = interfaces[i];
+					foundACandidateReceiver =
+						this.accept(interfase, visitor, methodName, false);
+					i++;
 				}
 				if (foundACandidateReceiver) {
+					i = i - 1;
+					Constituent.cachedCorrespondingInterfaceNames.put(
+						acceptClassName,
+						interfaces[i].getName());
 					return true;
 				}
 				else {
+					Constituent.cachedNotFoundClassNames.add(acceptClassName);
 					visitor.unknownConstituentHandler(methodName + '('
 							+ argument.getName() + ')', this);
 				}
@@ -315,7 +346,7 @@ public abstract class Constituent implements IConstituent {
 		if (this.isAbstract()) {
 			throw new ModelDeclarationException(MultilingualManager.getString(
 				"ELEM_CODE_DEF",
-				Constituent.class));
+				IConstituent.class));
 		}
 		this.codeLines = code;
 	}
@@ -363,7 +394,7 @@ public abstract class Constituent implements IConstituent {
 			// Why test getCodeLines() != null here ?
 			throw new ModelDeclarationException(MultilingualManager.getString(
 				"ELEM_ABSTRACT",
-				Constituent.class));
+				IConstituent.class));
 		}
 		this.visibility = visibility;
 	}

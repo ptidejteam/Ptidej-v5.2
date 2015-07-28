@@ -493,8 +493,13 @@ public class PadlParserUtil {
 				// Yann: May be null when parsing Foutse's Eclipse data!
 				// TODO: Understand why it could be null...
 				if (entity != null) {
-
-					final int dim = PadlParserUtil.getDim(type);
+					// Yann 2015/04/15: Dimensions!
+					// I don't forget to add +1 because
+					//	int 	has for cardinality 1
+					//	int[]	has for cardinality 2
+					//	int[][]	has for cardniality 3
+					//	...
+					final int dim = PadlParserUtil.getDim(type) + 1;
 					final IParameter parameter =
 						model.getFactory().createParameter(
 							entity,
@@ -508,8 +513,7 @@ public class PadlParserUtil {
 					// computation, I will delete it
 					// This for having the same information with padl .class
 					// Aminata 05/05/11
-					parameter
-						.setComment(Integer.toString(type.getDimensions()));
+					parameter.setComment(Integer.toString(dim));
 					listOfParameters.add(parameter);
 				}
 			}

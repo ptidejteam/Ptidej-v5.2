@@ -47,10 +47,6 @@ class Package extends Constituent implements IPackage {
 		this.accept(visitor, "close");
 	}
 
-	public void addConstituent(IConstituentOfEntity aConstituent) {
-		this.container.addConstituent(aConstituent);
-	}
-
 	// public final Object clone() throws CloneNotSupportedException {
 	// final Package clonedPackage = (Package) super.clone();
 	//
@@ -69,6 +65,10 @@ class Package extends Constituent implements IPackage {
 			throw new ModelDeclarationException(this.getClass().getName()
 					+ " can only add IConstituentOfModel");
 		}
+	}
+
+	public void addConstituent(IConstituentOfEntity aConstituent) {
+		this.container.addConstituent(aConstituent);
 	}
 	public void addConstituent(final IConstituentOfModel aConstituent) {
 		this.container.addConstituent(aConstituent);
@@ -100,6 +100,19 @@ class Package extends Constituent implements IPackage {
 
 	public boolean doesContainConstituentWithName(final char[] aName) {
 		return this.container.doesContainConstituentWithName(aName);
+	}
+
+	public void endCloneSession() {
+		// The shallow copy must include a shallow copy of
+		// member entities, because the clones of methods,
+		// fields, and so on, depend on it!
+		super.endCloneSession();
+
+		final Iterator iterator = this.getIteratorOnConstituents();
+		while (iterator.hasNext()) {
+			final IConstituent constituent = (IConstituent) iterator.next();
+			constituent.endCloneSession();
+		}
 	}
 
 	public void fireModelChange(final String anEventType, final IEvent anEvent) {
@@ -165,6 +178,19 @@ class Package extends Constituent implements IPackage {
 		return IConstants.PACKAGE_SYMBOL;
 	}
 
+	public void performCloneSession() {
+		// The shallow copy must include a shallow copy of
+		// member entities, because the clones of methods,
+		// fields, and so on, depend on it!
+		super.performCloneSession();
+
+		final Iterator iterator = this.getIteratorOnConstituents();
+		while (iterator.hasNext()) {
+			final IConstituent constituent = (IConstituent) iterator.next();
+			constituent.performCloneSession();
+		}
+	}
+
 	public void removeAllConstituent() {
 		this.container.removeAllConstituent();
 	}
@@ -172,11 +198,9 @@ class Package extends Constituent implements IPackage {
 	public void removeConstituentFromID(final char[] anID) {
 		this.container.removeConstituentFromID(anID);
 	}
-
 	public void removeModelListener(final IModelListener aModelListener) {
 		this.container.removeModelListener(aModelListener);
 	}
-
 	public void removeModelListeners(final List aListOfModelListeners) {
 		this.container.removeModelListeners(aListOfModelListeners);
 	}

@@ -118,9 +118,9 @@ public class VisitorNamespacesAndClasses extends ASTVisitor {
 			e.printStackTrace(ProxyConsole.getInstance().errorOutput());
 		}
 		// I skip the children of the declaration because
-		// - for classes, fields and methods (including parameters 
+		// - classes, fields and methods (including parameters 
 		//   and method invocations) will be treated separately;
-		// - for function, parameters and method invocations will
+		// - function, parameters and method invocations will
 		//   be treated separately.
 		return ASTVisitor.PROCESS_SKIP;
 	}

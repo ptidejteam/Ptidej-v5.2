@@ -6,5 +6,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/PADL"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/PADL Creator XMI"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PADL Design Motifs"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

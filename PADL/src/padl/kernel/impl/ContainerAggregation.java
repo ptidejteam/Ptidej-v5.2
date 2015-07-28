@@ -118,7 +118,7 @@ class ContainerAggregation extends Association implements IElementMarker,
 	public void addConstituent(final IConstituentOfEntity aConstituent) {
 		throw new ModelDeclarationException(MultilingualManager.getString(
 			"ELEMS_ATTACH",
-			ContainerAggregation.class));
+			IContainerAggregation.class));
 	}
 	public void addModelListener(IModelListener aModelListener) {
 		this.container.addModelListener(aModelListener);

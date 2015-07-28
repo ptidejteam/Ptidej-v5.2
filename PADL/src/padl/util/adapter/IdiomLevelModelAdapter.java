@@ -65,7 +65,8 @@ public class IdiomLevelModelAdapter implements IIdiomLevelModel {
 	}
 
 	public Object clone() throws CloneNotSupportedException {
-		return this.wrappedCodeLevelModel.clone();
+		return new IdiomLevelModelAdapter(
+			(ICodeLevelModel) this.wrappedCodeLevelModel.clone());
 	}
 
 	public void moveIn(final IAbstractModel aDestinationModel) {

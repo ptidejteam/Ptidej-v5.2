@@ -14,11 +14,15 @@ import padl.event.IMotifModelListener;
 import padl.event.PatternEvent;
 import padl.kernel.Constants;
 import padl.kernel.IConstituent;
+import padl.kernel.IEntity;
 import padl.kernel.IPackage;
+import padl.kernel.exception.CreationException;
 import padl.kernel.exception.ModelDeclarationException;
 import padl.kernel.impl.AbstractLevelModel;
 import padl.motif.IDesignMotifModel;
 import padl.motif.kernel.IDesignLevelModel;
+import padl.motif.kernel.IDesignLevelModelCreator;
+import util.lang.ConcreteReceiverGuard;
 import util.multilingual.MultilingualManager;
 
 class DesignLevelModel extends AbstractLevelModel implements IDesignLevelModel,
@@ -41,7 +45,10 @@ class DesignLevelModel extends AbstractLevelModel implements IDesignLevelModel,
 		//		this.addConstituent((IEntity) aConstituent);
 		//	}
 		//	else 
-		if (aConstituent instanceof IPackage) {
+		if (aConstituent instanceof IEntity) {
+			this.addConstituent((IEntity) aConstituent);
+		}
+		else 		if (aConstituent instanceof IPackage) {
 			this.addConstituent((IPackage) aConstituent);
 		}
 		else if (aConstituent instanceof IDesignMotifModel) {
@@ -61,5 +68,16 @@ class DesignLevelModel extends AbstractLevelModel implements IDesignLevelModel,
 	}
 	public void addConstituent(final IPackage aPackage) {
 		super.addConstituent(aPackage);
+	}
+	public void create(final IDesignLevelModelCreator aDesignLevelModelCreator)
+			throws CreationException {
+
+		ConcreteReceiverGuard
+			.getInstance()
+			.checkCallingClassName(
+				"padl.generator.helper.ModelGenerator",
+				"Please use the methods in \"padl.generator.helper.ModelGenerator\" to obtain design-level models.");
+
+		aDesignLevelModelCreator.create(this);
 	}
 }

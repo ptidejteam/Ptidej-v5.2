@@ -14,6 +14,7 @@ import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EmptyStackException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -172,7 +173,21 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 				buffer.append("");
 			}
 			buffer.append('@');
-			buffer.append(anOperation.getDisplayName());
+			if (anOperation.getName().length > 0) {
+				buffer.append(anOperation.getDisplayName());
+			}
+			else {
+				final Iterator iteratorOnParameters =
+					anOperation.getIteratorOnConstituents(IParameter.class);
+				if (iteratorOnParameters.hasNext()) {
+					buffer.append(((IParameter) iteratorOnParameters.next())
+						.getType()
+						.getDisplayName());
+				}
+				else {
+					buffer.append("DUMMY");
+				}
+			}
 			buffer.append("@[");
 			final Iterator iterator =
 				anOperation.getIteratorOnConstituents(IParameter.class);
@@ -199,8 +214,12 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 		final IConstituent aTargetConstituent,
 		final List someRelationships) {
 
-		if (this.isInteresting(anOriginConstituent)
-				&& this.isInteresting(aTargetConstituent)) {
+		// Yann 2015/05/24: Hack!!!
+		// If the relation is "contains" then I do not care
+		// whether or not the target entity is interesting,
+		// I just add it...
+		if (this.isInterestingOriginEntity(anOriginConstituent)
+				&& (this.isInterestingTargetEntity(aTargetConstituent) || someRelationships == this.relationsContains)) {
 
 			final ConstituentCouple couple =
 				new ConstituentCouple(anOriginConstituent, aTargetConstituent);
@@ -209,17 +228,21 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 			}
 		}
 	}
-	protected void addRelationFromCurrentConstituent(
+	private void addRelationFromCurrentConstituent(
 		final IConstituent aTargetConstituent,
 		final List someRelationships) {
 
-		final IConstituent originConstituent =
-			(IConstituent) this.currentConstituents.peek();
-
-		this.addRelationBetweenConstituents(
-			originConstituent,
-			aTargetConstituent,
-			someRelationships);
+		try {
+			final IConstituent originConstituent =
+				(IConstituent) this.currentConstituents.peek();
+			this.addRelationBetweenConstituents(
+				originConstituent,
+				aTargetConstituent,
+				someRelationships);
+		}
+		catch (final EmptyStackException e) {
+			throw new Error(e);
+		}
 	}
 	public void close(final IAbstractModel p) {
 		final Iterator iterator = this.constituents.iterator();
@@ -240,7 +263,14 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 				this.finalResult.append(',');
 				this.finalResult.append(target.getDisplayID());
 			}
-			else if (target instanceof IFirstClassEntity) {
+			else if (target instanceof IFirstClassEntity
+					&& !(target instanceof IOperation)) {
+
+				// Yann 2015/07/07: Ségla's parser!
+				// We must exclude global functions from the class declarations
+				// to make Ségla's parser happy. These global functions should
+				// be methods attached to a dummy class...
+
 				this.finalResult.append("c,");
 				this.finalResult.append(index);
 				this.finalResult.append(',');
@@ -309,40 +339,40 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 		this.popConstituent(p);
 	}
 	public void close(final IConstructor p) {
-		this.close((IConstituent) p);
+		this.close((IOperation) p);
 	}
 	public void close(final IDelegatingMethod p) {
-		this.close((IConstituent) p);
+		this.close((IOperation) p);
 	}
 	public void close(final IGetter p) {
-		this.close((IConstituent) p);
+		this.close((IOperation) p);
 	}
 	public void close(final IGhost p) {
-		this.close((IConstituent) p);
+		this.close((IFirstClassEntity) p);
 	}
 	public void close(final IInterface p) {
-		this.close((IConstituent) p);
+		this.close((IFirstClassEntity) p);
 	}
 	public void close(final IMemberClass p) {
-		this.close((IConstituent) p);
+		this.close((IMemberEntity) p);
 	}
 	public void close(final IMemberGhost p) {
-		this.close((IConstituent) p);
+		this.close((IMemberEntity) p);
 	}
 	public void close(final IMemberInterface p) {
-		this.close((IConstituent) p);
+		this.close((IMemberEntity) p);
 	}
 	public void close(final IMethod p) {
-		this.close((IConstituent) p);
+		this.close((IOperation) p);
 	}
 	public void close(final IPackage p) {
 		this.close((IConstituent) p);
 	}
 	public void close(final IPackageDefault p) {
-		this.close((IConstituent) p);
+		this.close((IPackage) p);
 	}
 	public void close(final ISetter p) {
-		this.close((IConstituent) p);
+		this.close((IOperation) p);
 	}
 	public String getCode() {
 		return this.finalResult.toString();
@@ -394,7 +424,12 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 		// For testing.
 		return this.relationsParameterTypesOfMethods;
 	}
-	protected boolean isInteresting(final IConstituent aConstituent) {
+	protected boolean isInterestingOriginEntity(final IConstituent aConstituent) {
+		return aConstituent != null
+				&& (aConstituent instanceof IGhost && this.withGhosts || !(aConstituent instanceof IGhost))
+				&& (aConstituent instanceof IMemberEntity && this.withMembers || !(aConstituent instanceof IMemberEntity));
+	}
+	protected boolean isInterestingTargetEntity(final IConstituent aConstituent) {
 		return aConstituent != null
 				&& (aConstituent instanceof IGhost && this.withGhosts || !(aConstituent instanceof IGhost))
 				&& (aConstituent instanceof IMemberEntity && this.withMembers || !(aConstituent instanceof IMemberEntity));
@@ -435,7 +470,7 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 		this.open((IOperation) p);
 	}
 	protected void open(final IEntity p) {
-		if (this.isInteresting(p)) {
+		if (this.isInterestingOriginEntity(p)) {
 			this.constituents.add(p);
 			this.addRelationFromCurrentConstituent(p, this.relationsContains);
 		}
@@ -473,7 +508,7 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 		this.open((IOperation) p);
 	}
 	protected void open(final IOperation p) {
-		if (this.isInteresting(this.peekCurrentConstituent())) {
+		if (this.isInterestingOriginEntity(this.peekCurrentConstituent())) {
 			this.addMethodSignature(p, this.mapOfOperationsSignatures);
 			this.constituents.add(p);
 			this.addRelationFromCurrentConstituent(p, this.relationsContains);
@@ -553,7 +588,7 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 				.get(this.currentConstituents.size() - 2);
 		return constituent;
 	}
-	private void popConstituent(final IConstituent aConstituent) {
+	protected void popConstituent(final IConstituent aConstituent) {
 		final IConstituent constituent =
 			(IConstituent) this.currentConstituents.pop();
 
@@ -573,7 +608,7 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 				.println("Constituent mismatch on stack!");
 		}
 	}
-	private void pushConstituent(final IConstituent aConstituent) {
+	protected void pushConstituent(final IConstituent aConstituent) {
 		this.currentConstituents.push(aConstituent);
 
 		//	ProxyConsole.getInstance().debugOutput().print("Pushed: ");
@@ -661,7 +696,7 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 		// Do nothing?
 	}
 	public void visit(final IField p) {
-		if (this.isInteresting(this.peekCurrentConstituent())) {
+		if (this.isInterestingOriginEntity(this.peekCurrentConstituent())) {
 			this.addFieldSignature(p, this.mapOfFieldsSignatures);
 			this.constituents.add(p);
 			this.addRelationFromCurrentConstituent(p, this.relationsContains);
@@ -688,8 +723,9 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 				.equals(p.getCalledMethod().getName(), new char[] { '=' })) {
 
 				final IFirstClassEntity entity = p.getFieldDeclaringEntity();
-				if (this.isInteresting(entity)
-						&& this.isInteresting(this.peekLastButOneConstituent())) {
+				if (this.isInterestingOriginEntity(this
+					.peekLastButOneConstituent())
+						&& this.isInterestingTargetEntity(entity)) {
 
 					this.addRelationFromCurrentConstituent(
 						p.getFirstCallingField(),
@@ -698,8 +734,9 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 			}
 			else {
 				final IFirstClassEntity entity = p.getTargetEntity();
-				if (this.isInteresting(entity)
-						&& this.isInteresting(this.peekLastButOneConstituent())) {
+				if (this.isInterestingOriginEntity(this
+					.peekLastButOneConstituent())
+						&& this.isInterestingTargetEntity(entity)) {
 
 					// TODO: I must look for the method in the target entity in
 					// case it was changed from a IMethod to, say, a IGetter and
@@ -721,6 +758,11 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 	}
 	public void visit(final IPrimitiveEntity aPrimitiveEntity) {
 		this.open((IEntity) aPrimitiveEntity);
+		// Yann 2015/05/24: Forgotten and not forgiven!
+		// I should not forget to "close" the primitive entity
+		// after visiting it to make sure that whatever is visited
+		// next is put in its right container entity!
+		this.close((IEntity) aPrimitiveEntity);
 	}
 	public void visit(final IUseRelationship p) {
 		this.addRelationFromCurrentConstituent(

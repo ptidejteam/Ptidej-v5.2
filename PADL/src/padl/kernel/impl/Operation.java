@@ -78,7 +78,7 @@ public abstract class Operation extends Element implements IOperation {
 		else {
 			throw new ModelDeclarationException(MultilingualManager.getString(
 				"PARAM_OR_METHOD_ADD",
-				Operation.class));
+				IOperation.class));
 		}
 	}
 	public void addConstituent(final IConstituentOfOperation aMethodConstituent) {

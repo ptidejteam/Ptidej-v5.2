@@ -16,6 +16,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import org.apache.commons.io.FileUtils;
 
 public class ProxyDisk {
 	private static final String TEMP_DIRECTORY = "../Temp/";
@@ -43,7 +44,10 @@ public class ProxyDisk {
 
 		final File defaultDirectory = new File(aPathToADirectory);
 		if (!defaultDirectory.exists()) {
-			if (!defaultDirectory.mkdir()) {
+			try {
+				FileUtils.forceMkdir(defaultDirectory);
+			}
+			catch (final IOException e) {
 				ProxyConsole
 					.getInstance()
 					.errorOutput()
@@ -51,9 +55,10 @@ public class ProxyDisk {
 						"FileOutputProxy cannot create the necessary directory: "
 								+ aPathToADirectory + " (canonical path: "
 								+ defaultDirectory.getCanonicalPath() + ")");
-				ProxyConsole.getInstance().errorOutput().print(
-
-				aPathToADirectory);
+				ProxyConsole
+					.getInstance()
+					.errorOutput()
+					.print(aPathToADirectory);
 				ProxyConsole
 					.getInstance()
 					.errorOutput()

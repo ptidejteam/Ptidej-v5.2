@@ -46,7 +46,7 @@ abstract class Relationship extends Element implements IElementMarker,
 		if (aCardinality < 1) {
 			throw new ModelDeclarationException(MultilingualManager.getString(
 				"CARDINALITY",
-				Relationship.class,
+				IRelationship.class,
 				new Object[] { new Integer(this.cardinality) }));
 		}
 

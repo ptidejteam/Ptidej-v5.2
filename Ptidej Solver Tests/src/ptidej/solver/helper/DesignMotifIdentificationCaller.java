@@ -10,7 +10,6 @@
  ******************************************************************************/
 package ptidej.solver.helper;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -26,6 +25,8 @@ import java.util.Properties;
 import padl.analysis.UnsupportedSourceModelException;
 import padl.analysis.repository.AACRelationshipsAnalysis;
 import padl.creator.classfile.CompleteClassFileCreator;
+import padl.generator.helper.ModelGenerator;
+import padl.kernel.IAbstractLevelModel;
 import padl.kernel.ICodeLevelModel;
 import padl.kernel.IIdiomLevelModel;
 import padl.kernel.exception.CreationException;
@@ -46,12 +47,243 @@ import util.io.ReaderInputStream;
  * @since 2006/11/28
  */
 public class DesignMotifIdentificationCaller {
-	private static final String[] MOTIFS = new String[] { // "AbstractFactory",
+	public static final String[] MOTIFS = new String[] { // "AbstractFactory",
 				// "Adapter",
 				// "GoodInheritance",
 				"Builder", "Command", "Composite", "Decorator",
 				"FactoryMethod", "Observer1", "Observer2", "Prototype",
 				"State", "TemplateMethod", "Visitor" };
+
+	public static void analyseCodeLevelModel(
+		final String[] someMotifs,
+		final String aName,
+		final IAbstractLevelModel anAbstractLevelModel,
+		final boolean isAOL,
+		final IWalker aWalker,
+		final String anOutputFolder) {
+
+		try {
+			final long overallStartTime = System.currentTimeMillis();
+			int overallNumberOfOccurrences = 0;
+
+			for (int i = 0; i < someMotifs.length; i++) {
+				final String motifName =
+					DesignMotifIdentificationCaller.MOTIFS[i];
+				System.out.println("Identifying occurrences of the "
+						+ motifName + " design motif...");
+
+				final Class problemClass;
+				if (isAOL) {
+					problemClass =
+						Class.forName("ptidej.solver.problem.aol." + motifName
+								+ "Motif");
+				}
+				else {
+					problemClass =
+						Class.forName("ptidej.solver.problem." + motifName
+								+ "Motif");
+				}
+				final Method getProblemMethod =
+					problemClass.getMethod(
+						"getProblem",
+						new Class[] { List.class });
+				final Problem problem =
+					(Problem) getProblemMethod.invoke(
+						null,
+						new Object[] { Manager.build(
+							anAbstractLevelModel,
+							aWalker) });
+
+				final String path = anOutputFolder + "ConstraintResults in "
+				//final String path = "../Ptidej Solver Data/ConstraintResults in "
+						+ aName + " for " + motifName + ".ini";
+				final long startTime = System.currentTimeMillis();
+
+				final Writer writer =
+					ProxyDisk.getInstance().fileTempOutput(path);
+				problem.setWriter(new PrintWriter(writer));
+				problem.automaticSolve(true);
+
+				final Properties properties = new Properties();
+				properties.load(new ReaderInputStream(ProxyDisk
+					.getInstance()
+					.fileTempInput(path)));
+				final OccurrenceBuilder solutionBuilder =
+					OccurrenceBuilder.getInstance();
+				final Occurrence[] solutions =
+					solutionBuilder.getCanonicalOccurrences(properties);
+
+				System.out.print(solutions.length);
+				System.out.print(" solutions for ");
+				System.out.print(motifName);
+				System.out.print(" in ");
+				System.out.print(aName);
+				System.out.print(" in ");
+				System.out.print(System.currentTimeMillis() - startTime);
+				System.out.println(" ms.");
+
+				overallNumberOfOccurrences += solutions.length;
+			}
+
+			final long overallEndTime = System.currentTimeMillis();
+			System.out.print(overallNumberOfOccurrences);
+			System.out.print(" occurrences of ");
+			System.out.print(DesignMotifIdentificationCaller.MOTIFS.length);
+			System.out.print(" design motifs computed in ");
+			System.out.print(overallEndTime - overallStartTime);
+			System.out.println(" ms.");
+			System.out
+				.print("Done computing occurrences of design motifs for ");
+			System.out.println(aName);
+		}
+		catch (final FileNotFoundException e) {
+			e.printStackTrace(ProxyConsole.getInstance().errorOutput());
+		}
+		catch (final NoSuchMethodException e) {
+			e.printStackTrace(ProxyConsole.getInstance().errorOutput());
+		}
+		catch (final IllegalAccessException e) {
+			e.printStackTrace(ProxyConsole.getInstance().errorOutput());
+		}
+		catch (final InvocationTargetException e) {
+			System.out.println(e.getCause().getMessage());
+			e.printStackTrace(ProxyConsole.getInstance().errorOutput());
+		}
+		catch (final IOException e) {
+			e.printStackTrace(ProxyConsole.getInstance().errorOutput());
+		}
+		catch (final ClassNotFoundException e) {
+			e.printStackTrace(ProxyConsole.getInstance().errorOutput());
+		}
+	}
+
+	//	private void analyseCodeLevelModelFromAOL(
+	//		final String anAOLCodeLevelFilePath,
+	//		final String aName) {
+	//
+	//		System.out.print("Analysing ");
+	//		System.out.print(aName);
+	//		System.out.println("...");
+	//
+	//		final String name =
+	//			anAOLCodeLevelFilePath.substring(
+	//				anAOLCodeLevelFilePath.lastIndexOf('/') + 1,
+	//				anAOLCodeLevelFilePath.indexOf('-'));
+	//		final String cldFileName =
+	//			anAOLCodeLevelFilePath.replaceAll("concat_", "").replaceAll(
+	//				".aol",
+	//				".cld");
+	//		final String metFileName =
+	//			anAOLCodeLevelFilePath.replaceAll("concat_", "").replaceAll(
+	//				".aol",
+	//				".met");
+	//
+	//		ICodeLevelModel codeLevelModel =
+	//			Factory.getInstance().createCodeLevelModel(name);
+	//		new AOLCreator(new String[] { anAOLCodeLevelFilePath }).create(
+	//			codeLevelModel,
+	//			true);
+	//
+	//		try {
+	//			final MethodInvocationAnalyser methodInvocationAdder =
+	//				new MethodInvocationAnalyser();
+	//			methodInvocationAdder.setCLDFile(cldFileName);
+	//			codeLevelModel =
+	//				(ICodeLevelModel) methodInvocationAdder.invoke(codeLevelModel);
+	//
+	//			final IIdiomLevelModel idiomLevelModel =
+	//				(IIdiomLevelModel) new AACRelationshipsAnalysis(false)
+	//					.invoke(codeLevelModel);
+	//
+	//			final ConsituentCounterVisitor counter =
+	//				new ConsituentCounterVisitor();
+	//			idiomLevelModel.walk(counter);
+	//
+	//			// this.callPtidejSolver(aName, idiomLevelModel, true);
+	//			System.out.print(this.returnTotalLOC(metFileName));
+	//			System.out.print(" & ");
+	//			System.out.print(counter.getResult());
+	//			System.out.print(" % ");
+	//			System.out.println(aName);
+	//			System.out
+	//				.println("--------------------------------------------------------------------------------");
+	//		}
+	//		catch (final UnsupportedSourceModelException e) {
+	//			e.printStackTrace(Output.getInstance().errorOutput());
+	//		}
+	//	}
+
+	//	private void analyseCodeLevelModelFromJAR(
+	//		final String[] someJARFiles,
+	//		final String aName) {
+	//
+	//		System.out.print("Analysing ");
+	//		System.out.print(aName);
+	//		System.out.println("...");
+	//
+	//		try {
+	//			final ICodeLevelModel codeLevelModel =
+	//				Factory.getInstance().createCodeLevelModel(aName);
+	//			codeLevelModel.create(new CompleteClassFileCreator(
+	//				ConstituentRepository.getInstance(ClassFileRepository
+	//					.getInstance(ConstituentRepository.class)),
+	//				someJARFiles,
+	//				true));
+	//
+	//			this
+	//				.callPtidejSolver(aName, codeLevelModel, false, new Generator());
+	//		}
+	//		catch (final CreationException e) {
+	//			e.printStackTrace();
+	//		}
+	//	}
+
+	//	private void analyseCodeLevelModelFromJARs(
+	//		final String aPluginPath,
+	//		final String aName) {
+	//
+	//		final IIdiomLevelModel idiomLevelModel =
+	//			ModelGenerator.generateModelFromJARs(aPluginPath);
+	//		this.callPtidejSolver(aName, idiomLevelModel, false, new Generator());
+	//	}
+	public static void analyseCodeLevelModel(
+		final String[] someMotifs,
+		final String aName,
+		final IAbstractLevelModel anAbstractLevelModel,
+		final String anOutputFolder) {
+
+		DesignMotifIdentificationCaller.analyseCodeLevelModel(
+			someMotifs,
+			aName,
+			anAbstractLevelModel,
+			false,
+			new Generator(),
+			anOutputFolder);
+	}
+	//	private void analyseIdiomLevelModel(
+	//		final String anAOLIdiomLevelFilePath,
+	//		final char[] aName) {
+	//
+	//		System.out.print("Analysing ");
+	//		System.out.print(aName);
+	//		System.out.println("...");
+	//
+	//		final IIdiomLevelModel idiomLevelModel =
+	//			Factory.getInstance().createIdiomLevelModel(aName);
+	//		final AOLCreator aolCreator =
+	//			new AOLCreator(new String[] { anAOLIdiomLevelFilePath });
+	//		aolCreator.create(idiomLevelModel, true, true);
+	//
+	//		final ConsituentCounterVisitor counter = new ConsituentCounterVisitor();
+	//		idiomLevelModel.walk(counter);
+	//
+	//		// this.callPtidejSolver(aName, idiomLevelModel, true);
+	//		System.out.print(counter.getResult());
+	//		System.out.print(" in ");
+	//		System.out.println(aName);
+	//		System.out
+	//			.println("--------------------------------------------------------------------------------");
+	//	}
 
 	public static void main(final String[] args) {
 		// if (args.length != 1) {
@@ -76,9 +308,6 @@ public class DesignMotifIdentificationCaller {
 
 			// CallDesignMotifIdentification.MOTIFS[0] = args[1];
 
-			final DesignMotifIdentificationCaller ptidejSolver =
-				new DesignMotifIdentificationCaller();
-
 			// ptidejSolver.analyseCodeLevelModelFromJava(
 			// "../../P-MARt Workspace/SIP Communicator v1.0-draft/bin/",
 			// "SIP Communicator v1.0-draft");
@@ -95,17 +324,29 @@ public class DesignMotifIdentificationCaller {
 			// "/repository/software/Versions/Eclipse/eclipse-SDK-2.1.1-win32/plugins/",
 			// "Eclipse v2.1.1");
 
-			final String root = "../../P-MARt Workspace/";
-			final String[] list = new File(root).list();
-			for (int i = 0; i < list.length; i++) {
-				final String directory = list[i];
-				// if (directory.startsWith("Mylyn v3")
-				// && !directory.equals("Mylyn v3.0.0 20080619-1900-e3.3")) {
-				if (directory.toLowerCase().startsWith("xerces v")) {
-					ptidejSolver.analyseCodeLevelModelFromJava(root + directory
-							+ "/bin/", directory);
-				}
-			}
+			//	final String root = "../../P-MARt Workspace/";
+			//	final String[] list = new File(root).list();
+			//	for (int i = 0; i < list.length; i++) {
+			//		final String directory = list[i];
+			//		// if (directory.startsWith("Mylyn v3")
+			//		// && !directory.equals("Mylyn v3.0.0 20080619-1900-e3.3")) {
+			//		if (directory.toLowerCase().startsWith("xerces v")) {
+			//			ptidejSolver.analyseCodeLevelModelFromJava(root + directory
+			//					+ "/bin/", directory);
+			//		}
+			//	}
+			final IIdiomLevelModel idiomLevelModel =
+				ModelGenerator
+					.generateModelFromJAR("C:/Data/Java Programs/CKJM/ckjm_ext v2.1.jar");
+			System.out.print("Number of top-level entities: ");
+			System.out.println(idiomLevelModel.getNumberOfTopLevelEntities());
+			DesignMotifIdentificationCaller.analyseCodeLevelModel(
+				DesignMotifIdentificationCaller.MOTIFS,
+				"CKJM",
+				idiomLevelModel,
+				false,
+				new Generator(),
+				"CKJM");
 
 			// ptidejSolver.analyseCodeLevelModelFromJava(
 			// "../../P-MARt Workspace/Dresden OCL v1.1/bin/",
@@ -890,97 +1131,6 @@ public class DesignMotifIdentificationCaller {
 			e.printStackTrace();
 		}
 	}
-
-	//	private void analyseCodeLevelModelFromAOL(
-	//		final String anAOLCodeLevelFilePath,
-	//		final String aName) {
-	//
-	//		System.out.print("Analysing ");
-	//		System.out.print(aName);
-	//		System.out.println("...");
-	//
-	//		final String name =
-	//			anAOLCodeLevelFilePath.substring(
-	//				anAOLCodeLevelFilePath.lastIndexOf('/') + 1,
-	//				anAOLCodeLevelFilePath.indexOf('-'));
-	//		final String cldFileName =
-	//			anAOLCodeLevelFilePath.replaceAll("concat_", "").replaceAll(
-	//				".aol",
-	//				".cld");
-	//		final String metFileName =
-	//			anAOLCodeLevelFilePath.replaceAll("concat_", "").replaceAll(
-	//				".aol",
-	//				".met");
-	//
-	//		ICodeLevelModel codeLevelModel =
-	//			Factory.getInstance().createCodeLevelModel(name);
-	//		new AOLCreator(new String[] { anAOLCodeLevelFilePath }).create(
-	//			codeLevelModel,
-	//			true);
-	//
-	//		try {
-	//			final MethodInvocationAnalyser methodInvocationAdder =
-	//				new MethodInvocationAnalyser();
-	//			methodInvocationAdder.setCLDFile(cldFileName);
-	//			codeLevelModel =
-	//				(ICodeLevelModel) methodInvocationAdder.invoke(codeLevelModel);
-	//
-	//			final IIdiomLevelModel idiomLevelModel =
-	//				(IIdiomLevelModel) new AACRelationshipsAnalysis(false)
-	//					.invoke(codeLevelModel);
-	//
-	//			final ConsituentCounterVisitor counter =
-	//				new ConsituentCounterVisitor();
-	//			idiomLevelModel.walk(counter);
-	//
-	//			// this.callPtidejSolver(aName, idiomLevelModel, true);
-	//			System.out.print(this.returnTotalLOC(metFileName));
-	//			System.out.print(" & ");
-	//			System.out.print(counter.getResult());
-	//			System.out.print(" % ");
-	//			System.out.println(aName);
-	//			System.out
-	//				.println("--------------------------------------------------------------------------------");
-	//		}
-	//		catch (final UnsupportedSourceModelException e) {
-	//			e.printStackTrace(Output.getInstance().errorOutput());
-	//		}
-	//	}
-
-	//	private void analyseCodeLevelModelFromJAR(
-	//		final String[] someJARFiles,
-	//		final String aName) {
-	//
-	//		System.out.print("Analysing ");
-	//		System.out.print(aName);
-	//		System.out.println("...");
-	//
-	//		try {
-	//			final ICodeLevelModel codeLevelModel =
-	//				Factory.getInstance().createCodeLevelModel(aName);
-	//			codeLevelModel.create(new CompleteClassFileCreator(
-	//				ConstituentRepository.getInstance(ClassFileRepository
-	//					.getInstance(ConstituentRepository.class)),
-	//				someJARFiles,
-	//				true));
-	//
-	//			this
-	//				.callPtidejSolver(aName, codeLevelModel, false, new Generator());
-	//		}
-	//		catch (final CreationException e) {
-	//			e.printStackTrace();
-	//		}
-	//	}
-
-	//	private void analyseCodeLevelModelFromJARs(
-	//		final String aPluginPath,
-	//		final String aName) {
-	//
-	//		final IIdiomLevelModel idiomLevelModel =
-	//			ModelGenerator.generateModelFromJARs(aPluginPath);
-	//		this.callPtidejSolver(aName, idiomLevelModel, false, new Generator());
-	//	}
-
 	public void analyseCodeLevelModelFromJava(
 		final String aClassPath,
 		final String aName) {
@@ -1003,45 +1153,6 @@ public class DesignMotifIdentificationCaller {
 			e.printStackTrace();
 		}
 	}
-
-	public void analyseCodeLevelModelFromPADL(
-		final String aName,
-		final ICodeLevelModel codeLevelModel) {
-		this.callPtidejSolver(aName, codeLevelModel, false, new Generator());
-	}
-
-	public void analyseCodeLevelModelFromPADL(
-		final String aName,
-		final ICodeLevelModel codeLevelModel,
-		final IWalker aWalker) {
-		this.callPtidejSolver(aName, codeLevelModel, false, aWalker);
-	}
-
-	//	private void analyseIdiomLevelModel(
-	//		final String anAOLIdiomLevelFilePath,
-	//		final char[] aName) {
-	//
-	//		System.out.print("Analysing ");
-	//		System.out.print(aName);
-	//		System.out.println("...");
-	//
-	//		final IIdiomLevelModel idiomLevelModel =
-	//			Factory.getInstance().createIdiomLevelModel(aName);
-	//		final AOLCreator aolCreator =
-	//			new AOLCreator(new String[] { anAOLIdiomLevelFilePath });
-	//		aolCreator.create(idiomLevelModel, true, true);
-	//
-	//		final ConsituentCounterVisitor counter = new ConsituentCounterVisitor();
-	//		idiomLevelModel.walk(counter);
-	//
-	//		// this.callPtidejSolver(aName, idiomLevelModel, true);
-	//		System.out.print(counter.getResult());
-	//		System.out.print(" in ");
-	//		System.out.println(aName);
-	//		System.out
-	//			.println("--------------------------------------------------------------------------------");
-	//	}
-
 	private void callPtidejSolver(
 		final String aName,
 		final ICodeLevelModel aCodeLevelModel,
@@ -1057,113 +1168,18 @@ public class DesignMotifIdentificationCaller {
 					+ idiomLevelModel.getNumberOfTopLevelEntities()
 					+ " entities.");
 
-			this.callPtidejSolver(aName, idiomLevelModel, isAOL, aWalker);
+			DesignMotifIdentificationCaller.analyseCodeLevelModel(
+				DesignMotifIdentificationCaller.MOTIFS,
+				aName,
+				idiomLevelModel,
+				isAOL,
+				aWalker,
+				"");
 		}
 		catch (final UnsupportedSourceModelException e) {
 			e.printStackTrace();
 		}
 	}
-
-	private void callPtidejSolver(
-		final String aName,
-		final IIdiomLevelModel idiomLevelModel,
-		final boolean isAOL,
-		final IWalker aWalker) {
-
-		try {
-			final long overallStartTime = System.currentTimeMillis();
-			int overallNumberOfOccurrences = 0;
-
-			for (int i = 0; i < DesignMotifIdentificationCaller.MOTIFS.length; i++) {
-				final String motifName =
-					DesignMotifIdentificationCaller.MOTIFS[i];
-				System.out.println("Identifying occurrences of the "
-						+ motifName + " design motif...");
-
-				final Class problemClass;
-				if (isAOL) {
-					problemClass =
-						Class.forName("ptidej.solver.problem.aol." + motifName
-								+ "Motif");
-				}
-				else {
-					problemClass =
-						Class.forName("ptidej.solver.problem." + motifName
-								+ "Motif");
-				}
-				final Method getProblemMethod =
-					problemClass.getMethod(
-						"getProblem",
-						new Class[] { List.class });
-				final Problem problem =
-					(Problem) getProblemMethod
-						.invoke(null, new Object[] { Manager.build(
-							idiomLevelModel,
-							aWalker) });
-
-				final String path = "ConstraintResults in "
-				//final String path = "../Ptidej Solver Data/ConstraintResults in "
-						+ aName + " for " + motifName + ".ini";
-				final long startTime = System.currentTimeMillis();
-
-				final Writer writer =
-					ProxyDisk.getInstance().fileTempOutput(path);
-				problem.setWriter(new PrintWriter(writer));
-				problem.automaticSolve(true);
-
-				final Properties properties = new Properties();
-				properties.load(new ReaderInputStream(ProxyDisk
-					.getInstance()
-					.fileTempInput(path)));
-				final OccurrenceBuilder solutionBuilder =
-					OccurrenceBuilder.getInstance();
-				final Occurrence[] solutions =
-					solutionBuilder.getCanonicalOccurrences(properties);
-
-				System.out.print(solutions.length);
-				System.out.print(" solutions for ");
-				System.out.print(motifName);
-				System.out.print(" in ");
-				System.out.print(aName);
-				System.out.print(" in ");
-				System.out.print(System.currentTimeMillis() - startTime);
-				System.out.println(" ms.");
-
-				overallNumberOfOccurrences += solutions.length;
-			}
-
-			final long overallEndTime = System.currentTimeMillis();
-			System.out.print(overallNumberOfOccurrences);
-			System.out.print(" occurrences of ");
-			System.out.print(DesignMotifIdentificationCaller.MOTIFS.length);
-			System.out.print(" design motifs computed in ");
-			System.out.print(overallEndTime - overallStartTime);
-			System.out.println(" ms.");
-			System.out
-				.print("Done computing occurrences of design motifs for ");
-			System.out.println(aName);
-		}
-		catch (final FileNotFoundException e) {
-			e.printStackTrace(ProxyConsole.getInstance().errorOutput());
-		}
-		catch (final NoSuchMethodException e) {
-			e.printStackTrace(ProxyConsole.getInstance().errorOutput());
-		}
-		catch (final IllegalAccessException e) {
-			e.printStackTrace(ProxyConsole.getInstance().errorOutput());
-		}
-		catch (final InvocationTargetException e) {
-			System.out.println(e.getCause().getMessage());
-			e.printStackTrace(ProxyConsole.getInstance().errorOutput());
-		}
-		catch (final IOException e) {
-			e.printStackTrace(ProxyConsole.getInstance().errorOutput());
-		}
-		catch (final ClassNotFoundException e) {
-			e.printStackTrace(ProxyConsole.getInstance().errorOutput());
-		}
-	}
-
 	public int returnTotalLOC(final String aMetFileName) {
 		int totalLOC = 0;
 		try {

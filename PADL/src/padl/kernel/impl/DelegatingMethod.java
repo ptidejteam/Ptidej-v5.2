@@ -92,7 +92,7 @@ class DelegatingMethod extends Method implements IElementMarker,
 		if (Access.isAbstract(visibility)) {
 			throw new ModelDeclarationException(MultilingualManager.getString(
 				"ABSTRACT",
-				DelegatingMethod.class,
+				IDelegatingMethod.class,
 				new Object[] { this.getClass() }));
 		}
 		super.setVisibility(visibility);

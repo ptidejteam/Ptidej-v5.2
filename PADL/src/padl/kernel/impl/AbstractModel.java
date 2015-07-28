@@ -153,8 +153,18 @@ public abstract class AbstractModel implements IAbstractModel {
 		return clonedModel;
 	}
 	protected void clone(final IAbstractModel anAbstractModel) {
-		// First, I make a shallow copy of all the entities.
-		Iterator iterator = this.getIteratorOnTopLevelEntities();
+//	// Zero, I make a shallow copy of all the entities
+//	// so that their clones are available when doing the
+//	// deep copies below.
+//	Iterator iterator = this.getIteratorOnTopLevelEntities();
+//	while (iterator.hasNext()) {
+//		final IConstituentOfModel constituent =
+//			(IConstituentOfModel) iterator.next();
+//		constituent.startCloneSession();
+//	}
+		
+		// First, I make a shallow copy of all the entities in the model. 
+		Iterator iterator = this.getIteratorOnConstituents();
 		while (iterator.hasNext()) {
 			final IConstituentOfModel constituent =
 				(IConstituentOfModel) iterator.next();
@@ -164,13 +174,13 @@ public abstract class AbstractModel implements IAbstractModel {
 		}
 
 		// Second, I update the links among entities (deep copy).
-		iterator = this.getIteratorOnTopLevelEntities();
+		iterator = this.getIteratorOnConstituents();
 		while (iterator.hasNext()) {
 			((IConstituent) iterator.next()).performCloneSession();
 		}
 
 		// Finally, I clean up all temporary instance variables.
-		iterator = this.getIteratorOnTopLevelEntities();
+		iterator = this.getIteratorOnConstituents();
 		while (iterator.hasNext()) {
 			((IConstituent) iterator.next()).endCloneSession();
 		}

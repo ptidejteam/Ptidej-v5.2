@@ -25,6 +25,7 @@ import padl.creator.aolfile.AOLCreator;
 import padl.creator.classfile.CompleteClassFileCreator;
 import padl.creator.javafile.eclipse.CompleteJavaFileCreator;
 import padl.creator.javafile.javac.JavaFileCreator;
+import padl.kernel.IAbstractLevelModel;
 import padl.kernel.ICodeLevelModel;
 import padl.kernel.IIdiomLevelModel;
 import padl.kernel.exception.CreationException;
@@ -97,7 +98,7 @@ public final class SmellDetectionHelper {
 	public static final void analyseCodeLevelModel(
 		final String[] someSmells,
 		final String aName,
-		final IIdiomLevelModel idiomLevelModel,
+		final IAbstractLevelModel idiomLevelModel,
 		final String anOutputDirectory) {
 
 		try {

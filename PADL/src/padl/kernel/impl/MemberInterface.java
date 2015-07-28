@@ -32,13 +32,14 @@ class MemberInterface extends Interface implements IMemberInterface {
 		if (anElement != null) {
 			if (anElement == this) {
 				throw new ModelDeclarationException(
-					MultilingualManager.getString("ELEM_ATTACH", Element.class));
+					MultilingualManager
+						.getString("ELEM_ATTACH", IElement.class));
 			}
 			if (!anElement.getClass().isInstance(this)) {
 				throw new ModelDeclarationException(
 					MultilingualManager.getString(
 						"ATTACH",
-						Element.class,
+						IElement.class,
 						new Object[] { anElement.getClass() }));
 			}
 

@@ -11,6 +11,7 @@
 package padl.motif.kernel;
 
 import padl.kernel.IAbstractLevelModel;
+import padl.kernel.exception.CreationException;
 import padl.motif.IDesignMotifModel;
 
 /**
@@ -18,4 +19,6 @@ import padl.motif.IDesignMotifModel;
  */
 public interface IDesignLevelModel extends IAbstractLevelModel {
 	void addConstituent(final IDesignMotifModel aPatternModel);
+	void create(final IDesignLevelModelCreator aDesignLevelModelCreator)
+			throws CreationException;
 }

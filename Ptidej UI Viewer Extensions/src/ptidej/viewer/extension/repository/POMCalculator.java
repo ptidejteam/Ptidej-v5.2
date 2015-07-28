@@ -99,11 +99,21 @@ public final class POMCalculator implements IWalker {
 		return this.results.toString();
 	}
 	public void open(final IAbstractModel anAbstractModel) {
-		this.startTime = System.currentTimeMillis();
-		this.results.setLength(0);
-		this.excelOutput.setLength(0);
-		this.metrics = MetricsRepository.getInstance();
 		this.abstractModel = anAbstractModel;
+		this.excelOutput.setLength(0);
+		this.listOfMetricNames.setLength(0);
+		this.metrics = MetricsRepository.getInstance();
+		this.results.setLength(0);
+		this.startTime = System.currentTimeMillis();
+
+		final IUnaryMetric[] metrics = this.metrics.getUnaryMetrics();
+		for (int i = 0; i < metrics.length; i++) {
+			final IUnaryMetric metric = metrics[i];
+			this.listOfMetricNames.append(metric.getName());
+			if (i < metrics.length - 1) {
+				this.listOfMetricNames.append('\t');
+			}
+		}
 	}
 	public void open(final IClass aClass) {
 		this.open((IFirstClassEntity) aClass);
@@ -124,9 +134,10 @@ public final class POMCalculator implements IWalker {
 
 			// TODO Check for type or change Metrics API.
 			final double value =
-				metric.compute((IAbstractLevelModel) this.abstractModel, anEntity);
+				metric.compute(
+					(IAbstractLevelModel) this.abstractModel,
+					anEntity);
 
-			this.listOfMetricNames.append(metric.getName());
 			this.excelOutput.append(value);
 
 			this.results.append("\t");
@@ -136,7 +147,6 @@ public final class POMCalculator implements IWalker {
 			this.results.append('\n');
 
 			if (i < metrics.length - 1) {
-				this.listOfMetricNames.append('\t');
 				this.excelOutput.append('\t');
 			}
 		}
@@ -169,6 +179,9 @@ public final class POMCalculator implements IWalker {
 	public void open(final ISetter aSetter) {
 	}
 	public void reset() {
+		this.excelOutput.setLength(0);
+		this.listOfMetricNames.setLength(0);
+		this.results.setLength(0);
 	}
 	public final void unknownConstituentHandler(
 		final String aCalledMethodName,

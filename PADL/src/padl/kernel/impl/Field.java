@@ -61,7 +61,7 @@ public class Field extends Element implements IElementMarker, IField {
 		if (cardinality < 1) {
 			throw new ModelDeclarationException(MultilingualManager.getString(
 				"CARDINALITY",
-				Field.class,
+				IField.class,
 				new Object[] { new Integer(cardinality) }));
 		}
 

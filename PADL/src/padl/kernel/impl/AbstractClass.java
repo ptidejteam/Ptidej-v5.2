@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import padl.kernel.IClass;
 import padl.kernel.IFirstClassEntity;
 import padl.kernel.IInterfaceActor;
 import padl.kernel.IInterfaceImplementer;
@@ -70,7 +71,7 @@ class AbstractClass extends FirstClassEntity {
 			throw new ModelDeclarationException(
 				MultilingualManager.getString(
 					"ALREADY_IMPL",
-					Class.class,
+					IClass.class,
 					new Object[] { anInterface.getDisplayID(),
 							this.getDisplayID() }));
 		}
@@ -94,7 +95,7 @@ class AbstractClass extends FirstClassEntity {
 		if (!this.listOfImplementedInterfaces.contains(anInterface)) {
 			throw new ModelDeclarationException(MultilingualManager.getString(
 				"NOT_IMPL",
-				Class.class,
+				IClass.class,
 				new Object[] { anInterface.getID(), this.getID() }));
 		}
 

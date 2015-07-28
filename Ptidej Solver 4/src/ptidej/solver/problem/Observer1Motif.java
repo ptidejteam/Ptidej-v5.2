@@ -11,17 +11,13 @@
 package ptidej.solver.problem;
 
 import java.util.List;
-
 import ptidej.solver.Problem;
 import ptidej.solver.Variable;
-import ptidej.solver.approximation.DefaultAssociationApproximations;
+import ptidej.solver.approximation.DefaultIgnoranceApproximations;
 import ptidej.solver.approximation.DefaultNoApproximations;
 import ptidej.solver.approximation.TSE07AssociationApproximations;
 import ptidej.solver.approximation.TSE07AssociationOrNoneApproximations;
-import ptidej
-	.solver
-	.approximation
-	.TSE07ExtensibleStrictInheritanceApproximations;
+import ptidej.solver.approximation.TSE07ExtensibleStrictInheritanceApproximations;
 import ptidej.solver.constraint.repository.AssociationConstraint;
 import ptidej.solver.constraint.repository.IgnoranceConstraint;
 import ptidej.solver.constraint.repository.InterfaceEntityConstraint;
@@ -52,27 +48,24 @@ public final class Observer1Motif {
 		pb.addVar(concreteObserver);
 
 		// Constraints
-		pb.post(
-			new NoGhostEntityConstraint(
-				"Subject <> ?",
-				"",
-				subject,
-				100,
-				DefaultNoApproximations.getDefaultApproximations()));
-		pb.post(
-			new InterfaceEntityConstraint(
-				"Subject is an interface",
-				"",
-				subject,
-				100,
-				DefaultNoApproximations.getDefaultApproximations()));
-		pb.post(
-			new NoGhostEntityConstraint(
-				"Observer <> ?",
-				"",
-				observer,
-				100,
-				DefaultNoApproximations.getDefaultApproximations()));
+		pb.post(new NoGhostEntityConstraint(
+			"Subject <> ?",
+			"",
+			subject,
+			100,
+			DefaultNoApproximations.getDefaultApproximations()));
+		pb.post(new InterfaceEntityConstraint(
+			"Subject is an interface",
+			"",
+			subject,
+			100,
+			DefaultNoApproximations.getDefaultApproximations()));
+		pb.post(new NoGhostEntityConstraint(
+			"Observer <> ?",
+			"",
+			observer,
+			100,
+			DefaultNoApproximations.getDefaultApproximations()));
 		//	pb.post(
 		//		new NoObjectEntityConstraint(
 		//			"Observer <> java.lang.Object",
@@ -80,114 +73,100 @@ public final class Observer1Motif {
 		//			observer,
 		//			100,
 		//			DefaultNoApproximations.getDefaultApproximations()));
-		pb.post(
-			new InterfaceEntityConstraint(
-				"Observer is an interface",
-				"",
-				observer,
-				100,
-				DefaultNoApproximations.getDefaultApproximations()));
+		pb.post(new InterfaceEntityConstraint(
+			"Observer is an interface",
+			"",
+			observer,
+			100,
+			DefaultNoApproximations.getDefaultApproximations()));
 
-		pb.post(
-			new NotEqualConstraint(
-				"Observer <> ConcreteObserver",
-				"",
-				observer,
-				concreteObserver,
-				100,
-				DefaultNoApproximations.getDefaultApproximations()));
-		pb.post(
-			new NotEqualConstraint(
-				"Subject <> Observer",
-				"",
-				subject,
-				observer,
-				100,
-				DefaultNoApproximations.getDefaultApproximations()));
+		pb.post(new NotEqualConstraint(
+			"Observer <> ConcreteObserver",
+			"",
+			observer,
+			concreteObserver,
+			100,
+			DefaultNoApproximations.getDefaultApproximations()));
+		pb.post(new NotEqualConstraint(
+			"Subject <> Observer",
+			"",
+			subject,
+			observer,
+			100,
+			DefaultNoApproximations.getDefaultApproximations()));
 
-		pb.post(
-			new AssociationConstraint(
-				"Subject ---­> Observer",
-				"",
-				subject,
-				observer,
-				50,
-				TSE07AssociationApproximations.getDefaultApproximations()));
-		pb.post(
-			new StrictInheritanceConstraint(
-				"ConcreteSubject -|>- Subject",
-				"",
-				concreteSubject,
-				subject,
-				50,
-				TSE07ExtensibleStrictInheritanceApproximations
-					.getDefaultApproximations()));
-		pb.post(
-			new NoAbstractEntityConstraint(
-				"ConcreteSubject is not abstract",
-				"",
-				concreteSubject,
-				100,
-				DefaultNoApproximations.getDefaultApproximations()));
-		pb.post(
-			new StrictInheritanceConstraint(
-				"ConcreteObserver -|>- Observer",
-				"",
-				concreteObserver,
-				observer,
-				50,
-				TSE07ExtensibleStrictInheritanceApproximations
-					.getDefaultApproximations()));
-		pb.post(
-			new NoAbstractEntityConstraint(
-				"ConcreteObserver is not abstract",
-				"",
-				concreteObserver,
-				100,
-				DefaultNoApproximations.getDefaultApproximations()));
+		pb.post(new AssociationConstraint(
+			"Subject ---­> Observer",
+			"",
+			subject,
+			observer,
+			50,
+			TSE07AssociationApproximations.getDefaultApproximations()));
+		pb.post(new StrictInheritanceConstraint(
+			"ConcreteSubject -|>- Subject",
+			"",
+			concreteSubject,
+			subject,
+			50,
+			TSE07ExtensibleStrictInheritanceApproximations
+				.getDefaultApproximations()));
+		pb.post(new NoAbstractEntityConstraint(
+			"ConcreteSubject is not abstract",
+			"",
+			concreteSubject,
+			100,
+			DefaultNoApproximations.getDefaultApproximations()));
+		pb.post(new StrictInheritanceConstraint(
+			"ConcreteObserver -|>- Observer",
+			"",
+			concreteObserver,
+			observer,
+			50,
+			TSE07ExtensibleStrictInheritanceApproximations
+				.getDefaultApproximations()));
+		pb.post(new NoAbstractEntityConstraint(
+			"ConcreteObserver is not abstract",
+			"",
+			concreteObserver,
+			100,
+			DefaultNoApproximations.getDefaultApproximations()));
 
-		pb.post(
-			new NotEqualConstraint(
-				"ConcreteSubject <> ConcreteObserver",
-				"",
-				concreteSubject,
-				concreteObserver,
-				100,
-				DefaultNoApproximations.getDefaultApproximations()));
-		pb.post(
-			new AssociationConstraint(
-				"ConcreteObserver ---­> Subject",
-				"",
-				concreteObserver,
-				subject,
-				100,
-				TSE07AssociationOrNoneApproximations
-					.getDefaultApproximations()));
+		pb.post(new NotEqualConstraint(
+			"ConcreteSubject <> ConcreteObserver",
+			"",
+			concreteSubject,
+			concreteObserver,
+			100,
+			DefaultNoApproximations.getDefaultApproximations()));
+		pb.post(new AssociationConstraint(
+			"ConcreteObserver ---­> Subject",
+			"",
+			concreteObserver,
+			subject,
+			100,
+			TSE07AssociationOrNoneApproximations.getDefaultApproximations()));
 
-		pb.post(
-			new IgnoranceConstraint(
-				"Observer -/-­> Subject",
-				"",
-				observer,
-				subject,
-				100,
-				DefaultAssociationApproximations.getDefaultApproximations()));
-		pb.post(
-			new IgnoranceConstraint(
-				"Observer -/-­> ConcreteSubject",
-				"",
-				observer,
-				concreteSubject,
-				100,
-				DefaultAssociationApproximations.getDefaultApproximations()));
-		pb.post(
-			new IgnoranceConstraint(
-				"ConcreteSubject -/-­> ConcreteObserver",
-				"",
-				concreteSubject,
-				concreteObserver,
-				100,
-				DefaultAssociationApproximations.getDefaultApproximations()));
+		pb.post(new IgnoranceConstraint(
+			"Observer -/-­> Subject",
+			"",
+			observer,
+			subject,
+			100,
+			DefaultIgnoranceApproximations.getDefaultApproximations()));
+		pb.post(new IgnoranceConstraint(
+			"Observer -/-­> ConcreteSubject",
+			"",
+			observer,
+			concreteSubject,
+			100,
+			DefaultIgnoranceApproximations.getDefaultApproximations()));
+		pb.post(new IgnoranceConstraint(
+			"ConcreteSubject -/-­> ConcreteObserver",
+			"",
+			concreteSubject,
+			concreteObserver,
+			100,
+			DefaultIgnoranceApproximations.getDefaultApproximations()));
 
 		return pb;
 	}

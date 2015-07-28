@@ -16,7 +16,6 @@ import padl.cpp.util.EmptyIterator;
 import padl.kernel.IConstituent;
 import padl.kernel.IConstituentOfEntity;
 import padl.kernel.IConstituentOfOperation;
-import padl.kernel.IElement;
 import padl.kernel.IFilter;
 import padl.kernel.IFirstClassEntity;
 import padl.kernel.exception.ModelDeclarationException;
@@ -24,9 +23,6 @@ import padl.kernel.impl.Method;
 
 class GlobalFunction extends Method implements IGlobalFunction {
 	private static final long serialVersionUID = 135094587167318982L;
-
-	private IElement attachedElement;
-	private char[] returnType;
 
 	public GlobalFunction(final char[] anID, final char[] aName) {
 		super(anID);
@@ -68,24 +64,8 @@ class GlobalFunction extends Method implements IGlobalFunction {
 				+ " cannot accept entities");
 	}
 	@Override
-	public void attachTo(final IElement anElement) {
-		this.attachedElement = anElement;
-	}
-	@Override
-	public void detach() {
-		this.attachedElement = null;
-	}
-	@Override
-	public IElement getAttachedElement() {
-		return this.attachedElement;
-	}
-	@Override
 	public String getCallDeclaration() {
 		return this.getDisplayName();
-	}
-	@Override
-	public String getDisplayReturnType() {
-		return String.valueOf(this.returnType);
 	}
 	@Override
 	public IFirstClassEntity getInheritedEntityFromID(final char[] anID) {
@@ -121,10 +101,6 @@ class GlobalFunction extends Method implements IGlobalFunction {
 		return "";
 	}
 	@Override
-	public char[] getReturnType() {
-		return this.returnType;
-	}
-	@Override
 	public boolean isAboveInHierarchy(final IFirstClassEntity anEntity) {
 		return false;
 	}
@@ -133,9 +109,5 @@ class GlobalFunction extends Method implements IGlobalFunction {
 	}
 	@Override
 	public void setPurpose(final String aPurpose) {
-	}
-	@Override
-	public void setReturnType(final char[] aType) {
-		this.returnType = aType;
 	}
 }

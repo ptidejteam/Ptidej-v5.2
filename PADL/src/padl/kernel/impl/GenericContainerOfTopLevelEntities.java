@@ -173,7 +173,6 @@ class GenericContainerOfTopLevelEntities implements Serializable {
 			aConstituentOfModel.getID(),
 			aConstituentOfModel);
 	}
-
 	private void createMapOfIDsEntities(final IPackage aPackage) {
 		final Iterator iterator = aPackage.getIteratorOnConstituents();
 		while (iterator.hasNext()) {
