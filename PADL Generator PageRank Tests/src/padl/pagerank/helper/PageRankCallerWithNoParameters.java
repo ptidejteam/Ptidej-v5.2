@@ -931,9 +931,6 @@ public class PageRankCallerWithNoParameters {
 					names[i - 1],
 					new String[] { paths[i - 1] });
 			
-			// TO REMOVE
-			idiomLevelModel1.generate(generator);
-			
 			final IIdiomLevelModel idiomLevelModel2 =
 				ModelGenerator.generateModelFromCppFilesUsingEclipse(
 					names[i],

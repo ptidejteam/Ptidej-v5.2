@@ -78,7 +78,7 @@ public class PageRankRankingGenerator {
 			CallerHelper
 				.execute(
 					"padl.pagerank.PageRankRankingGenerator.compareModels(IIdiomLevelModel, IIdiomLevelModel, IGenerator)",
-					("\"../PADL Generator PageRank/20150727/MadMatch.exe\" -h 12 -o \""
+					("\"../PADL Generator PageRank/20150728/madmatch2.exe\" -h 12 -o \""
 							+ ProxyDisk.getInstance().fileTempOutputString(
 								outputFileName1 + ".txt")
 							+ "\" -n \""
