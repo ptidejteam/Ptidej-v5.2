@@ -13,7 +13,7 @@ package padl.kernel;
 /**
  * @author Yann-Gaël Guéhéneuc
  */
-public interface IContainerAggregation extends IAssociation, IContainer, IObservable {
+public interface IContainerAggregation extends IAssociation, IContainer {
 	void addConstituent(final IConstituentOfEntity aConstituent);
 
 	String LOGO = "<>-->";

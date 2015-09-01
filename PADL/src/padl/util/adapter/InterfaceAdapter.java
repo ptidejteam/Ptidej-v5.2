@@ -59,12 +59,6 @@ public abstract class InterfaceAdapter implements IInterface {
 	public void addInheritedEntity(final IFirstClassEntity anEntity) {
 		this.wrappedInterface.addInheritedEntity(anEntity);
 	}
-	public void addModelListener(final IModelListener aModelListener) {
-		this.wrappedInterface.addModelListener(aModelListener);
-	}
-	public void addModelListeners(final List aListOfModelListeners) {
-		this.wrappedInterface.addModelListeners(aListOfModelListeners);
-	}
 	public boolean doesContainConstituentWithID(final char[] anID) {
 		return this.wrappedInterface.doesContainConstituentWithID(anID);
 	}
@@ -156,9 +150,6 @@ public abstract class InterfaceAdapter implements IInterface {
 	public Iterator getIteratorOnInheritingEntities(final IFilter aFilter) {
 		return this.wrappedInterface.getIteratorOnInheritedEntities(aFilter);
 	}
-	public Iterator getIteratorOnModelListeners() {
-		return this.wrappedInterface.getIteratorOnModelListeners();
-	}
 	public char[] getName() {
 		return this.wrappedInterface.getName();
 	}
@@ -210,9 +201,6 @@ public abstract class InterfaceAdapter implements IInterface {
 	public void performCloneSession() {
 		this.wrappedInterface.performCloneSession();
 	}
-	public void removeAllConstituent() {
-		this.wrappedInterface.removeAllConstituent();
-	}
 	public void removeConstituentFromID(final char[] anID) {
 		this.wrappedInterface.removeConstituentFromID(anID);
 	}
@@ -224,9 +212,6 @@ public abstract class InterfaceAdapter implements IInterface {
 	}
 	public void removeModelListener(final IModelListener aModelListener) {
 		this.removeModelListener(aModelListener);
-	}
-	public void removeModelListeners(final List aListOfModelListeners) {
-		this.wrappedInterface.removeModelListeners(aListOfModelListeners);
 	}
 	public void resetCodeLines() {
 		this.wrappedInterface.resetCodeLines();

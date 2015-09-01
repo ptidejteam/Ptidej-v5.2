@@ -69,10 +69,6 @@ public class IdiomLevelModelAdapter implements IIdiomLevelModel {
 			(ICodeLevelModel) this.wrappedCodeLevelModel.clone());
 	}
 
-	public void moveIn(final IAbstractModel aDestinationModel) {
-		this.wrappedCodeLevelModel.moveIn(aDestinationModel);
-	}
-
 	public boolean doesContainConstituentWithID(final char[] anID) {
 		return this.wrappedCodeLevelModel.doesContainConstituentWithID(anID);
 	}
@@ -191,8 +187,8 @@ public class IdiomLevelModelAdapter implements IIdiomLevelModel {
 		return this.wrappedCodeLevelModel.getTopLevelEntityFromID(anID);
 	}
 
-	public void removeAllConstituent() {
-		this.wrappedCodeLevelModel.removeAllConstituent();
+	public void moveIn(final IAbstractModel aDestinationModel) {
+		this.wrappedCodeLevelModel.moveIn(aDestinationModel);
 	}
 
 	public void removeConstituentFromID(final char[] anID) {

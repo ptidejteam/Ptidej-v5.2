@@ -11,6 +11,9 @@
 package padl.kernel.impl;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
@@ -34,9 +37,11 @@ import padl.kernel.IFilter;
 import padl.kernel.INavigable;
 import padl.kernel.IObservable;
 import padl.kernel.IOperation;
+import padl.kernel.IPackage;
 import padl.kernel.exception.ModelDeclarationException;
 import padl.path.IConstants;
 import padl.util.Util;
+import util.io.ProxyConsole;
 
 /**
  * @author Yann-Gaël Guéhéneuc
@@ -49,6 +54,85 @@ import padl.util.Util;
 public abstract class AbstractGenericContainerOfConstituents implements
 		Serializable {
 
+	private static class GenericObservable implements Serializable {
+		private static final long serialVersionUID = 198074990982735832L;
+		// Yann 2010/10/10: DB4O
+		// Used to be:
+		//	private final List listOfModelListeners =
+		// I removed the final to make DB4O works...
+		// TODO: Understand how to keep it final with DB4O!
+		private List listOfModelListeners = new ArrayList(
+			GenericContainerConstants.INITIAL_SIZE_GENERIC_OBSERVABLE);
+
+		public final void addModelListener(final IModelListener aModelListener) {
+			this.listOfModelListeners.add(aModelListener);
+		}
+		public final void addModelListeners(final List aListOfModelListeners) {
+			final Iterator iterator = aListOfModelListeners.iterator();
+			while (iterator.hasNext()) {
+				this.addModelListener((IModelListener) iterator.next());
+			}
+		}
+		public final void fireModelChange(
+			final String eventType,
+			final IEvent modelEvent) {
+
+			if (this.listOfModelListeners.size() > 0) {
+				// First, I look for the method corresponding to the event type.
+				final Method[] methods =
+					IModelListener.class.getDeclaredMethods();
+				Method eventMethod = null;
+				for (int i = 0; i < methods.length && eventMethod == null; i++) {
+					if (methods[i].getName().equals(eventType)) {
+						eventMethod = methods[i];
+					}
+				}
+
+				// Second, I notify the listeners with the appropriate event.
+				if (eventMethod != null) {
+					final Iterator iterator =
+						this.listOfModelListeners.iterator();
+					while (iterator.hasNext()) {
+						final IModelListener listener =
+							(IModelListener) iterator.next();
+						if (listener != null) {
+							try {
+								eventMethod.invoke(
+									listener,
+									new Object[] { modelEvent });
+							}
+							catch (final IllegalAccessException iae) {
+								iae.printStackTrace(ProxyConsole
+									.getInstance()
+									.errorOutput());
+							}
+							catch (final InvocationTargetException ite) {
+								ite.printStackTrace(ProxyConsole
+									.getInstance()
+									.errorOutput());
+							}
+						}
+					}
+				}
+			}
+		}
+		public Iterator getIteratorOnModelListeners() {
+			return this.listOfModelListeners.iterator();
+		}
+		protected List getModelListeners() {
+			return this.listOfModelListeners;
+		}
+		public final void removeModelListener(
+			final IModelListener aModelListener) {
+			this.listOfModelListeners.remove(aModelListener);
+		}
+		public final void removeModelListeners(final List aListOfModelListeners) {
+			final Iterator iterator = aListOfModelListeners.iterator();
+			while (iterator.hasNext()) {
+				this.removeModelListener((IModelListener) iterator.next());
+			}
+		}
+	}
 	private class NonConcurrentIterator implements Iterator, Serializable {
 		private static final long serialVersionUID = 1209788683542287364L;
 
@@ -228,12 +312,17 @@ public abstract class AbstractGenericContainerOfConstituents implements
 		// addition of any listener. I don't need to use a visitor
 		// because the addModelListener(IModelListener) will recursively
 		// add the listener to all the children of each constituent.
-		// TODO Should also events be generated to populate the new (and
-		// old?) listeners?
+		// Yann 2015/09/01: Listeners!
+		// Finally, getting it right: model listeners are for models 
+		// *only* but are propagated to all constituents of the models!
 		for (int i = 0; i < this.size; i++) {
 			final IConstituent constituent = this.constituents[i];
 			if (constituent instanceof IObservable) {
 				((IObservable) constituent).addModelListener(aModelListener);
+			}
+			if (constituent instanceof IPrivateModelObservable) {
+				((IPrivateModelObservable) constituent)
+					.addModelListener(aModelListener);
 			}
 		}
 	}
@@ -299,6 +388,10 @@ public abstract class AbstractGenericContainerOfConstituents implements
 			((IObservable) aConstituent).addModelListeners(this.observable
 				.getModelListeners());
 		}
+		if (aConstituent instanceof IPrivateModelObservable) {
+			((IPrivateModelObservable) aConstituent)
+				.addModelListeners(this.observable.getModelListeners());
+		}
 
 		// Yann 2005/10/07: Packages!
 		// I should distinguish among entities and packages...
@@ -311,16 +404,11 @@ public abstract class AbstractGenericContainerOfConstituents implements
 		// So, rather than to trigger the notification on the
 		// type of the added constituent, I do that now in the 
 		// type of the receiving container and in reverse order.
-		
-		// TODO Test thoroughly!
-
-		// else if (aConstituent instanceof IConstituentOfOperation) {
 		if (this.containerConsitituent instanceof IOperation) {
 			this.fireModelChange(IModelListener.INVOKE_ADDED, new InvokeEvent(
 				(IContainer) this.containerConsitituent,
 				(IConstituentOfOperation) aConstituent));
 		}
-		// else if (aConstituent instanceof IConstituentOfEntity) {
 		else if (this.containerConsitituent instanceof IEntity) {
 			this.fireModelChange(
 				IModelListener.ELEMENT_ADDED,
@@ -328,7 +416,11 @@ public abstract class AbstractGenericContainerOfConstituents implements
 					(IContainer) this.containerConsitituent,
 					(IConstituentOfEntity) aConstituent));
 		}
-		// if (aConstituent instanceof IConstituentOfModel) {
+		else if (this.containerConsitituent instanceof IPackage) {
+			this.fireModelChange(IModelListener.ENTITY_ADDED, new EntityEvent(
+				(IContainer) this.containerConsitituent,
+				(IConstituentOfModel) aConstituent));
+		}
 		else if (this.containerConsitituent instanceof IAbstractModel) {
 			this.fireModelChange(IModelListener.ENTITY_ADDED, new EntityEvent(
 				(IContainer) this.containerConsitituent,
@@ -346,6 +438,10 @@ public abstract class AbstractGenericContainerOfConstituents implements
 		if (aConstituent instanceof IObservable) {
 			((IObservable) aConstituent).removeModelListeners(this.observable
 				.getModelListeners());
+		}
+		if (aConstituent instanceof IPrivateModelObservable) {
+			((IPrivateModelObservable) aConstituent)
+				.removeModelListeners(this.observable.getModelListeners());
 		}
 
 		// Yann 2005/10/07: Packages!
@@ -613,15 +709,6 @@ public abstract class AbstractGenericContainerOfConstituents implements
 		// Ask Yann why getTypedConstituentsList() is set to private arrrggg!!!
 		// Because, we don't want to give access to sensible information :-)
 	}
-	public void removeAllConstituent() {
-		// Yann 2002/04/06: Java collection library...
-		// The Collection implementated in the JDK is "fail-fast".
-		// It means that you cannot use an iterator on a collection
-		// and modify the collection as you use the iterator.
-		// Thus, I cannot iterate (using an iterator) over the
-		// collection of PEntities to remove all them!
-		this.size = 0;
-	}
 	public void removeConstituentFromID(final char[] anID) {
 		// Yann 2013/07/11: Double search
 		// Why search for the constituent and then iterate through them all again...? 
@@ -669,7 +756,7 @@ public abstract class AbstractGenericContainerOfConstituents implements
 			}
 			this.size--;
 			this.nciModCount++;
-			
+
 			// Yann 2015/05/24: Nullification!
 			// I do not forget to nullify the position of the constituent
 			// that I removed!!! Else, whenever I sort the array, I would

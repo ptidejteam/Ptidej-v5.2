@@ -27,7 +27,7 @@ import util.lang.Modifier;
 import util.multilingual.MultilingualManager;
 
 class ContainerAggregation extends Association implements IElementMarker,
-		IContainerAggregation {
+		IContainerAggregation, IPrivateModelObservable {
 
 	private static final long serialVersionUID = -6973745337657683093L;
 
@@ -223,9 +223,6 @@ class ContainerAggregation extends Association implements IElementMarker,
 	public int getNumberOfConstituents(final java.lang.Class aConstituentType) {
 		return this.container.getNumberOfConstituents(aConstituentType);
 	}
-	public void removeAllConstituent() {
-		this.container.removeAllConstituent();
-	}
 	public void removeConstituentFromID(final char[] anID) {
 		this.container.removeConstituentFromID(anID);
 	}
@@ -293,6 +290,10 @@ class ContainerAggregation extends Association implements IElementMarker,
 		((ContainerAggregation) this.getClone()).container =
 			new GenericContainerOfNaturallyOrderedConstituents(
 				((ContainerAggregation) this.getClone()));
+
+		// Yann 2015/09/01: Clone of listeners!
+		// I don't forget to clone the listners too...
+		// TODO To implement
 
 		// New Field("~originField").
 		this.originField.startCloneSession();
@@ -419,7 +420,8 @@ class ContainerAggregation extends Association implements IElementMarker,
 				new GenericContainerOfNaturallyOrderedConstituents(this);
 		}
 		else {
-			this.container.removeAllConstituent();
+			// TODO Necessary?
+			// this.container.removeAllConstituent();
 		}
 		if (!this.isAbstract()) {
 			this.container.addConstituent(this.originField);

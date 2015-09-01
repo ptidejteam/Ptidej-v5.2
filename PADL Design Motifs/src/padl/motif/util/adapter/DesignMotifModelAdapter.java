@@ -230,9 +230,6 @@ public abstract class DesignMotifModelAdapter implements IDesignMotifModel,
 	public void performCloneSession() {
 		this.wrappedDesignMotifModel.performCloneSession();
 	}
-	public void removeAllConstituent() {
-		this.wrappedDesignMotifModel.removeAllConstituent();
-	}
 	public void removeConstituentFromID(final char[] anID) {
 		this.wrappedDesignMotifModel.removeConstituentFromID(anID);
 	}

@@ -202,7 +202,6 @@ public class VisitorFirstParsing extends ExtendedASTVisitor {
 
 		// a class with this id is already in the model so we don't parse it
 		if (this.padlModel.getTopLevelEntityFromID(entityBindingName) != null) {
-
 			return false;
 		}
 		if (this.myCurrentEntity == null) {

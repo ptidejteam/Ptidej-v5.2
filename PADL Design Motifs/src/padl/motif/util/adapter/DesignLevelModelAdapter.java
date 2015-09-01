@@ -243,10 +243,6 @@ public class DesignLevelModelAdapter implements IDesignLevelModel {
 		this.wrappedIdiomLevelModel.moveIn(aDestinationModel);
 	}
 
-	public void removeAllConstituent() {
-		this.wrappedIdiomLevelModel.removeAllConstituent();
-	}
-
 	public void removeConstituentFromID(final char[] anID) {
 		this.wrappedIdiomLevelModel.removeConstituentFromID(anID);
 	}

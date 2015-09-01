@@ -22,7 +22,6 @@ import padl.kernel.IContainer;
 import padl.kernel.IFactory;
 import padl.kernel.IFilter;
 import padl.kernel.IFirstClassEntity;
-import padl.kernel.IPackage;
 import padl.kernel.exception.ModelDeclarationException;
 import padl.path.Finder;
 import padl.path.FormatException;
@@ -34,27 +33,24 @@ import util.io.ProxyConsole;
 // This class is public only because DesignMotifModel should extend it.
 public abstract class AbstractModel implements IAbstractModel {
 	private static final long serialVersionUID = -3222006532486393116L;
+
 	private AbstractGenericContainerOfConstituents container =
 		new GenericContainerOfNaturallyOrderedConstituents(this);
-	private IWalker eventGenerator;
+	private GenericContainerOfTopLevelEntities containerOfTopLevelEntities =
+		new GenericContainerOfTopLevelEntities(this);
 
+	private IWalker eventGenerator;
 	private IFactory factory;
+
 	// Yann 2010/10/10: DB4O
 	// Used to be:
 	//	private final char[] name;
-	// I removed the final to make DB4O works...
+	//	private final char[] path;
+	// I removed the finals to make DB4O works...
 	// TODO: Understand how to keep it final with DB4O!
 	private char[] name;
-
-	// Yann 2010/10/10: DB4O
-	// Used to be:
-	//	private final char[] path;
-	// I removed the final to make DB4O works...
-	// TODO: Understand how to keep it final with DB4O!
 	private final char[] path;
 
-	private GenericContainerOfTopLevelEntities topLevelEntitiesContainer =
-		new GenericContainerOfTopLevelEntities(this);
 	public AbstractModel(final char[] aName) {
 		if (aName.length == 0) {
 			// Yann 2011/06/18: Empty name for path...
@@ -71,9 +67,11 @@ public abstract class AbstractModel implements IAbstractModel {
 		this.path[0] = IConstants.ABSTRACT_MODEL_SYMBOL;
 		System.arraycopy(this.name, 0, this.path, 1, this.name.length);
 
-		// Yann 2013/05/22: Top-level entities!
-		// See GenericContainerOfTopLevelEntities.TopLevelEntityManager
-		this.addModelListener(this.topLevelEntitiesContainer.getListener());
+		// Yann 2015/09/01: Listeners!
+		// Finally, getting it right: model listeners are for models 
+		// *only* but are propagated to all constituents of the models!
+		this.addModelListener(this.containerOfTopLevelEntities
+			.getModelListener());
 	}
 	public void addConstituent(final IConstituent aConstituent) {
 		if (aConstituent instanceof IConstituentOfModel) {
@@ -87,12 +85,6 @@ public abstract class AbstractModel implements IAbstractModel {
 	}
 	public void addConstituent(final IConstituentOfModel aConstituent) {
 		this.container.addConstituent(aConstituent);
-
-		// Yann 2013/05/22: Duplicate job!
-		// I already copy the "topLevelEntitiesContainer" of this model
-		// into the constituent when adding it, so no need to do it again!
-		//	aConstituent.addModelListener(this.topLevelEntitiesContainer
-		//		.getListener());
 	}
 	public void addModelListener(final IModelListener aModelListener) {
 		this.container.addModelListener(aModelListener);
@@ -137,32 +129,34 @@ public abstract class AbstractModel implements IAbstractModel {
 		// and must be assigned a new instance independently.
 		clonedModel.container =
 			new GenericContainerOfNaturallyOrderedConstituents(clonedModel);
-		clonedModel.topLevelEntitiesContainer =
+
+		// Yann 2015/09/01: Clone of listeners!
+		// I don't forget to clone the listners too...
+		// TODO To implement
+
+		clonedModel.containerOfTopLevelEntities =
 			new GenericContainerOfTopLevelEntities(clonedModel);
-		// Yann 2013/05/22: Top-level entities!
-		// See GenericContainerOfTopLevelEntities.TopLevelEntityManager
-		clonedModel.addModelListener(clonedModel.topLevelEntitiesContainer
-			.getListener());
+		clonedModel.removeModelListener(this.containerOfTopLevelEntities
+			.getModelListener());
+		clonedModel.addModelListener(clonedModel.containerOfTopLevelEntities
+			.getModelListener());
 
 		this.clone(clonedModel);
-
-		// Yann 2011/06/20: Top-level entities...
-		this.topLevelEntitiesContainer
-			.createMapOfIDsEntities(Constants.FORBIDDEN_ID);
 
 		return clonedModel;
 	}
 	protected void clone(final IAbstractModel anAbstractModel) {
-//	// Zero, I make a shallow copy of all the entities
-//	// so that their clones are available when doing the
-//	// deep copies below.
-//	Iterator iterator = this.getIteratorOnTopLevelEntities();
-//	while (iterator.hasNext()) {
-//		final IConstituentOfModel constituent =
-//			(IConstituentOfModel) iterator.next();
-//		constituent.startCloneSession();
-//	}
-		
+		//	// Zero, I make a shallow copy of all the listeners
+		//	// so that their clones are available when doing the
+		//	// deep copies below.
+		// TODO Deal with all listeners!
+		//	Iterator iterator = this.getIteratorOnModelListeners();
+		//	while (iterator.hasNext()) {
+		//		final IModelListener listener = (IModelListener) iterator.next();
+		//		anAbstractModel.removeModelListener(listener);
+		//		anAbstractModel.addModelListener(listener.clone());
+		//	}
+
 		// First, I make a shallow copy of all the entities in the model. 
 		Iterator iterator = this.getIteratorOnConstituents();
 		while (iterator.hasNext()) {
@@ -192,7 +186,7 @@ public abstract class AbstractModel implements IAbstractModel {
 		return this.container.doesContainConstituentWithName(aName);
 	}
 	public boolean doesContainTopLevelEntityWithID(final char[] anID) {
-		return this.topLevelEntitiesContainer
+		return this.containerOfTopLevelEntities
 			.doesContainTopLevelEntityWithID(anID);
 	}
 	public void fireModelChange(final String anEventType, final IEvent anEvent) {
@@ -259,7 +253,7 @@ public abstract class AbstractModel implements IAbstractModel {
 		return this.container.getIteratorOnModelListeners();
 	}
 	public Iterator getIteratorOnTopLevelEntities() {
-		return this.topLevelEntitiesContainer.getIteratorOnTopLevelEntities();
+		return this.containerOfTopLevelEntities.getIteratorOnTopLevelEntities();
 	}
 	public char[] getName() {
 		return this.name;
@@ -271,17 +265,17 @@ public abstract class AbstractModel implements IAbstractModel {
 		return this.container.getNumberOfConstituents(aConstituentType);
 	}
 	public int getNumberOfTopLevelEntities() {
-		return this.topLevelEntitiesContainer.getNumberOfTopLevelEntities();
+		return this.containerOfTopLevelEntities.getNumberOfTopLevelEntities();
 	}
 	public int getNumberOfTopLevelEntities(final java.lang.Class anEntityType) {
-		return this.topLevelEntitiesContainer
+		return this.containerOfTopLevelEntities
 			.getNumberOfTopLevelEntities(anEntityType);
 	}
 	public char[] getPath() {
 		return this.path;
 	}
 	public IFirstClassEntity getTopLevelEntityFromID(final char[] anID) {
-		return this.topLevelEntitiesContainer.getTopLevelEntityFromID(anID);
+		return this.containerOfTopLevelEntities.getTopLevelEntityFromID(anID);
 	}
 	public IFirstClassEntity getTopLevelEntityFromID(final String anID) {
 		return this.getTopLevelEntityFromID(anID.toCharArray());
@@ -303,26 +297,7 @@ public abstract class AbstractModel implements IAbstractModel {
 		destinationModel.setFactory(this.getFactory());
 		aDestinationModel.walk(destinationModel.getEventGenerator());
 	}
-	public void removeAllConstituent() {
-		this.container.removeAllConstituent();
-	}
 	public void removeConstituentFromID(final char[] anID) {
-		// Yann 2013/05/22: Top-level entities
-		// I don't forget to remove any top-level entities that could
-		// belong to the constituent being removed... for consistency!
-		final IConstituent constituent = this.getConstituentFromID(anID);
-		if (constituent instanceof IPackage) {
-			final Iterator iterator =
-				((IPackage) constituent).getIteratorOnConstituents();
-			while (iterator.hasNext()) {
-				final IConstituent constituentOfConstituent =
-					(IConstituent) iterator.next();
-				this.topLevelEntitiesContainer
-					.removeTopLevelEntityFromID(constituentOfConstituent
-						.getID());
-			}
-		}
-
 		this.container.removeConstituentFromID(anID);
 	}
 	public void removeModelListener(final IModelListener aModelListener) {
@@ -354,7 +329,7 @@ public abstract class AbstractModel implements IAbstractModel {
 		// care of the rest...
 		try {
 			final IConstituent constituent =
-				this.topLevelEntitiesContainer.getTopLevelEntityFromID(anID);
+				this.containerOfTopLevelEntities.getTopLevelEntityFromID(anID);
 			final IContainer container =
 				Finder.findContainer(constituent.getDisplayPath(), this);
 			container.removeConstituentFromID(anID);

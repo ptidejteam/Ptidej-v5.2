@@ -34,7 +34,7 @@ import java.util.Iterator;
 /**
  * @author Yann-Gaël Guéhéneuc
  */
-public interface IFirstClassEntity extends IEntity, IContainer, IObservable {
+public interface IFirstClassEntity extends IEntity, IContainer {
 	void addConstituent(final IConstituentOfEntity anElement);
 	void addInheritedEntity(final IFirstClassEntity anEntity);
 	// Yann 2005/05/21: Usage!

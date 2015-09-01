@@ -17,7 +17,6 @@ import padl.motif.repository.Composite;
 
 public final class Remove extends TestCase {
 	private IDesignMotifModel compositePattern;
-	private IDesignMotifModel clonedCompositePattern1;
 	private IDesignMotifModel clonedCompositePattern2;
 	public Remove(String name) {
 		super(name);
@@ -25,20 +24,10 @@ public final class Remove extends TestCase {
 	protected void setUp() throws CloneNotSupportedException {
 		this.compositePattern = new Composite();
 
-		this.clonedCompositePattern1 =
-			(IDesignMotifModel) this.compositePattern.clone();
-		this.clonedCompositePattern1.removeAllConstituent();
-
 		this.clonedCompositePattern2 =
 			(IDesignMotifModel) this.compositePattern.clone();
 		this.clonedCompositePattern2.removeConstituentFromID("Composite"
 			.toCharArray());
-	}
-	public void test1() {
-		Assert.assertEquals(
-			"Number of entities",
-			0,
-			this.clonedCompositePattern1.getNumberOfConstituents());
 	}
 	public void test2() {
 		Assert.assertEquals(

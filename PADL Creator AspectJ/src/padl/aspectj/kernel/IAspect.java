@@ -13,12 +13,11 @@ package padl.aspectj.kernel;
 import padl.kernel.IConstituentOfEntity;
 import padl.kernel.IConstituentOfModel;
 import padl.kernel.IContainer;
-import padl.kernel.IObservable;
 
 /**
  * @author Jean-Yves Guyomarc'h
  */
-public interface IAspect extends IConstituentOfModel, IContainer, IObservable {
+public interface IAspect extends IConstituentOfModel, IContainer {
 	void addConstituent(final IAspectElement anAspectElement);
 	void addConstituent(final IConstituentOfEntity aConstituent);
 }

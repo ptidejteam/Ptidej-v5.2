@@ -22,6 +22,10 @@ import padl.event.IModelListener;
 public interface IObservable {
 	void addModelListener(final IModelListener aModelListener);
 	void addModelListeners(final List aListOfModelListeners);
+	/**
+	 *  @deprecated
+	 *  TODO Remove method fireModelChange(), should not be replaced by anything!
+	 */
 	void fireModelChange(final String anEventType, final IEvent anEvent);
 	Iterator getIteratorOnModelListeners();
 	void removeModelListener(final IModelListener aModelListener);

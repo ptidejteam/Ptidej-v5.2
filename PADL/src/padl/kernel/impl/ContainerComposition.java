@@ -16,7 +16,7 @@ import padl.kernel.IElementMarker;
 import padl.kernel.IFirstClassEntity;
 
 class ContainerComposition extends ContainerAggregation implements
-		IElementMarker, IContainerComposition {
+		IElementMarker, IContainerComposition, IPrivateModelObservable {
 
 	private static final long serialVersionUID = 3675667508613729100L;
 	public ContainerComposition(final IAssociation pAssociation) {

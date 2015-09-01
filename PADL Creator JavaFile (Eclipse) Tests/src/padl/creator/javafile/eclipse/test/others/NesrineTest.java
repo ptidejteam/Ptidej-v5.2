@@ -68,7 +68,7 @@ public class NesrineTest extends TestCase {
 				(IIdiomLevelModel) new AACRelationshipsAnalysis()
 					.invoke(codeLevelModel);
 
-			Assert.assertTrue(true);
+			Assert.assertNotNull(idiomLevelModel);
 		}
 		catch (final UnsupportedSourceModelException e) {
 			e.printStackTrace();

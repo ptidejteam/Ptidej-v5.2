@@ -231,19 +231,19 @@ public class MethodInvocationUtils {
 		final IFirstClassEntity currentEntity,
 		final String aCurrentPackageName) {
 
-		// get the binding of the expression in order to find the declaring
-		// entity of the field
-
 		final IVariableBinding variableBinding =
 			(IVariableBinding) MethodInvocationUtils
 				.getExpressionTypeBinding(anExpression);
+
+		if (variableBinding == null) {
+			return null;
+		}
 
 		return (IFirstClassEntity) PadlParserUtil.getEntityOrGetOrCreateGhost(
 			false,
 			variableBinding.getDeclaringClass(),
 			aPadlModel,
 			aCurrentPackageName);
-
 	}
 
 	/**

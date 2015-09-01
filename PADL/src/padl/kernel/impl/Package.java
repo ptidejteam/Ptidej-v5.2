@@ -27,7 +27,7 @@ import padl.visitor.IVisitor;
  * @author Yann-Gaël Guéhéneuc
  * @since 2005/09/30
  */
-class Package extends Constituent implements IPackage {
+class Package extends Constituent implements IPackage, IPrivateModelObservable {
 	private static final long serialVersionUID = 2682383413411742951L;
 	private AbstractGenericContainerOfConstituents container =
 		new GenericContainerOfNaturallyOrderedConstituents(
@@ -37,7 +37,6 @@ class Package extends Constituent implements IPackage {
 	public Package(final char[] anID) {
 		super(anID);
 	}
-
 	public void accept(final IVisitor visitor) {
 		this.accept(visitor, "open");
 		final Iterator iterator = this.getIteratorOnConstituents();
@@ -46,17 +45,6 @@ class Package extends Constituent implements IPackage {
 		}
 		this.accept(visitor, "close");
 	}
-
-	// public final Object clone() throws CloneNotSupportedException {
-	// final Package clonedPackage = (Package) super.clone();
-	//
-	// clonedPackage.container =
-	// new GenericContainerOfNaturallyOrderedConstituents(clonedPackage);
-	// clonedPackage.topLevelEntitiesContainer =
-	// new GenericContainerOfTopLevelEntities(clonedPackage);
-	//
-	// return clonedPackage;
-	// }
 	public void addConstituent(final IConstituent aConstituent) {
 		if (aConstituent instanceof IConstituentOfModel) {
 			this.addConstituent((IConstituentOfModel) aConstituent);
@@ -66,42 +54,27 @@ class Package extends Constituent implements IPackage {
 					+ " can only add IConstituentOfModel");
 		}
 	}
-
 	public void addConstituent(IConstituentOfEntity aConstituent) {
 		this.container.addConstituent(aConstituent);
 	}
 	public void addConstituent(final IConstituentOfModel aConstituent) {
 		this.container.addConstituent(aConstituent);
 	}
-	//	public void addConstituent(IConstituentOfOperation aConstituent)
-	//			throws ModelDeclarationException {
-	//		this.container.addConstituent(aConstituent);
-	//	}
-	//	public void addConstituent(final IFirstClassEntity anEntity)
-	//			throws ModelDeclarationException {
-	//
-	//		this.container.addConstituent(anEntity);
-	//	}
 	public void addConstituent(final IPackage aPackage) {
 		this.container.addConstituent(aPackage);
 	}
-
 	public void addModelListener(final IModelListener aModelListener) {
 		this.container.addModelListener(aModelListener);
 	}
-
 	public void addModelListeners(final List someModelListeners) {
 		this.container.addModelListeners(someModelListeners);
 	}
-
 	public boolean doesContainConstituentWithID(final char[] anID) {
 		return this.container.doesContainConstituentWithID(anID);
 	}
-
 	public boolean doesContainConstituentWithName(final char[] aName) {
 		return this.container.doesContainConstituentWithName(aName);
 	}
-
 	public void endCloneSession() {
 		// The shallow copy must include a shallow copy of
 		// member entities, because the clones of methods,
@@ -114,70 +87,54 @@ class Package extends Constituent implements IPackage {
 			constituent.endCloneSession();
 		}
 	}
-
 	public void fireModelChange(final String anEventType, final IEvent anEvent) {
 		this.container.fireModelChange(anEventType, anEvent);
 	}
-
 	public Iterator getConcurrentIteratorOnConstituents() {
 		return this.container.getConcurrentIteratorOnConstituents();
 	}
-
 	public Iterator getConcurrentIteratorOnConstituents(final IFilter filter) {
 		return this.container.getConcurrentIteratorOnConstituents();
 	}
-
 	public Iterator getConcurrentIteratorOnConstituents(
 		final java.lang.Class aConstituentType) {
 
 		return this.container
 			.getConcurrentIteratorOnConstituents(aConstituentType);
 	}
-
 	public IConstituent getConstituentFromID(final char[] anID) {
 		return this.container.getConstituentFromID(anID);
 	}
-
 	public IConstituent getConstituentFromID(final String anID) {
 		return this.getConstituentFromID(anID.toCharArray());
 	}
-
 	public IConstituent getConstituentFromName(final char[] aName) {
 		return this.container.getConstituentFromName(aName);
 	}
-
 	public IConstituent getConstituentFromName(final String aName) {
 		return this.getConstituentFromName(aName.toCharArray());
 	}
-
 	public Iterator getIteratorOnConstituents() {
 		return this.container.getIteratorOnConstituents();
 	}
-
 	public Iterator getIteratorOnConstituents(final IFilter aFilter) {
 		return this.container.getIteratorOnConstituents(aFilter);
 	}
-
 	public Iterator getIteratorOnConstituents(java.lang.Class aConstituentType) {
 		return this.container.getIteratorOnConstituents(aConstituentType);
 	}
-
 	public Iterator getIteratorOnModelListeners() {
 		return this.container.getIteratorOnModelListeners();
 	}
-
 	public int getNumberOfConstituents() {
 		return this.container.getNumberOfConstituents();
 	}
-
 	public int getNumberOfConstituents(final java.lang.Class aConstituentType) {
 		return this.container.getNumberOfConstituents(aConstituentType);
 	}
-
 	protected char getPathSymbol() {
 		return IConstants.PACKAGE_SYMBOL;
 	}
-
 	public void performCloneSession() {
 		// The shallow copy must include a shallow copy of
 		// member entities, because the clones of methods,
@@ -190,11 +147,6 @@ class Package extends Constituent implements IPackage {
 			constituent.performCloneSession();
 		}
 	}
-
-	public void removeAllConstituent() {
-		this.container.removeAllConstituent();
-	}
-
 	public void removeConstituentFromID(final char[] anID) {
 		this.container.removeConstituentFromID(anID);
 	}
@@ -220,6 +172,10 @@ class Package extends Constituent implements IPackage {
 		((Package) this.getClone()).container =
 			new GenericContainerOfNaturallyOrderedConstituents(
 				((Package) this.getClone()));
+
+		// Yann 2015/09/01: Clone of listeners!
+		// I don't forget to clone the listners too...
+		// TODO To implement
 
 		final Iterator iterator = this.getIteratorOnConstituents();
 		while (iterator.hasNext()) {

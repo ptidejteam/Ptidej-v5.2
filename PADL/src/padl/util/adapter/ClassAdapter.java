@@ -61,12 +61,6 @@ public abstract class ClassAdapter implements IClass {
 	public void addInheritedEntity(final IFirstClassEntity anEntity) {
 		this.wrappedClass.addInheritedEntity(anEntity);
 	}
-	public void addModelListener(final IModelListener aModelListener) {
-		this.wrappedClass.addModelListener(aModelListener);
-	}
-	public void addModelListeners(final List aListOfModelListeners) {
-		this.wrappedClass.addModelListeners(aListOfModelListeners);
-	}
 	public void assumeAllInterfaces() {
 		this.wrappedClass.assumeAllInterfaces();
 	}
@@ -165,9 +159,6 @@ public abstract class ClassAdapter implements IClass {
 	public Iterator getIteratorOnInheritingEntities(final IFilter aFilter) {
 		return this.wrappedClass.getIteratorOnInheritingEntities(aFilter);
 	}
-	public Iterator getIteratorOnModelListeners() {
-		return this.wrappedClass.getIteratorOnModelListeners();
-	}
 	public char[] getName() {
 		return this.wrappedClass.getName();
 	}
@@ -225,9 +216,6 @@ public abstract class ClassAdapter implements IClass {
 	public void performCloneSession() {
 		this.wrappedClass.performCloneSession();
 	}
-	public void removeAllConstituent() {
-		this.wrappedClass.removeAllConstituent();
-	}
 	public void removeConstituentFromID(final char[] anID) {
 		this.wrappedClass.removeConstituentFromID(anID);
 	}
@@ -239,9 +227,6 @@ public abstract class ClassAdapter implements IClass {
 	}
 	public void removeModelListener(final IModelListener aModelListener) {
 		this.removeModelListener(aModelListener);
-	}
-	public void removeModelListeners(final List aListOfModelListeners) {
-		this.wrappedClass.removeModelListeners(aListOfModelListeners);
 	}
 	public void resetCodeLines() {
 		this.wrappedClass.resetCodeLines();

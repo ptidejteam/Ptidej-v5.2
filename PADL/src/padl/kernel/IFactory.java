@@ -58,6 +58,11 @@ public interface IFactory {
 		final char[] aName,
 		final char[] aType,
 		final int aCardinality);
+	IFieldAccess createFieldAccess(
+		final int cardinality,
+		final int visibility,
+		final IField field,
+		final IFirstClassEntity entityDeclaringField);
 	IGetter createGetter(final char[] anID, final char[] aName);
 	IGetter createGetter(final IMethod aMethod);
 	IGhost createGhost(final char[] anID, final char[] aName);

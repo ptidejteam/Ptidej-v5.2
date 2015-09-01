@@ -41,8 +41,7 @@ public interface IMethodInvocation extends IConstituentOfOperation {
 	IField getFirstCallingField();
 	IFirstClassEntity getTargetEntity();
 	int getType();
-	
-	
+
 	// TODO: Should be removed
 	void setCalledMethod(final IOperation calledMethod);
 	void setCallingField(final List callingFields);

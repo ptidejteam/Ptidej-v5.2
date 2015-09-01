@@ -31,7 +31,7 @@ import util.lang.Modifier;
 import util.multilingual.MultilingualManager;
 
 //Sebastien Colladon 23/04/2012 : Change the visibility to public in order to allow other project to extend from this class in the particular case of eclipse bundle loader (avoid IllegalAccessError).
-public abstract class Operation extends Element implements IOperation {
+public abstract class Operation extends Element implements IOperation, IPrivateModelObservable {
 	private static final long serialVersionUID = 8145249048497089055L;
 
 	// Yann 2013/07/18: Duplication of intent!
@@ -243,9 +243,6 @@ public abstract class Operation extends Element implements IOperation {
 			constituent.endCloneSession();
 		}
 	}
-	public void removeAllConstituent() {
-		this.container.removeAllConstituent();
-	}
 	public void removeConstituentFromID(final char[] anID) {
 		this.container.removeConstituentFromID(anID);
 		this.updatePathWithParameters();
@@ -265,6 +262,10 @@ public abstract class Operation extends Element implements IOperation {
 		((Operation) this.getClone()).container =
 			new GenericContainerOfInsertionOrderedConstituents(
 				((Operation) this.getClone()));
+
+		// Yann 2015/09/01: Clone of listeners!
+		// I don't forget to clone the listners too...
+		// TODO To implement
 	}
 	public String toString() {
 		if (Constants.DEBUG) {

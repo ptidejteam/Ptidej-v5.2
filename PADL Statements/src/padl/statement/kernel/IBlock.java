@@ -17,6 +17,6 @@ import padl.kernel.IStatement;
  * @author Yousra
  */
 public interface IBlock extends IStatement {
-	void addConsituent(final IStatement anStatement);
+	void addConstituent(final IStatement anStatement);
 	Iterator getIteratorOnConstituents();
 }

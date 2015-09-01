@@ -14,7 +14,7 @@ package padl.kernel;
  * @author Yann-Gaël Guéhéneuc
  * @since  2005/08/14
  */
-public interface IOperation extends IContainer, IElement, IObservable {
+public interface IOperation extends IContainer, IElement {
 	void addConstituent(final IConstituentOfOperation aConstituent);
 	/**
 	 * Return a string that represents

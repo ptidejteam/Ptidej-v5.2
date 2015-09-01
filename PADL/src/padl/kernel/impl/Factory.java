@@ -28,6 +28,7 @@ import padl.kernel.IDelegatingMethod;
 import padl.kernel.IEntity;
 import padl.kernel.IFactory;
 import padl.kernel.IField;
+import padl.kernel.IFieldAccess;
 import padl.kernel.IFirstClassEntity;
 import padl.kernel.IGetter;
 import padl.kernel.IGhost;
@@ -51,11 +52,11 @@ import padl.visitor.IWalker;
  * @author Yann-Gaël Guéhéneuc
  */
 public class Factory implements IFactory, Serializable {
+	private static IPackageDefault DefaultPackage;
 	private static final IFirstClassEntity HIERARCHY_ROOT_ENTITY = new Ghost(
 		Constants.DEFAULT_HIERARCHY_ROOT_ID,
 		Constants.DEFAULT_HIERARCHY_ROOT_NAME);
 	private static final Map PrimitiveEntities = new HashMap();
-	private static IPackageDefault DefaultPackage;
 	private static final long serialVersionUID = -4969943969597847522L;
 
 	// Sebastien Colladon 19/04/2012 : Change with the abstract type for more flexibility in the legacy
@@ -93,9 +94,6 @@ public class Factory implements IFactory, Serializable {
 		((CodeLevelModel) codeLevelModel).setEventGenerator(this
 			.getEventGenerator());
 		return codeLevelModel;
-	}
-	protected IWalker getEventGenerator() {
-		return EventGenerator.getInstance();
 	}
 	public ICodeLevelModel createCodeLevelModel(final String aName) {
 		return this.createCodeLevelModel(aName.toCharArray());
@@ -164,6 +162,18 @@ public class Factory implements IFactory, Serializable {
 		final int aCardinality) {
 
 		return new Field(anID, aName, aType, aCardinality);
+	}
+	public IFieldAccess createFieldAccess(
+		int cardinality,
+		int visibility,
+		IField field,
+		IFirstClassEntity entityDeclaringField) {
+
+		return new FieldAccess(
+			cardinality,
+			visibility,
+			field,
+			entityDeclaringField);
 	}
 	public IGetter createGetter(final char[] anID, final char[] aName) {
 		final IGetter getter = new Getter(anID);
@@ -315,5 +325,8 @@ public class Factory implements IFactory, Serializable {
 		final int aCardinality) {
 
 		return new UseRelationship(anID, aTargetEntity, aCardinality);
+	}
+	protected IWalker getEventGenerator() {
+		return EventGenerator.getInstance();
 	}
 }

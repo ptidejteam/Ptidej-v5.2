@@ -16,7 +16,6 @@ import java.util.Iterator;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 import padl.kernel.IConstituent;
-import padl.kernel.IMethod;
 import padl.kernel.IMethodInvocation;
 import padl.kernel.exception.ModelDeclarationException;
 import padl.test.helper.Reflector;
@@ -206,31 +205,6 @@ public class AbstractContainerTest extends TestCase {
 			"Iterator should only return the elements of type Method",
 			2,
 			l.size());
-	}
-	public void testRemoveAllEntities() throws Exception {
-		this.clazz.addConstituent(new Method("m1"));
-		this.clazz.removeAllConstituent();
-
-		Assert.assertEquals(
-			"List of actors should be reset",
-			0,
-			this.clazz.getNumberOfConstituents());
-	}
-	public void testRemoveAllEntities2() throws Exception {
-		final IMethod method = new Method("m1");
-		this.clazz.addConstituent(method);
-
-		method.addConstituent(new MethodInvocation(0, 0, 0, this.clazz));
-		method.addConstituent(new MethodInvocation(0, 0, 0, this.clazz));
-		method.addConstituent(new MethodInvocation(0, 0, 0, this.clazz));
-		method.addConstituent(new MethodInvocation(0, 0, 0, this.clazz));
-
-		method.removeAllConstituent();
-
-		Assert.assertEquals(
-			"List of actors should be reset",
-			0,
-			method.getNumberOfConstituents());
 	}
 	public void testRemoveEntityFromID() throws Exception {
 		final Method m = new Method("m1");

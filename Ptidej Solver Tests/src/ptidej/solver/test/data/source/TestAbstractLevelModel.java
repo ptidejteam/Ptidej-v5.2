@@ -316,8 +316,6 @@ public abstract class TestAbstractLevelModel implements IAbstractLevelModel {
 	}
 	public void moveIn(final IAbstractModel aDestinationModel) {
 	}
-	public void removeAllConstituent() {
-	}
 	public void removeConstituentFromID(final char[] anID) {
 	}
 	//	public List listOfActors() {

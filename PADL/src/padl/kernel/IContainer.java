@@ -44,7 +44,6 @@ public interface IContainer {
 	Iterator getIteratorOnConstituents(final java.lang.Class aConstituentType);
 	int getNumberOfConstituents();
 	int getNumberOfConstituents(final java.lang.Class aConstituentType);
-	void removeAllConstituent();
 	//	/**
 	//	 * The implementation must ensure that actors
 	//	 * are ordered in the same way across platforms.

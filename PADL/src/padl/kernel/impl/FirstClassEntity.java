@@ -48,7 +48,7 @@ import util.multilingual.MultilingualManager;
 
 //Sebastien Colladon 21/04/2012 : Change the visibility to public in order to allow other project to extend from this class in the particular case of eclipse bundle loader (avoid IllegalAccessError).
 public abstract class FirstClassEntity extends Constituent implements
-		IFirstClassEntity {
+		IFirstClassEntity, IPrivateModelObservable {
 
 	// Yann 2002/07/29: Final!
 	// The following fields cannot be final! Because I need to set them
@@ -477,9 +477,6 @@ public abstract class FirstClassEntity extends Constituent implements
 			}
 		}
 	}
-	public void removeAllConstituent() {
-		this.container.removeAllConstituent();
-	}
 	public void removeConstituentFromID(final char[] anID) {
 		this.container.removeConstituentFromID(anID);
 	}
@@ -516,6 +513,10 @@ public abstract class FirstClassEntity extends Constituent implements
 		((FirstClassEntity) this.getClone()).container =
 			new GenericContainerOfNaturallyOrderedConstituents(
 				((FirstClassEntity) this.getClone()));
+
+		// Yann 2015/09/01: Clone of listeners!
+		// I don't forget to clone the listners too...
+		// TODO To implement
 
 		// Yann 2015/05/07: Why IFirstClassEntity in FirstClassEntity
 		// Because... with C++ others, an entity can also be an element

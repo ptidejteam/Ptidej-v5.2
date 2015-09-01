@@ -35,6 +35,7 @@ public class TestMethodInvocations extends TestSuite {
 		suite.addTestSuite(MI_InstanceCreationTest.class);
 		suite.addTestSuite(MI_InstanceInstanceFieldTest.class);
 		suite.addTestSuite(MI_InstanceInstanceTest.class);
+		suite.addTestSuite(PooyaTest.class);
 		return suite;
 	}
 	public TestMethodInvocations() {

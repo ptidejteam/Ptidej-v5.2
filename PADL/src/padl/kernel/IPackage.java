@@ -14,6 +14,6 @@ package padl.kernel;
  * @author Yann-Gaël Guéhéneuc
  * @since  2005/09/30
  */
-public interface IPackage extends IConstituentOfModel, IContainer, IObservable {
+public interface IPackage extends IConstituentOfModel, IContainer {
 	void addConstituent(final IConstituentOfModel aConstituent);
 }
