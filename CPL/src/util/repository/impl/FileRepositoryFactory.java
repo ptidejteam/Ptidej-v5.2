@@ -129,7 +129,7 @@ public class FileRepositoryFactory {
 				this.tryJarsInJar(cl);
 				tryFailed = false;
 			}
-			catch (final ClassNotFoundException cnfe) {
+			catch (final Exception e) {
 				tryFailed = true;
 			}
 		}
@@ -139,7 +139,7 @@ public class FileRepositoryFactory {
 				this.tryFoldersAndFiles(cl);
 				tryFailed = false;
 			}
-			catch (final IOException ioe) {
+			catch (final Exception e) {
 				tryFailed = true;
 			}
 		}
