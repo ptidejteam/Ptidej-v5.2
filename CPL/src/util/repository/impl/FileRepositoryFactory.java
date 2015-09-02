@@ -11,7 +11,9 @@
 package util.repository.impl;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URLDecoder;
 import java.util.HashMap;
@@ -28,8 +30,8 @@ public class FileRepositoryFactory {
 	private static int FILE_FOLDER_REPOSITORY = 0;
 	private static int FLAT_JAR_FILE_REPOSITORY = 3;
 	private static int JAR_IN_JAR_FILE_REPOSITORY = 2;
-	private static FileRepositoryFactory UniqueInstance;
 	private static File RunningPath;
+	private static FileRepositoryFactory UniqueInstance;
 	private static int UNKNOWN = -1;
 	public static FileRepositoryFactory getInstance() {
 		if (FileRepositoryFactory.UniqueInstance == null) {
@@ -90,7 +92,8 @@ public class FileRepositoryFactory {
 		return FileRepositoryFactory.RunningPath;
 	}
 
-	private Map<IRepository, IFileRepository> repositories = new HashMap<IRepository, IFileRepository>();
+	private Map<IRepository, IFileRepository> repositories =
+		new HashMap<IRepository, IFileRepository>();
 	private int type = FileRepositoryFactory.UNKNOWN;
 	public FileRepositoryFactory() {
 		// Yann 2013/07/02: Cases
@@ -99,105 +102,61 @@ public class FileRepositoryFactory {
 		// - the case when running from a JAR file;
 		// - the case when running from as an Eclipse plug-in.
 		final ClassLoader cl = FileRepositoryFactory.class.getClassLoader();
+		boolean tryFailed = true;
 
-		try {
-			// Check if run within env like eclipse
-			final Class<?> workspaceClass =
-				cl.loadClass("org.eclipse.core.resources.IWorkspace");
-			final Class<?> resourcesClass =
-				cl.loadClass("org.eclipse.core.resources.ResourcesPlugin");
-			if (workspaceClass != null || resourcesClass != null) {
-				// In eclipse
-				final Method getWorkspace =
-					resourcesClass.getDeclaredMethod(
-						"getWorkspace",
-						new Class[0]);
-				final Object o =
-					getWorkspace.invoke(resourcesClass, new Object[] {});
-				if (o != null) {
-					// There is a workspace, we should use eclipse bundles
-					ProxyConsole
-						.getInstance()
-						.warningOutput()
-						.print(this.getClass().getName());
-					ProxyConsole
-						.getInstance()
-						.warningOutput()
-						.print(" is creating an EclipseBundleRepository for: ");
-					ProxyConsole
-						.getInstance()
-						.warningOutput()
-						.println(EclipseBundleRepository.class.getName());
-
-					this.type = FileRepositoryFactory.ECLIPSE_BUNDLE_REPOSITORY;
-				}
-				else {
-					throw new RuntimeException(
-						"FileRepositoryBuilder cannot invoke ResourcesPlugin");
-				}
+		if (tryFailed) {
+			try {
+				this.tryWebApp(cl);
+				tryFailed = false;
 			}
-			else {
-				throw new RuntimeException(
-					"FileRepositoryBuilder cannot find either IWorkspace or ResourcesPlugin");
+			catch (final Exception e) {
+				tryFailed = true;
 			}
 		}
-		catch (final Exception e) {
-			// Warning! Eclipse of course does funny things...
+
+		if (tryFailed) {
 			try {
-				final Class<?> jarInJarLoader =
-					cl
-						.loadClass("org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader");
+				this.tryEclipsePlugin(cl);
+				tryFailed = false;
+			}
+			catch (final Exception e) {
+				tryFailed = true;
+			}
+		}
 
-				ProxyConsole
-					.getInstance()
-					.warningOutput()
-					.print(this.getClass().getName());
-				ProxyConsole
-					.getInstance()
-					.warningOutput()
-					.print(" is creating a JarFileRepository for: ");
-				ProxyConsole
-					.getInstance()
-					.warningOutput()
-					.println(jarInJarLoader.getName());
-
-				this.type = FileRepositoryFactory.JAR_IN_JAR_FILE_REPOSITORY;
+		if (tryFailed) {
+			try {
+				this.tryJarsInJar(cl);
+				tryFailed = false;
 			}
 			catch (final ClassNotFoundException cnfe) {
-				final File path = FileRepositoryFactory.getRunningPath();
-				if (path.isDirectory()) {
-					ProxyConsole
-						.getInstance()
-						.warningOutput()
-						.print(this.getClass().getName());
-					ProxyConsole
-						.getInstance()
-						.warningOutput()
-						.print(" is creating a ClassFileRepository for: ");
-					ProxyConsole
-						.getInstance()
-						.warningOutput()
-						.println(FileFolderRepository.class.getName());
-
-					this.type = FileRepositoryFactory.FILE_FOLDER_REPOSITORY;
-				}
-				else {
-					ProxyConsole
-						.getInstance()
-						.warningOutput()
-						.print(this.getClass().getName());
-					ProxyConsole
-						.getInstance()
-						.warningOutput()
-						.print(" is creating a JarFileRepository for: ");
-					ProxyConsole
-						.getInstance()
-						.warningOutput()
-						.println(JarFileRepository.class.getName());
-
-					this.type = FileRepositoryFactory.FLAT_JAR_FILE_REPOSITORY;
-				}
+				tryFailed = true;
 			}
+		}
+
+		if (tryFailed) {
+			try {
+				this.tryFoldersAndFiles(cl);
+				tryFailed = false;
+			}
+			catch (final IOException ioe) {
+				tryFailed = true;
+			}
+		}
+
+		if (tryFailed) {
+			try {
+				this.tryFlatJar(cl);
+				tryFailed = false;
+			}
+			catch (final Exception e) {
+				tryFailed = true;
+			}
+		}
+
+		if (tryFailed) {
+			throw new RuntimeException(new FileAccessException(
+				"Cannot find adequate FileRepository for this running context"));
 		}
 	}
 	public IFileRepository getFileRepository(final IRepository aRepository) {
@@ -248,5 +207,112 @@ public class FileRepositoryFactory {
 		else {
 			return (IFileRepository) this.repositories.get(aRepository);
 		}
+	}
+	private void tryEclipsePlugin(final ClassLoader cl)
+			throws ClassNotFoundException, NoSuchMethodException,
+			SecurityException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException {
+
+		// Check if run within environments like eclipse
+		final Class<?> workspaceClass =
+			cl.loadClass("org.eclipse.core.resources.IWorkspace");
+		final Class<?> resourcesClass =
+			cl.loadClass("org.eclipse.core.resources.ResourcesPlugin");
+		if (workspaceClass != null || resourcesClass != null) {
+			// In eclipse
+			final Method getWorkspace =
+				resourcesClass.getDeclaredMethod("getWorkspace", new Class[0]);
+			final Object o =
+				getWorkspace.invoke(resourcesClass, new Object[] {});
+			if (o != null) {
+				// There is a workspace, we should use eclipse bundles
+				ProxyConsole
+					.getInstance()
+					.warningOutput()
+					.print(this.getClass().getName());
+				ProxyConsole
+					.getInstance()
+					.warningOutput()
+					.print(" is creating an EclipseBundleRepository for: ");
+				ProxyConsole
+					.getInstance()
+					.warningOutput()
+					.println(EclipseBundleRepository.class.getName());
+
+				this.type = FileRepositoryFactory.ECLIPSE_BUNDLE_REPOSITORY;
+			}
+			else {
+				throw new RuntimeException(
+					"FileRepositoryBuilder cannot invoke ResourcesPlugin");
+			}
+		}
+		else {
+			throw new RuntimeException(
+				"FileRepositoryBuilder cannot find either IWorkspace or ResourcesPlugin");
+		}
+	}
+	private void tryFlatJar(final ClassLoader cl) {
+		ProxyConsole
+			.getInstance()
+			.warningOutput()
+			.print(this.getClass().getName());
+		ProxyConsole
+			.getInstance()
+			.warningOutput()
+			.print(" is creating a JarFileRepository for: ");
+		ProxyConsole
+			.getInstance()
+			.warningOutput()
+			.println(JarFileRepository.class.getName());
+
+		this.type = FileRepositoryFactory.FLAT_JAR_FILE_REPOSITORY;
+	}
+	private void tryFoldersAndFiles(final ClassLoader cl) throws IOException {
+		final File path = FileRepositoryFactory.getRunningPath();
+		if (path.isDirectory()) {
+			ProxyConsole
+				.getInstance()
+				.warningOutput()
+				.print(this.getClass().getName());
+			ProxyConsole
+				.getInstance()
+				.warningOutput()
+				.print(" is creating a ClassFileRepository for: ");
+			ProxyConsole
+				.getInstance()
+				.warningOutput()
+				.println(FileFolderRepository.class.getName());
+
+			this.type = FileRepositoryFactory.FILE_FOLDER_REPOSITORY;
+		}
+		else {
+			throw new IOException();
+		}
+	}
+	private void tryJarsInJar(final ClassLoader cl)
+			throws ClassNotFoundException {
+
+		// Warning! Eclipse of course does funny things...
+		final Class<?> jarInJarLoader =
+			cl
+				.loadClass("org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader");
+
+		ProxyConsole
+			.getInstance()
+			.warningOutput()
+			.print(this.getClass().getName());
+		ProxyConsole
+			.getInstance()
+			.warningOutput()
+			.print(" is creating a JarFileRepository for: ");
+		ProxyConsole
+			.getInstance()
+			.warningOutput()
+			.println(jarInJarLoader.getName());
+
+		this.type = FileRepositoryFactory.JAR_IN_JAR_FILE_REPOSITORY;
+	}
+	private void tryWebApp(ClassLoader cl) throws NoSuchMethodException {
+		throw new NoSuchMethodException();
 	}
 }
