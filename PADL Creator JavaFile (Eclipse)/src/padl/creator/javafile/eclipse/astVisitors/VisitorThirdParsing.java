@@ -678,6 +678,8 @@ public class VisitorThirdParsing extends ExtendedASTVisitor {
 	public boolean visit(final Assignment node) {
 		final Expression leftHandSide = node.getLeftHandSide();
 
+		// TODO Need testing based on Omar's Android applications!
+		/*
 		final int cardinality;
 		if (leftHandSide instanceof ArrayAccess) {
 			// if the expression on what the invocation is performed 
@@ -725,6 +727,7 @@ public class VisitorThirdParsing extends ExtendedASTVisitor {
 		fieldAccess.setComment(node.toString());
 
 		this.myCurrentOperation.addConstituent(fieldAccess);
+		*/
 
 		return super.visit(node);
 	}

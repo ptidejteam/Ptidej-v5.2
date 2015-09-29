@@ -1197,7 +1197,7 @@ abstract class AbstractClassFileCreator {
 		// Even though I clearly distinguish now between
 		// code-level models and idiom-level models, I
 		// keep this call to make sure that MethodInvocation
-		// are propertly created because I need them for the
+		// are properly created because I need them for the
 		// AACRelationshipAnalyser
 		RelationshipAnalyzer.recogniseRelationship(
 			aListOfSubmittedConstituents,
