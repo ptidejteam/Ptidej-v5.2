@@ -165,23 +165,27 @@ public class TestPath extends TestCase {
 	public void testRemoveAddParameter() {
 		final IFirstClassEntity firstClassEntity =
 			TestPath.IdiomLevelModel.getTopLevelEntityFromID("A");
-		final IMethod getter =
+		final IMethod setter =
 			(IMethod) firstClassEntity.getConstituentFromID("set");
 		final IParameter parameter =
 			Factory.getInstance().createParameter(firstClassEntity, 2);
-		getter.addConstituent(parameter);
-		Assert.assertEquals("Method ID", "set", getter.getDisplayID());
-		Assert.assertEquals("Method Name", "set", getter.getDisplayName());
+		setter.addConstituent(parameter);
+		Assert.assertEquals("Method ID", "set", setter.getDisplayID());
+		Assert.assertEquals("Method Name", "set", setter.getDisplayName());
 		Assert.assertEquals(
 			"Method Path",
-			"/Model|p|A|set(A)",
-			getter.getDisplayPath());
+			"/Model|p|A|set(A, A[])",
+			setter.getDisplayPath());
 
 		// Yann 2013/05/14: Remove what I added
 		// When running the tests in the complete test suite
 		// tests may be run in different order, so I make sure
 		// that I leave the getter "as it was".
-		getter.removeConstituentFromID(parameter.getID());
+		setter.removeConstituentFromID(parameter.getID());
+		Assert.assertEquals(
+			"Method Path",
+			"/Model|p|A|set(A)",
+			setter.getDisplayPath());
 	}
 	public void testAddRemoveClass1() {
 		final IFirstClassEntity firstClassEntity =

@@ -47,8 +47,12 @@ public abstract class Operation extends Element implements IOperation, IPrivateM
 
 	public Operation(final char[] anID) {
 		super(anID);
-		// Useless call?
-		//	this.updatePathWithParameters();
+		// Yann 2016/09/21: Important naming comvention!
+		// I must update the parameters even if none to
+		// make sure that the name and ID of the operation
+		// follows my naming convention for operations:
+		// their names and IDs must include "()".
+		this.updatePathWithParameters();
 	}
 	public Operation(final char[] anID, final IMethod anAttachedMethod) {
 		super(anID);
@@ -400,6 +404,9 @@ public abstract class Operation extends Element implements IOperation, IPrivateM
 		// is in v5... so I update the ID too.
 		// This code duplicate the code above to highlight that it
 		// does the same thing but is not really necessary in v6.
+		// Yann 2016/09/21: Not necessary...
+		// IDs should mimic the names as much as possible.
+		/*
 		buffer.setLength(0);
 		buffer.append(this.getID());
 		indexOfLastOpeningParenthesis = buffer.lastIndexOf("(");
@@ -420,5 +427,6 @@ public abstract class Operation extends Element implements IOperation, IPrivateM
 		}
 		buffer.append(')');
 		this.setID(buffer.toString().toCharArray());
+		*/
 	}
 }

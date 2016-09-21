@@ -122,7 +122,7 @@ public final class CopyIn extends TestCase {
 		final IMethod setter =
 			(IMethod) clonedEntities[0].getConstituentFromID("set");
 		Assert.assertEquals(
-			"/Destination Model|p|A|set()",
+			"/Destination Model|p|A|set(A)",
 			setter.getDisplayPath());
 	}
 	public void testEntities() {
