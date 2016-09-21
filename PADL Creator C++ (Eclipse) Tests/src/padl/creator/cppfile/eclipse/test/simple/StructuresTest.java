@@ -36,7 +36,7 @@ public class StructuresTest extends TestCase {
 			"The idiom-level model is null!",
 			StructuresTest.IdiomLevelModel);
 		Assert.assertEquals(
-			4,
+			3,
 			StructuresTest.IdiomLevelModel.getNumberOfTopLevelEntities());
 	}
 	public void testStructure() {

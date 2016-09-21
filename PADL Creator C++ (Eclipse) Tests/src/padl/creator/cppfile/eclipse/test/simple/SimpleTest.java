@@ -25,7 +25,7 @@ public class SimpleTest extends TestCase {
 			.getCodeLevelModelUsingOSGiEmbedded(
 				"../PADL Creator C++ (Eclipse) Tests/data/Simple/");
 		Assert.assertNotNull("The code-level model is null!", codeLevelModel);
-		Assert.assertEquals(10, codeLevelModel.getNumberOfTopLevelEntities());
+		Assert.assertEquals(9, codeLevelModel.getNumberOfTopLevelEntities());
 	}
 	public void test2OSGiRemote() {
 		//	final ICodeLevelModel codeLevelModel =

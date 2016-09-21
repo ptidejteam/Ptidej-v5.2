@@ -47,8 +47,8 @@ import padl.visitor.IVisitor;
 import util.multilingual.MultilingualManager;
 
 //Sebastien Colladon 21/04/2012 : Change the visibility to public in order to allow other project to extend from this class in the particular case of eclipse bundle loader (avoid IllegalAccessError).
-public abstract class FirstClassEntity extends Constituent implements
-		IFirstClassEntity, IPrivateModelObservable {
+public abstract class FirstClassEntity extends Constituent
+		implements IFirstClassEntity, IPrivateModelObservable {
 
 	// Yann 2002/07/29: Final!
 	// The following fields cannot be final! Because I need to set them
@@ -102,8 +102,9 @@ public abstract class FirstClassEntity extends Constituent implements
 			this.addConstituent((IRelationship) aConstituent);
 		}
 		else {
-			throw new ModelDeclarationException(this.getClass().getName()
-					+ " can only add IConstituentOfEntity and IRelationship");
+			throw new ModelDeclarationException(
+				this.getClass().getName()
+						+ " can only add IConstituentOfEntity and IRelationship");
 		}
 	}
 	public void addConstituent(final IConstituentOfEntity anElement) {
@@ -134,15 +135,17 @@ public abstract class FirstClassEntity extends Constituent implements
 		//				+ this.getClass());
 		//	}
 		if (anEntity == this) {
-			throw new ModelDeclarationException(MultilingualManager.getString(
-				"ENT_INHERIT_ITSELF",
-				IFirstClassEntity.class));
+			throw new ModelDeclarationException(
+				MultilingualManager
+					.getString("ENT_INHERIT_ITSELF", IFirstClassEntity.class));
 		}
 		if (this.listOfInheritedEntities.contains(anEntity)) {
-			throw new ModelDeclarationException(MultilingualManager.getString(
-				"ALREADY_INHERITED",
-				IFirstClassEntity.class,
-				new Object[] { anEntity.getDisplayID(), this.getDisplayID() }));
+			throw new ModelDeclarationException(
+				MultilingualManager.getString(
+					"ALREADY_INHERITED",
+					IFirstClassEntity.class,
+					new Object[] { anEntity.getDisplayID(),
+							this.getDisplayID() }));
 		}
 		this.listOfInheritedEntities.add(anEntity);
 		//	this.addConstituent(
@@ -160,9 +163,9 @@ public abstract class FirstClassEntity extends Constituent implements
 	 */
 	private void addInheritingEntity(final IFirstClassEntity anEntity) {
 		if (anEntity == this) {
-			throw new ModelDeclarationException(MultilingualManager.getString(
-				"ENT_INHERIT_ITSELF",
-				IFirstClassEntity.class));
+			throw new ModelDeclarationException(
+				MultilingualManager
+					.getString("ENT_INHERIT_ITSELF", IFirstClassEntity.class));
 		}
 		if (this.listOfInheritingEntities.contains(anEntity)) {
 			// Yann 2010/04/30: Unnecessary exception!
@@ -237,7 +240,9 @@ public abstract class FirstClassEntity extends Constituent implements
 	// that can fail when a member class is stored and restored in a database.
 	// Therefore, I revert to using one and only Constituent.equals().
 	//	}
-	public void fireModelChange(final String anEventType, final IEvent anEvent) {
+	public void fireModelChange(
+		final String anEventType,
+		final IEvent anEvent) {
 		this.container.fireModelChange(anEventType, anEvent);
 	}
 	public Iterator getConcurrentIteratorOnConstituents() {
@@ -457,11 +462,11 @@ public abstract class FirstClassEntity extends Constituent implements
 			// to make sure I am not adding a member entity already added
 			// (during "startCloneSession()"). Thanks to Saliha for
 			// revealing this bug!
+			constituent.performCloneSession();
 			if (!(constituent instanceof IFirstClassEntity)) {
-				constituent.performCloneSession();
 				try {
-					clonedEntity.addConstituent((IConstituent) constituent
-						.getClone());
+					clonedEntity
+						.addConstituent((IConstituent) constituent.getClone());
 				}
 				catch (ModelDeclarationException mde) {
 					// Now that the ID changes has parameters are added,
@@ -515,7 +520,7 @@ public abstract class FirstClassEntity extends Constituent implements
 				((FirstClassEntity) this.getClone()));
 
 		// Yann 2015/09/01: Clone of listeners!
-		// I don't forget to clone the listners too...
+		// I don't forget to clone the listeners too...
 		// TODO To implement
 
 		// Yann 2015/05/07: Why IFirstClassEntity in FirstClassEntity
@@ -529,9 +534,8 @@ public abstract class FirstClassEntity extends Constituent implements
 			final IFirstClassEntity firstClassEntity =
 				(IFirstClassEntity) iterator.next();
 			firstClassEntity.startCloneSession();
-			((IFirstClassEntity) this.getClone())
-				.addConstituent((IConstituentOfEntity) firstClassEntity
-					.getClone());
+			((IFirstClassEntity) this.getClone()).addConstituent(
+				(IConstituentOfEntity) firstClassEntity.getClone());
 		}
 	}
 	public String toString() {

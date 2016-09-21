@@ -35,17 +35,18 @@ public class SuperEntitiesConnection extends ClassFilePrimitive {
 	public SuperEntitiesConnection(final String name) {
 		super(name);
 	}
-	protected void setUp() throws IllegalAccessException,
-			InstantiationException, CreationException,
-			UnsupportedSourceModelException {
+	protected void setUp()
+			throws IllegalAccessException, InstantiationException,
+			CreationException, UnsupportedSourceModelException {
 
 		if (SuperEntitiesConnection.FirstClassEntities == null) {
-			final ICodeLevelModel codeLevelModel =
-				ClassFilePrimitive.getFactory().createCodeLevelModel(
-					"padl.example.composite1");
-			codeLevelModel
-				.create(new CompleteClassFileCreator(
-					new String[] { "../PADL Creator ClassFile Tests/bin/padl/example/composite1/" }));
+			final ICodeLevelModel codeLevelModel = ClassFilePrimitive
+				.getFactory()
+				.createCodeLevelModel("padl.example.composite1");
+			codeLevelModel.create(
+				new CompleteClassFileCreator(
+					new String[] {
+							"../PADL Creator ClassFile Tests/bin/padl/example/composite1/" }));
 
 			final IIdiomLevelModel idiomLevelModel =
 				(IIdiomLevelModel) new AACRelationshipsAnalysis()
@@ -210,9 +211,8 @@ public class SuperEntitiesConnection extends ClassFilePrimitive {
 			"java.lang.Object",
 			((IGhost) object).getDisplayID());
 
-		iterator =
-			((IClass) SuperEntitiesConnection.FirstClassEntities[9])
-				.getIteratorOnImplementedInterfaces();
+		iterator = ((IClass) SuperEntitiesConnection.FirstClassEntities[9])
+			.getIteratorOnImplementedInterfaces();
 		Assert.assertEquals(
 			"Paragraph class number of super-interfaces",
 			true,
@@ -262,9 +262,8 @@ public class SuperEntitiesConnection extends ClassFilePrimitive {
 			"java.lang.Object",
 			((IGhost) object).getDisplayID());
 
-		iterator =
-			((IClass) SuperEntitiesConnection.FirstClassEntities[10])
-				.getIteratorOnImplementedInterfaces();
+		iterator = ((IClass) SuperEntitiesConnection.FirstClassEntities[10])
+			.getIteratorOnImplementedInterfaces();
 		Assert.assertEquals(
 			"Title class number of super-interfaces",
 			true,
@@ -305,18 +304,23 @@ public class SuperEntitiesConnection extends ClassFilePrimitive {
 
 		Assert.assertEquals(
 			"AbstractDocument class number of super-interfaces",
-			false,
+			true,
 			((IInterface) SuperEntitiesConnection.FirstClassEntities[4])
 				.getIteratorOnInheritedEntities()
 				.hasNext());
-		//	SuperEntitiesConnection.assertAssigable(
-		//		"AbstractDocument class super-interface type",
-		//		IGhost.class,
-		//		listOfInheritedEntities.get(0).getClass());
-		//	Assert.assertEquals(
-		//		"AbstractDocument class super-interface name",
-		//		"java.lang.Object",
-		//		((IGhost) listOfInheritedEntities.get(0)).getDisplayName());
+		ClassFilePrimitive.assertAssigable(
+			"AbstractDocument class super-interface type",
+			IGhost.class,
+			SuperEntitiesConnection.FirstClassEntities[4]
+				.getIteratorOnInheritedEntities()
+				.next()
+				.getClass());
+		Assert.assertEquals(
+			"AbstractDocument class super-interface name",
+			"java.lang.Object",
+			((IGhost) SuperEntitiesConnection.FirstClassEntities[4]
+				.getIteratorOnInheritedEntities()
+				.next()).getDisplayID());
 	}
 	public void testElement() {
 		ClassFilePrimitive.assertAssigable(
@@ -334,10 +338,10 @@ public class SuperEntitiesConnection extends ClassFilePrimitive {
 			((IInterface) SuperEntitiesConnection.FirstClassEntities[6])
 				.getIteratorOnInheritedEntities()
 				.hasNext());
-		final Object object =
-			((IInterface) SuperEntitiesConnection.FirstClassEntities[6])
-				.getIteratorOnInheritedEntities()
-				.next();
+		final Iterator iterator = SuperEntitiesConnection.FirstClassEntities[6]
+			.getIteratorOnInheritedEntities();
+		iterator.next();
+		final Object object = ((IInterface) iterator.next());
 		Assert.assertEquals(
 			"Element class number of super-interfaces",
 			true,

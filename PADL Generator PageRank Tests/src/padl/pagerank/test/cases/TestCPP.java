@@ -30,7 +30,7 @@ public class TestCPP extends TestCase {
 			final StringWriter writer = new StringWriter();
 			PageRankCallerWithNoParameters.callForSomeCPPFiles(
 				"Simple",
-				"../PADL Creator C++ (Eclipse) Tests/rsc/Simple/",
+				"../PADL Creator C++ (Eclipse) Tests/data/Simple/",
 				TestCPP.Generator,
 				writer);
 			writer.close();

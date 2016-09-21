@@ -10,8 +10,6 @@
  ******************************************************************************/
 package padl.pagerank.utils;
 
-import gnu.trove.map.TObjectIntMap;
-import gnu.trove.map.hash.TObjectIntHashMap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EmptyStackException;
@@ -20,6 +18,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+import gnu.trove.map.TObjectIntMap;
+import gnu.trove.map.hash.TObjectIntHashMap;
 import padl.cpp.kernel.IDestructor;
 import padl.cpp.kernel.IEnumValue;
 import padl.kernel.IAbstractModel;
@@ -84,10 +84,10 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 
 			final ConstituentCouple anotherCouple =
 				(ConstituentCouple) anotherObject;
-			return this.originConstituent.equals(anotherCouple
-				.getOriginConstituent())
-					&& this.targetConstituent.equals(anotherCouple
-						.getTargetConstituent());
+			return this.originConstituent
+				.equals(anotherCouple.getOriginConstituent())
+					&& this.targetConstituent
+						.equals(anotherCouple.getTargetConstituent());
 		}
 		public IConstituent getOriginConstituent() {
 			return this.originConstituent;
@@ -152,10 +152,8 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 			aMapOfFieldsSignatures.put(aField, buffer.toString());
 		}
 		else {
-			ProxyConsole
-				.getInstance()
-				.errorOutput()
-				.println("this.currentConstituents is empty!?");
+			ProxyConsole.getInstance().errorOutput().println(
+				"this.currentConstituents is empty!?");
 		}
 	}
 	private void addMethodSignature(
@@ -180,9 +178,10 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 				final Iterator iteratorOnParameters =
 					anOperation.getIteratorOnConstituents(IParameter.class);
 				if (iteratorOnParameters.hasNext()) {
-					buffer.append(((IParameter) iteratorOnParameters.next())
-						.getType()
-						.getDisplayName());
+					buffer.append(
+						((IParameter) iteratorOnParameters.next())
+							.getType()
+							.getDisplayName());
 				}
 				else {
 					buffer.append("DUMMY");
@@ -203,10 +202,8 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 			aMapOfOperationsSignatures.put(anOperation, buffer.toString());
 		}
 		else {
-			ProxyConsole
-				.getInstance()
-				.errorOutput()
-				.println("this.currentConstituents is empty!?");
+			ProxyConsole.getInstance().errorOutput().println(
+				"this.currentConstituents is empty!?");
 		}
 	}
 	private void addRelationBetweenConstituents(
@@ -219,7 +216,8 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 		// whether or not the target entity is interesting,
 		// I just add it...
 		if (this.isInterestingOriginEntity(anOriginConstituent)
-				&& (this.isInterestingTargetEntity(aTargetConstituent) || someRelationships == this.relationsContains)) {
+				&& (this.isInterestingTargetEntity(aTargetConstituent)
+						|| someRelationships == this.relationsContains)) {
 
 			final ConstituentCouple couple =
 				new ConstituentCouple(anOriginConstituent, aTargetConstituent);
@@ -276,11 +274,13 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 				this.finalResult.append(',');
 				this.finalResult.append(target.getDisplayID());
 				this.finalResult.append(',');
-				this.finalResult.append(((IFirstClassEntity) target)
-					.getNumberOfConstituents(IField.class));
+				this.finalResult.append(
+					((IFirstClassEntity) target)
+						.getNumberOfConstituents(IField.class));
 				this.finalResult.append(',');
-				this.finalResult.append(((IFirstClassEntity) target)
-					.getNumberOfConstituents(IOperation.class));
+				this.finalResult.append(
+					((IFirstClassEntity) target)
+						.getNumberOfConstituents(IOperation.class));
 			}
 			else if (target instanceof IOperation) {
 				final String operationSignature =
@@ -299,12 +299,9 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 				this.finalResult.append(fieldSignature);
 			}
 			else {
-				ProxyConsole
-					.getInstance()
-					.errorOutput()
-					.println(
-						"Does not know what to do with constituent of type "
-								+ target.getClass());
+				ProxyConsole.getInstance().errorOutput().println(
+					"Does not know what to do with constituent of type "
+							+ target.getClass());
 			}
 			this.finalResult.append('\n');
 			index++;
@@ -329,8 +326,8 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 			this.finalResult);
 		this.outputRelation(this.relationsContains, 9, this.finalResult);
 
-		this.finalResult.insert(0, index + "," + this.totalNumberOfRelations
-				+ "\n");
+		this.finalResult
+			.insert(0, index + "," + this.totalNumberOfRelations + "\n");
 	}
 	public void close(final IClass p) {
 		this.close((IConstituent) p);
@@ -424,15 +421,21 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 		// For testing.
 		return this.relationsParameterTypesOfMethods;
 	}
-	protected boolean isInterestingOriginEntity(final IConstituent aConstituent) {
+	protected boolean isInterestingOriginEntity(
+		final IConstituent aConstituent) {
 		return aConstituent != null
-				&& (aConstituent instanceof IGhost && this.withGhosts || !(aConstituent instanceof IGhost))
-				&& (aConstituent instanceof IMemberEntity && this.withMembers || !(aConstituent instanceof IMemberEntity));
+				&& (aConstituent instanceof IGhost && this.withGhosts
+						|| !(aConstituent instanceof IGhost))
+				&& (aConstituent instanceof IMemberEntity && this.withMembers
+						|| !(aConstituent instanceof IMemberEntity));
 	}
-	protected boolean isInterestingTargetEntity(final IConstituent aConstituent) {
+	protected boolean isInterestingTargetEntity(
+		final IConstituent aConstituent) {
 		return aConstituent != null
-				&& (aConstituent instanceof IGhost && this.withGhosts || !(aConstituent instanceof IGhost))
-				&& (aConstituent instanceof IMemberEntity && this.withMembers || !(aConstituent instanceof IMemberEntity));
+				&& (aConstituent instanceof IGhost && this.withGhosts
+						|| !(aConstituent instanceof IGhost))
+				&& (aConstituent instanceof IMemberEntity && this.withMembers
+						|| !(aConstituent instanceof IMemberEntity));
 	}
 	public void open(final IAbstractModel p) {
 		this.abstractModel = p;
@@ -523,8 +526,8 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 			}
 			if (p instanceof IMethod) {
 				this.addRelationBetweenConstituents(
-					this.abstractModel.getTopLevelEntityFromID(((IMethod) p)
-						.getReturnType()),
+					this.abstractModel
+						.getTopLevelEntityFromID(((IMethod) p).getReturnType()),
 					p,
 					this.relationsReturnTypesOfMethods);
 			}
@@ -563,11 +566,11 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 
 			if (this.constituents.contains(targetConstituent)) {
 				final int indexOfOriginConstituent =
-					this.mapOfConstituentsAndIndexes.get(originConstituent
-						.getPath());
+					this.mapOfConstituentsAndIndexes
+						.get(originConstituent.getPath());
 				final int indexOfTargetConstituent =
-					this.mapOfConstituentsAndIndexes.get(targetConstituent
-						.getPath());
+					this.mapOfConstituentsAndIndexes
+						.get(targetConstituent.getPath());
 
 				aBuffer.append("r,");
 				aBuffer.append(indexOfOriginConstituent);
@@ -583,9 +586,8 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 		return (IConstituent) this.currentConstituents.peek();
 	}
 	protected IConstituent peekLastButOneConstituent() {
-		final IConstituent constituent =
-			(IConstituent) this.currentConstituents
-				.get(this.currentConstituents.size() - 2);
+		final IConstituent constituent = (IConstituent) this.currentConstituents
+			.get(this.currentConstituents.size() - 2);
 		return constituent;
 	}
 	protected void popConstituent(final IConstituent aConstituent) {
@@ -602,10 +604,8 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 		//	ProxyConsole.getInstance().debugOutput().println(')');
 
 		if (!constituent.getClass().equals(aConstituent.getClass())) {
-			ProxyConsole
-				.getInstance()
-				.errorOutput()
-				.println("Constituent mismatch on stack!");
+			ProxyConsole.getInstance().errorOutput().println(
+				"Constituent mismatch on stack!");
 		}
 	}
 	protected void pushConstituent(final IConstituent aConstituent) {
@@ -645,10 +645,8 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 			.getInstance()
 			.debugOutput()
 			.print(this.getClass().getName());
-		ProxyConsole
-			.getInstance()
-			.debugOutput()
-			.print(" does not know what to do for \"");
+		ProxyConsole.getInstance().debugOutput().print(
+			" does not know what to do for \"");
 		ProxyConsole.getInstance().debugOutput().print(aCalledMethodName);
 		ProxyConsole.getInstance().debugOutput().print("\" (");
 		ProxyConsole
@@ -707,9 +705,8 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 			IEntity entity =
 				this.abstractModel.getTopLevelEntityFromID(p.getType());
 			if (entity == null) {
-				entity =
-					(IEntity) this.abstractModel.getConstituentFromID(p
-						.getType());
+				entity = (IEntity) this.abstractModel
+					.getConstituentFromID(p.getType());
 			}
 			this.addRelationBetweenConstituents(
 				entity,
@@ -723,8 +720,8 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 				.equals(p.getCalledMethod().getName(), new char[] { '=' })) {
 
 				final IFirstClassEntity entity = p.getFieldDeclaringEntity();
-				if (this.isInterestingOriginEntity(this
-					.peekLastButOneConstituent())
+				if (this
+					.isInterestingOriginEntity(this.peekLastButOneConstituent())
 						&& this.isInterestingTargetEntity(entity)) {
 
 					this.addRelationFromCurrentConstituent(
@@ -733,10 +730,11 @@ public class InputDataGeneratorWith9Relations implements IGenerator {
 				}
 			}
 			else {
-				final IFirstClassEntity entity = p.getTargetEntity();
-				if (this.isInterestingOriginEntity(this
-					.peekLastButOneConstituent())
-						&& this.isInterestingTargetEntity(entity)) {
+				final IConstituent originEntity =
+					(IConstituent) this.peekLastButOneConstituent();
+				final IFirstClassEntity targetEntity = p.getTargetEntity();
+				if (this.isInterestingOriginEntity(originEntity)
+						&& this.isInterestingTargetEntity(targetEntity)) {
 
 					// TODO: I must look for the method in the target entity in
 					// case it was changed from a IMethod to, say, a IGetter and

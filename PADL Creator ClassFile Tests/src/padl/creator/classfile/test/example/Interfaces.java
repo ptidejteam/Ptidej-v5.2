@@ -34,13 +34,13 @@ public class Interfaces extends ClassFilePrimitive {
 	}
 	protected void setUp() throws CreationException {
 		if (Interfaces.FirstClassEntities == null) {
-			final ICodeLevelModel codeLevelModel =
-				ClassFilePrimitive.getFactory().createCodeLevelModel(
-					"padl.example.interfaces");
+			final ICodeLevelModel codeLevelModel = ClassFilePrimitive
+				.getFactory()
+				.createCodeLevelModel("padl.example.interfaces");
 
 			// TODO: Load all types from padl.example.interfaces
-			codeLevelModel
-				.create(new CompleteClassFileCreator(
+			codeLevelModel.create(
+				new CompleteClassFileCreator(
 					new String[] {
 							"../PADL Creator ClassFile Tests/bin/padl/example/interfaces/Element.class",
 							"../PADL Creator ClassFile Tests/bin/padl/example/interfaces/IAdaptable.class",
@@ -54,7 +54,7 @@ public class Interfaces extends ClassFilePrimitive {
 	public void testNumberOfEntities() {
 		Assert.assertEquals(
 			"Number of entities",
-			5,
+			6,
 			Interfaces.FirstClassEntities.length);
 	}
 	//	public void testObject() {
@@ -71,29 +71,34 @@ public class Interfaces extends ClassFilePrimitive {
 		ClassFilePrimitive.assertAssigable(
 			"AbstractDocument ghost entity type",
 			IGhost.class,
-			Interfaces.FirstClassEntities[0].getClass());
+			Interfaces.FirstClassEntities[1].getClass());
 		Assert.assertEquals(
 			"AbstractDocument ghost entity name",
 			"padl.example.interfaces.AbstractDocument",
-			Interfaces.FirstClassEntities[0].getDisplayID());
+			Interfaces.FirstClassEntities[1].getDisplayID());
 	}
 	public void testElement() {
 		ClassFilePrimitive.assertAssigable(
 			"Element interface entity type",
 			IInterface.class,
-			Interfaces.FirstClassEntities[1].getClass());
+			Interfaces.FirstClassEntities[2].getClass());
 		Assert.assertEquals(
 			"Element interface entity name",
 			"padl.example.interfaces.Element",
-			Interfaces.FirstClassEntities[1].getDisplayID());
+			Interfaces.FirstClassEntities[2].getDisplayID());
 
 		final Iterator inheritedEntities =
-			Interfaces.FirstClassEntities[1].getIteratorOnInheritedEntities();
+			Interfaces.FirstClassEntities[2].getIteratorOnInheritedEntities();
 		Assert.assertEquals(
 			"Element interface number of inherited entities",
 			true,
 			inheritedEntities.hasNext());
-		final Object object = inheritedEntities.next();
+		Object object = inheritedEntities.next();
+		Assert.assertEquals(
+			"Element interface number of inherited entities",
+			true,
+			inheritedEntities.hasNext());
+		object = inheritedEntities.next();
 		Assert.assertEquals(
 			"Element interface number of inherited entities",
 			false,
@@ -111,44 +116,54 @@ public class Interfaces extends ClassFilePrimitive {
 		ClassFilePrimitive.assertAssigable(
 			"IAdaptable interface entity type",
 			IInterface.class,
-			Interfaces.FirstClassEntities[2].getClass());
+			Interfaces.FirstClassEntities[3].getClass());
 		Assert.assertEquals(
 			"IAdaptable interface entity name",
 			"padl.example.interfaces.IAdaptable",
-			Interfaces.FirstClassEntities[2].getDisplayID());
+			Interfaces.FirstClassEntities[3].getDisplayID());
 
 		Assert.assertEquals(
 			"IAdaptable interface number of inherited entities",
-			false,
+			true,
 			Interfaces.FirstClassEntities[2]
 				.getIteratorOnInheritedEntities()
 				.hasNext());
-		//	Interfaces.assertAssigable(
-		//		"IAdaptable interface type of the super-entity",
-		//		IGhost.class,
-		//		inheritedEntities.get(0).getClass());
-		//	Assert.assertEquals(
-		//		"IAdaptable interface name of the super-entity",
-		//		"java.lang.Object",
-		//		((IGhost) inheritedEntities.get(0)).getDisplayName());
+		ClassFilePrimitive.assertAssigable(
+			"IAdaptable interface type of the super-entity",
+			IGhost.class,
+			Interfaces.FirstClassEntities[2]
+				.getIteratorOnInheritedEntities()
+				.next()
+				.getClass());
+		Assert.assertEquals(
+			"IAdaptable interface name of the super-entity",
+			"java.lang.Object",
+			((IGhost) Interfaces.FirstClassEntities[2]
+				.getIteratorOnInheritedEntities()
+				.next()).getDisplayID());
 	}
 	public void testIJavaElement() {
 		ClassFilePrimitive.assertAssigable(
 			"IJavaElement interface entity type",
 			IInterface.class,
-			Interfaces.FirstClassEntities[3].getClass());
+			Interfaces.FirstClassEntities[4].getClass());
 		Assert.assertEquals(
 			"IJavaElement interface entity name",
 			"padl.example.interfaces.IJavaElement",
-			Interfaces.FirstClassEntities[3].getDisplayID());
+			Interfaces.FirstClassEntities[4].getDisplayID());
 
 		final Iterator iterator =
-			Interfaces.FirstClassEntities[3].getIteratorOnInheritedEntities();
+			Interfaces.FirstClassEntities[4].getIteratorOnInheritedEntities();
 		Assert.assertEquals(
 			"IJavaElement interface number of inherited entities",
 			true,
 			iterator.hasNext());
-		final Object object = iterator.next();
+		Object object = iterator.next();
+		Assert.assertEquals(
+			"IJavaElement interface number of inherited entities",
+			true,
+			iterator.hasNext());
+		object = iterator.next();
 		Assert.assertEquals(
 			"IJavaElement interface number of inherited entities",
 			false,
@@ -166,25 +181,30 @@ public class Interfaces extends ClassFilePrimitive {
 		ClassFilePrimitive.assertAssigable(
 			"Simple interface entity type",
 			IInterface.class,
-			Interfaces.FirstClassEntities[4].getClass());
+			Interfaces.FirstClassEntities[5].getClass());
 		Assert.assertEquals(
 			"Simple interface entity name",
 			"padl.example.interfaces.Simple",
-			Interfaces.FirstClassEntities[4].getDisplayID());
+			Interfaces.FirstClassEntities[5].getDisplayID());
 
 		Assert.assertEquals(
 			"Simple interface number of inherited entities",
-			false,
-			Interfaces.FirstClassEntities[4]
+			true,
+			Interfaces.FirstClassEntities[5]
 				.getIteratorOnInheritedEntities()
 				.hasNext());
-		//	Interfaces.assertAssigable(
-		//		"Simple interface type of the super-entity",
-		//		IGhost.class,
-		//		inheritedEntities.get(0).getClass());
-		//	Assert.assertEquals(
-		//		"Simple interface name of the super-entity",
-		//		"java.lang.Object",
-		//		((IGhost) inheritedEntities.get(0)).getDisplayName());
+		ClassFilePrimitive.assertAssigable(
+			"Simple interface type of the super-entity",
+			IGhost.class,
+			Interfaces.FirstClassEntities[5]
+				.getIteratorOnInheritedEntities()
+				.next()
+				.getClass());
+		Assert.assertEquals(
+			"Simple interface name of the super-entity",
+			"java.lang.Object",
+			((IGhost) Interfaces.FirstClassEntities[5]
+				.getIteratorOnInheritedEntities()
+				.next()).getDisplayID());
 	}
 }

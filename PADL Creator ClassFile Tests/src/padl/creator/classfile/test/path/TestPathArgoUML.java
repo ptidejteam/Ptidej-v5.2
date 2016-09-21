@@ -36,9 +36,10 @@ public class TestPathArgoUML extends ClassFilePrimitive {
 		if (TestPathArgoUML.Model == null) {
 			TestPathArgoUML.Model =
 				ClassFilePrimitive.getFactory().createCodeLevelModel("ArgoUML");
-			TestPathArgoUML.Model
-				.create(new CompleteClassFileCreator(
-					new String[] { "../PADL Creator ClassFile Tests/rsc/ArgoUML-0.15.6.jar" }));
+			TestPathArgoUML.Model.create(
+				new CompleteClassFileCreator(
+					new String[] {
+							"../PADL Creator ClassFile Tests/rsc/ArgoUML-0.15.6.jar" }));
 
 			TestPathArgoUML.FirstClassEntities =
 				Util.getArrayOfTopLevelEntities(TestPathArgoUML.Model);
@@ -58,7 +59,7 @@ public class TestPathArgoUML extends ClassFilePrimitive {
 	}
 	public void testPath2() {
 		try {
-			Finder.find("/ArgoUML", TestPathArgoUML.Model);
+			Finder.findContainer("/ArgoUML", TestPathArgoUML.Model);
 			Assert.fail();
 		}
 		catch (final FormatException e) {
@@ -66,9 +67,8 @@ public class TestPathArgoUML extends ClassFilePrimitive {
 	}
 	public void testPath3() {
 		try {
-			Assert.assertNull(Finder.find(
-				"/ArgoUML|Dummy",
-				TestPathArgoUML.Model));
+			Assert.assertNull(
+				Finder.find("/ArgoUML|Dummy", TestPathArgoUML.Model));
 			Assert.fail("Dummy should not exist!");
 		}
 		catch (final FormatException e) {
@@ -76,11 +76,10 @@ public class TestPathArgoUML extends ClassFilePrimitive {
 	}
 	public void testPath4() {
 		try {
-			Assert
-				.assertNotNull(Finder
-					.find(
-						"/ArgoUML|org|argouml|pattern|cognitive|critics|org.argouml.pattern.cognitive.critics.CrConsiderSingleton",
-						TestPathArgoUML.Model));
+			Assert.assertNotNull(
+				Finder.find(
+					"/ArgoUML|org|argouml|pattern|cognitive|critics|org.argouml.pattern.cognitive.critics.CrConsiderSingleton",
+					TestPathArgoUML.Model));
 		}
 		catch (final FormatException e) {
 			Assert.fail(e.getMessage());
@@ -89,9 +88,10 @@ public class TestPathArgoUML extends ClassFilePrimitive {
 	}
 	public void testPath5() {
 		try {
-			Assert.assertNotNull(Finder.find(
-				"/ArgoUML|org|argouml|ui|org.argouml.ui.ActionExportXMI",
-				TestPathArgoUML.Model));
+			Assert.assertNotNull(
+				Finder.find(
+					"/ArgoUML|org|argouml|ui|org.argouml.ui.ActionExportXMI",
+					TestPathArgoUML.Model));
 		}
 		catch (final FormatException e) {
 			Assert.fail(e.getMessage());
@@ -99,11 +99,10 @@ public class TestPathArgoUML extends ClassFilePrimitive {
 	}
 	public void testPath6() {
 		try {
-			Assert
-				.assertNotNull(Finder
-					.find(
-						"/ArgoUML|org|argouml|ui|org.argouml.ui.ActionExportXMI|actionPerformed(java.awt.event.ActionEvent)",
-						TestPathArgoUML.Model));
+			Assert.assertNotNull(
+				Finder.find(
+					"/ArgoUML|org|argouml|ui|org.argouml.ui.ActionExportXMI|actionPerformed(java.awt.event.ActionEvent)",
+					TestPathArgoUML.Model));
 		}
 		catch (final FormatException e) {
 			Assert.fail(e.getMessage());
@@ -111,11 +110,10 @@ public class TestPathArgoUML extends ClassFilePrimitive {
 	}
 	public void testPath7() {
 		try {
-			Assert
-				.assertNotNull(Finder
-					.find(
-						"/ArgoUML|org|argouml|ui|org.argouml.ui.DnDNavigatorTree$ArgoDropTargetListener",
-						TestPathArgoUML.Model));
+			Assert.assertNotNull(
+				Finder.find(
+					"/ArgoUML|org|argouml|ui|org.argouml.ui.DnDNavigatorTree$ArgoDropTargetListener",
+					TestPathArgoUML.Model));
 		}
 		catch (final FormatException e) {
 			Assert.fail(e.getMessage());
@@ -123,11 +121,10 @@ public class TestPathArgoUML extends ClassFilePrimitive {
 	}
 	public void testPath8() {
 		try {
-			Assert
-				.assertNotNull(Finder
-					.find(
-						"/ArgoUML|org|argouml|ui|org.argouml.ui.DnDNavigatorTree$ArgoDropTargetListener|isValidDropTarget(javax.swing.tree.TreePath, javax.swing.tree.TreePath)",
-						TestPathArgoUML.Model));
+			Assert.assertNotNull(
+				Finder.find(
+					"/ArgoUML|org|argouml|ui|org.argouml.ui.DnDNavigatorTree$ArgoDropTargetListener|isValidDropTarget(javax.swing.tree.TreePath, javax.swing.tree.TreePath)",
+					TestPathArgoUML.Model));
 		}
 		catch (final FormatException e) {
 			Assert.fail(e.getMessage());

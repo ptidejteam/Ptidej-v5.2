@@ -52,9 +52,8 @@ public class Finder {
 					token = tokenizer.nextToken();
 					Finder.Header.append(token);
 
-					final IConstituent constituent =
-						anAbstractModel.getConstituentFromID(token
-							.toCharArray());
+					final IConstituent constituent = anAbstractModel
+						.getConstituentFromID(token.toCharArray());
 					if (constituent != null) {
 						if (tokenizer.hasMoreTokens()) {
 							return Finder.find0(
@@ -122,9 +121,9 @@ public class Finder {
 					final IConstituent constituent =
 						((IContainer) aConstituent).getConstituentFromID(id);
 					if (constituent == null) {
-						throw new FormatException("Cannot find ID: \"" + token
-								+ "\" in \"" + aConstituent.getDisplayID()
-								+ "\".");
+						throw new FormatException(
+							"Cannot find ID: \"" + token + "\" in \""
+									+ aConstituent.getDisplayID() + "\".");
 					}
 					else {
 						return constituent;
@@ -190,14 +189,15 @@ public class Finder {
 					}
 				}
 				else {
-					throw new FormatException("Cannot find ID: \"" + token
-							+ "\" in \"" + aConstituent.getDisplayID() + "\".");
+					throw new FormatException(
+						"Cannot find ID: \"" + token + "\" in \""
+								+ aConstituent.getDisplayID() + "\".");
 				}
 			}
 			else {
-				throw new FormatException("Constituent with ID: \""
-						+ aConstituent.getDisplayID()
-						+ "\" is not a container.");
+				throw new FormatException(
+					"Constituent with ID: \"" + aConstituent.getDisplayID()
+							+ "\" is not a container.");
 			}
 		}
 		else {
@@ -208,9 +208,20 @@ public class Finder {
 		final String aPath,
 		final IAbstractModel anAbstractModel) throws FormatException {
 
-		final String newPath =
-			aPath.substring(0, aPath.lastIndexOf(IConstants.ELEMENT_SYMBOL));
+		final int indexElementSymbol =
+			aPath.lastIndexOf(IConstants.ELEMENT_SYMBOL);
+		if (indexElementSymbol == -1) {
+			if (ArrayUtils.isEquals(anAbstractModel.getPath(), aPath)) {
+				return anAbstractModel;
+			}
+			throw new FormatException(
+				"Cannot find ID: \"" + aPath + "\" in \""
+						+ anAbstractModel.getDisplayPath() + "\".");
+		}
+		else {
+			final String newPath = aPath.substring(0, indexElementSymbol);
 
-		return (IContainer) Finder.find0(newPath, anAbstractModel);
+			return (IContainer) Finder.find0(newPath, anAbstractModel);
+		}
 	}
 }

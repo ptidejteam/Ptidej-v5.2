@@ -37,7 +37,7 @@ public class FieldAccessTest extends TestCase {
 			"The idiom-level model is null!",
 			FieldAccessTest.IdiomLevelModel);
 		Assert.assertEquals(
-			10,
+			9,
 			FieldAccessTest.IdiomLevelModel.getNumberOfTopLevelEntities());
 	}
 	public void testMainFunction() {

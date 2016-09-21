@@ -24,6 +24,6 @@ public class Simple2Test extends TestCase {
 			EclipseCPPParserCaller.getInstance().getCodeLevelModelUsingOSGiEmbedded(
 				"../PADL Creator C++ (Eclipse) Tests/data/Simple2/");
 		Assert.assertNotNull("The code-level model is null!", codeLevelModel);
-		Assert.assertEquals(10, codeLevelModel.getNumberOfTopLevelEntities());
+		Assert.assertEquals(9, codeLevelModel.getNumberOfTopLevelEntities());
 	}
 }

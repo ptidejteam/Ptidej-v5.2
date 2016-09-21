@@ -10,6 +10,7 @@
  ******************************************************************************/
 package padl.creator.classfile.test.example;
 
+import java.util.Iterator;
 import junit.framework.Assert;
 import padl.analysis.UnsupportedSourceModelException;
 import padl.analysis.repository.AACRelationshipsAnalysis;
@@ -30,17 +31,18 @@ public class Composite1 extends ClassFilePrimitive {
 	public Composite1(final String name) {
 		super(name);
 	}
-	protected void setUp() throws IllegalAccessException,
-			InstantiationException, CreationException,
-			UnsupportedSourceModelException {
+	protected void setUp()
+			throws IllegalAccessException, InstantiationException,
+			CreationException, UnsupportedSourceModelException {
 
 		if (Composite1.FirstClassEntities == null) {
-			final ICodeLevelModel codeLevelModel =
-				ClassFilePrimitive.getFactory().createCodeLevelModel(
-					"padl.example.composite1");
-			codeLevelModel
-				.create(new CompleteClassFileCreator(
-					new String[] { "../PADL Creator ClassFile Tests/bin/padl/example/composite1/" }));
+			final ICodeLevelModel codeLevelModel = ClassFilePrimitive
+				.getFactory()
+				.createCodeLevelModel("padl.example.composite1");
+			codeLevelModel.create(
+				new CompleteClassFileCreator(
+					new String[] {
+							"../PADL Creator ClassFile Tests/bin/padl/example/composite1/" }));
 
 			final IIdiomLevelModel idiomLevelModel =
 				(IIdiomLevelModel) new AACRelationshipsAnalysis()
@@ -139,12 +141,13 @@ public class Composite1 extends ClassFilePrimitive {
 			"Paragraph super-interface",
 			1,
 			paragraph.getNumberOfImplementedInterfaces());
-		Assert.assertEquals(
-			"Paragraph super-interface name",
-			"padl.example.composite1.Element",
-			((IFirstClassEntity) paragraph
-				.getIteratorOnImplementedInterfaces()
-				.next()).getDisplayID());
+		Assert
+			.assertEquals(
+				"Paragraph super-interface name",
+				"padl.example.composite1.Element",
+				((IFirstClassEntity) paragraph
+					.getIteratorOnImplementedInterfaces()
+					.next()).getDisplayID());
 		Assert.assertEquals(
 			"Elements of Paragraph",
 			3,
@@ -169,12 +172,13 @@ public class Composite1 extends ClassFilePrimitive {
 			"Title super-interface",
 			1,
 			title.getNumberOfImplementedInterfaces());
-		Assert.assertEquals(
-			"Title super-interface name",
-			"padl.example.composite1.Element",
-			((IFirstClassEntity) title
-				.getIteratorOnImplementedInterfaces()
-				.next()).getDisplayID());
+		Assert
+			.assertEquals(
+				"Title super-interface name",
+				"padl.example.composite1.Element",
+				((IFirstClassEntity) title
+					.getIteratorOnImplementedInterfaces()
+					.next()).getDisplayID());
 		Assert.assertEquals(
 			"Elements of Title",
 			3,
@@ -189,7 +193,7 @@ public class Composite1 extends ClassFilePrimitive {
 			abstractDocument.getDisplayID());
 		Assert.assertEquals(
 			"AbstractDocument super-entity",
-			0,
+			1,
 			abstractDocument.getNumberOfInheritedEntities());
 		//	Assert.assertEquals(
 		//		"AbstractDocument super-entity name",
@@ -215,14 +219,21 @@ public class Composite1 extends ClassFilePrimitive {
 			element.getDisplayID());
 		Assert.assertEquals(
 			"Element super-entity",
-			1,
+			2,
 			element.getNumberOfInheritedEntities());
+
+		final Iterator iteratorOnInheritedEntities =
+			element.getIteratorOnInheritedEntities();
+		Assert.assertEquals(
+			"Element super-entity name",
+			"java.lang.Object",
+			((IFirstClassEntity) iteratorOnInheritedEntities.next())
+				.getDisplayID());
 		Assert.assertEquals(
 			"Element super-entity name",
 			"padl.example.composite1.AbstractDocument",
-			((IFirstClassEntity) element
-				.getIteratorOnInheritedEntities()
-				.next()).getDisplayID());
+			((IFirstClassEntity) iteratorOnInheritedEntities.next())
+				.getDisplayID());
 		Assert.assertEquals(
 			"Elements of Element",
 			0,

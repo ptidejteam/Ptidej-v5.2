@@ -26,6 +26,6 @@ public class ClassesTest extends TestCase {
 					"Funny",
 					new String[] { "../PADL Creator C++ (Eclipse) Tests/data/Classes/" });
 		Assert.assertNotNull("The idiom-level model is null!", idiomLevelModel);
-		Assert.assertEquals(82, idiomLevelModel.getNumberOfTopLevelEntities());
+		Assert.assertEquals(81, idiomLevelModel.getNumberOfTopLevelEntities());
 	}
 }

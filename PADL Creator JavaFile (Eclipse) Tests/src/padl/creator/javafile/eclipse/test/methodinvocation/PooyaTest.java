@@ -26,21 +26,17 @@ public class PooyaTest extends TestCase {
 			"../PADL Creator JavaFile (Eclipse) Tests/data/Pooya's/";
 		final String classPathEntry = "";
 
-		final ICodeLevelModel codeLevelModel =
-			Utils.createCompleteJavaFilesPadlModel(
-				"",
-				sourcePath,
-				classPathEntry);
+		final ICodeLevelModel codeLevelModel = Utils
+			.createCompleteJavaFilesPadlModel("", sourcePath, classPathEntry);
 
-		final IFirstClassEntity entity =
-			codeLevelModel.getTopLevelEntityFromID("java.util.Mazaheri"
-				.toString());
+		final IFirstClassEntity entity = codeLevelModel
+			.getTopLevelEntityFromID("java.util.Mazaheri".toString());
 		Assert.assertNotNull(entity);
 
 		final IMethod method =
 			(IMethod) entity.getConstituentFromID("MazMaz(int[], int[])");
 		Assert.assertNotNull(method);
 
-		Assert.assertTrue(method.getNumberOfConstituents() > 2);
+		Assert.assertEquals(method.getNumberOfConstituents(), 2);
 	}
 }

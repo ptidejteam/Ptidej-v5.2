@@ -1,0 +1,10 @@
+!SESSION 2016-09-21 11:05:13.037 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_101
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_CA
+Framework arguments:  -application PADL_Creator_Cpp_Eclipse.Launcher -directoryCPPFiles=../PADL Creator C++ (Eclipse) Tests/rsc/Simple/ -directoryPtidej=D:/Shared/Dropbox/Ptidej Workspaces/v5.2/
+Command-line arguments:  -application PADL_Creator_Cpp_Eclipse.Launcher -data D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Creator C++ (Eclipse) Helper/Runtime Workspace/ -configuration file:D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Creator C++ (Eclipse) Helper/Configuration Area/ -dev file:D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Creator C++ (Eclipse) Helper/Configuration Area/dev.properties -directoryCPPFiles=../PADL Creator C++ (Eclipse) Tests/rsc/Simple/ -directoryPtidej=D:/Shared/Dropbox/Ptidej Workspaces/v5.2/
+
+!ENTRY org.eclipse.osgi 4 0 2016-09-21 11:05:13.038
+!MESSAGE Bundle reference:file:D:/Shared/Dropbox/Ptidej Workspaces/v5.2/plugins/PADL_Creator_Cpp_Eclipse_1.5.0.jar not found.

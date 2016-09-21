@@ -35,17 +35,18 @@ public class Composite1 extends ClassFilePrimitive {
 	public Composite1(final String name) {
 		super(name);
 	}
-	protected void setUp() throws IllegalAccessException,
-			InstantiationException, CreationException,
-			UnsupportedSourceModelException {
+	protected void setUp()
+			throws IllegalAccessException, InstantiationException,
+			CreationException, UnsupportedSourceModelException {
 
 		if (Composite1.AbstractLevelModel == null) {
-			final ICodeLevelModel codeLevelModel =
-				ClassFilePrimitive.getFactory().createCodeLevelModel(
-					"padl.example.composite1");
-			codeLevelModel
-				.create(new CompleteClassFileCreator(
-					new String[] { "../PADL Creator ClassFile Tests/bin/padl/example/composite1/" }));
+			final ICodeLevelModel codeLevelModel = ClassFilePrimitive
+				.getFactory()
+				.createCodeLevelModel("padl.example.composite1");
+			codeLevelModel.create(
+				new CompleteClassFileCreator(
+					new String[] {
+							"../PADL Creator ClassFile Tests/bin/padl/example/composite1/" }));
 
 			//	Composite1.AbstractLevelModel =
 			//		codeLevelModel.convert(codeLevelModel.getDisplayName());
@@ -65,17 +66,20 @@ public class Composite1 extends ClassFilePrimitive {
 			//	writer.write(Composite1.SIMPLE_GENERATOR.getCode());
 			//	writer.close();
 
-			final LineNumberReader reader =
-				new LineNumberReader(ProxyDisk.getInstance().fileAbsoluteInput(
+			final LineNumberReader reader = new LineNumberReader(
+				ProxyDisk.getInstance().fileAbsoluteInput(
 					Composite1.EXPECTED_FILE_PATH));
 
 			int i = 0;
-			final StringTokenizer tokenizer =
-				new StringTokenizer(Composite1.SIMPLE_GENERATOR.getCode(), "\n");
+			final StringTokenizer tokenizer = new StringTokenizer(
+				Composite1.SIMPLE_GENERATOR.getCode(),
+				"\n");
 			Assert.assertEquals(150, tokenizer.countTokens());
 			while (tokenizer.hasMoreTokens()) {
-				Assert.assertEquals("TestVisitor output (line " + i + ')', "\n"
-						+ reader.readLine(), "\n" + tokenizer.nextToken());
+				Assert.assertEquals(
+					"TestVisitor output (line " + i + ')',
+					"\n" + reader.readLine(),
+					"\n" + tokenizer.nextToken());
 				i++;
 			}
 
