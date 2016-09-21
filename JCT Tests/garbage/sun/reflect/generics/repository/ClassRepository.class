@@ -2,9 +2,11 @@ package sun.reflect.generics.repository;
 public class ClassRepository
 extends sun.reflect.generics.repository.GenericDeclRepository
 {
-private java.lang.Object superclass;
+final public static java.lang.Object NONE;
 
-private java.lang.Object superInterfaces;
+private volatile java.lang.Object superclass;
+
+private volatile java.lang.Object superInterfaces;
 
 private void <init>(java.lang.Object arg0, java.lang.Object arg1)
 {
@@ -27,6 +29,11 @@ public java.lang.reflect.Type getSuperclass()
 }
 
 public java.lang.reflect.Type[] getSuperInterfaces()
+{
+
+}
+
+static void <clinit>()
 {
 
 }

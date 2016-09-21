@@ -35,10 +35,10 @@ public final class TestNMIandNMOwithPattern4J extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		if (Model == null) {
+			MetricsRepository = pom.metrics.MetricsRepository.getInstance();
 			Model =
 				Factory.getInstance().createCodeLevelModel("Test.TestMetrics");
 			Model.create(new CompleteClassFileCreator(new String[] { ROOT }));
-			MetricsRepository = pom.metrics.MetricsRepository.getInstance();
 		}
 	}
 	public void testNMOforPatternDescriptor() {
@@ -59,7 +59,7 @@ public final class TestNMIandNMOwithPattern4J extends TestCase {
 				.getTopLevelEntityFromID("gr.uom.java.pattern.PatternDescriptor");
 		Assert.assertEquals(
 			"Computing NMI on gr.uom.java.pattern.PatternDescriptor",
-			89d,
+			65d,
 			((IUnaryMetric) MetricsRepository.getMetric("NMI")).compute(
 				Model,
 				firstClassEntity),

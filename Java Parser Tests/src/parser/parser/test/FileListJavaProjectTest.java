@@ -11,18 +11,18 @@
 package parser.parser.test;
 
 import junit.framework.Assert;
+import junit.framework.TestCase;
 import parser.input.SourceInputsHolder;
 import parser.input.impl.FileListJavaProject;
 import parser.wrapper.JavaParser;
 import parser.wrapper.NamedCompilationUnit;
 
-public class FileListJavaProjectTest {
+public class FileListJavaProjectTest extends TestCase {
 	public void testParse() throws Exception {
-		final SourceInputsHolder javaProject =
-			new FileListJavaProject(
-				null,
-				null,
-				"../Java Parser Tests/resources/NestingClasses/FileList.txt");
+		final SourceInputsHolder javaProject = new FileListJavaProject(
+			null,
+			null,
+			"../Java Parser Tests/resources/NestingClasses/FileList.txt");
 
 		final NamedCompilationUnit[] namedCompilationUnits =
 			new JavaParser(javaProject).parse();
@@ -30,15 +30,19 @@ public class FileListJavaProjectTest {
 		Assert.assertEquals("JavaParserTest", namedCompilationUnits.length, 3);
 	}
 	public void testParseAnyFile() throws Exception {
-		final SourceInputsHolder javaProject =
-			new FileListJavaProject(
-				null,
-				null,
-				"../Java Parser Tests/resources/NestingClasses/FileListNotJavaFile.txt");
+		final SourceInputsHolder javaProject = new FileListJavaProject(
+			null,
+			null,
+			"../Java Parser Tests/resources/NestingClasses/FileListNotJavaFile.txt");
 
-		final NamedCompilationUnit[] namedCompilationUnits =
-			new JavaParser(javaProject).parse();
+		try {
+			final NamedCompilationUnit[] namedCompilationUnits =
+				new JavaParser(javaProject).parse();
+			Assert.assertTrue(false);
+		}
+		catch (final Exception e) {
+			Assert.assertTrue(true);
+		}
 
-		Assert.assertEquals("JavaParserTest", namedCompilationUnits.length, 3);
 	}
 }

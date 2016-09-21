@@ -34,7 +34,7 @@ public class GetOrCreateTest extends TestCase {
 			"The idiom-level model is null!",
 			GetOrCreateTest.IdiomLevelModel);
 		Assert.assertEquals(
-			25,
+			22,
 			GetOrCreateTest.IdiomLevelModel.getNumberOfTopLevelEntities());
 	}
 }

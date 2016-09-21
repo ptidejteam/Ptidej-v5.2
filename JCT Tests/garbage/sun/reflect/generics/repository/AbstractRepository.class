@@ -1,9 +1,9 @@
 package sun.reflect.generics.repository;
 abstract public class AbstractRepository
 {
-private java.lang.Object factory;
+final private java.lang.Object factory;
 
-private java.lang.Object tree;
+final private java.lang.Object tree;
 
 private sun.reflect.generics.factory.GenericsFactory getFactory()
 {

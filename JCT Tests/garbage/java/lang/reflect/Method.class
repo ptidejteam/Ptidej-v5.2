@@ -1,7 +1,6 @@
 package java.lang.reflect;
 final public class Method
-extends java.lang.reflect.AccessibleObject
-implements java.lang.reflect.GenericDeclaration, java.lang.reflect.Member
+extends java.lang.reflect.Executable
 {
 private java.lang.Object clazz;
 
@@ -31,8 +30,6 @@ private volatile java.lang.Object methodAccessor;
 
 private java.lang.Object root;
 
-private transient java.lang.Object declaredAnnotations;
-
 private java.lang.String getGenericSignature()
 {
 
@@ -43,7 +40,7 @@ private sun.reflect.generics.factory.GenericsFactory getFactory()
 
 }
 
-private sun.reflect.generics.repository.MethodRepository getGenericInfo()
+sun.reflect.generics.repository.MethodRepository getGenericInfo()
 {
 
 }
@@ -54,6 +51,21 @@ void <init>(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2,
 }
 
 java.lang.reflect.Method copy()
+{
+
+}
+
+java.lang.reflect.Executable getRoot()
+{
+
+}
+
+boolean hasGenericInformation()
+{
+
+}
+
+byte[] getAnnotationBytes()
 {
 
 }
@@ -93,6 +105,11 @@ public java.lang.Class[] getParameterTypes()
 
 }
 
+public int getParameterCount()
+{
+
+}
+
 public java.lang.reflect.Type[] getGenericParameterTypes()
 {
 
@@ -123,17 +140,22 @@ public java.lang.String toString()
 
 }
 
+void specificToStringHeader(java.lang.Object arg0)
+{
+
+}
+
 public java.lang.String toGenericString()
 {
 
 }
 
-public java.lang.Object invoke(java.lang.Object arg0, java.lang.Object arg1) throws java.lang.IllegalAccessException, java.lang.IllegalArgumentException, java.lang.reflect.InvocationTargetException
+void specificToGenericStringHeader(java.lang.Object arg0)
 {
 
 }
 
-private java.lang.Class getCallerClass()
+public java.lang.Object invoke(java.lang.Object arg0, java.lang.Object arg1) throws java.lang.IllegalAccessException, java.lang.IllegalArgumentException, java.lang.reflect.InvocationTargetException
 {
 
 }
@@ -153,6 +175,11 @@ public boolean isSynthetic()
 
 }
 
+public boolean isDefault()
+{
+
+}
+
 private sun.reflect.MethodAccessor acquireMethodAccessor()
 {
 
@@ -168,6 +195,11 @@ void setMethodAccessor(java.lang.Object arg0)
 
 }
 
+public java.lang.Object getDefaultValue()
+{
+
+}
+
 public java.lang.annotation.Annotation getAnnotation(java.lang.Object arg0)
 {
 
@@ -178,17 +210,17 @@ public java.lang.annotation.Annotation[] getDeclaredAnnotations()
 
 }
 
-private synchronized java.util.Map declaredAnnotations()
-{
-
-}
-
-public java.lang.Object getDefaultValue()
-{
-
-}
-
 public java.lang.annotation.Annotation[][] getParameterAnnotations()
+{
+
+}
+
+public java.lang.reflect.AnnotatedType getAnnotatedReturnType()
+{
+
+}
+
+void handleParameterNumberMismatch(java.lang.Object arg0, java.lang.Object arg1)
 {
 
 }

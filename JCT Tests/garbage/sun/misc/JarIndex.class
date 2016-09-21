@@ -56,7 +56,7 @@ public void add(java.lang.Object arg0, java.lang.Object arg1)
 
 }
 
-private void addExplicit(java.lang.Object arg0, java.lang.Object arg1)
+private void addMapping(java.lang.Object arg0, java.lang.Object arg1)
 {
 
 }

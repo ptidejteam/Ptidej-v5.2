@@ -58,6 +58,7 @@ import javax.lang.model.type.ArrayType;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.ErrorType;
 import javax.lang.model.type.ExecutableType;
+import javax.lang.model.type.IntersectionType;
 import javax.lang.model.type.NoType;
 import javax.lang.model.type.NullType;
 import javax.lang.model.type.PrimitiveType;
@@ -1903,6 +1904,12 @@ public class JCTCreatorFromSourceCode implements
 
 	@Override
 	public IJCTElement visitUnionType(UnionTypeTree t, Object p) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IJCTType visitIntersection(IntersectionType arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		return null;
 	}

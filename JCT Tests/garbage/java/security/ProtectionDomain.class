@@ -1,6 +1,32 @@
 package java.security;
 public class ProtectionDomain
 {
+private static class JavaSecurityAccessImpl
+implements sun.misc.JavaSecurityAccess
+{
+private void <init>()
+{
+
+}
+
+public java.lang.Object doIntersectionPrivilege(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2)
+{
+
+}
+
+public java.lang.Object doIntersectionPrivilege(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+private static java.security.AccessControlContext getCombinedACC(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+
+}
+
 final class Key
 {
 void <init>()

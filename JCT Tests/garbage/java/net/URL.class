@@ -2,6 +2,8 @@ package java.net;
 final public class URL
 implements java.io.Serializable
 {
+final static java.lang.Object BUILTIN_HANDLERS_PREFIX;
+
 final static java.lang.Object serialVersionUID;
 
 final private static java.lang.Object protocolPathProp;
@@ -30,19 +32,15 @@ transient java.lang.Object handler;
 
 private java.lang.Object hashCode;
 
+private transient java.lang.Object tempState;
+
 static java.lang.Object factory;
 
 static java.lang.Object handlers;
 
 private static java.lang.Object streamHandlerLock;
 
-final private static java.lang.Object GOPHER;
-
-final private static java.lang.Object ENABLE_GOPHER_PROP;
-
-final private static java.lang.Object enableGopher;
-
-final private static java.lang.Object JDK_PACKAGE_PREFIX;
+final private static java.lang.Object serialPersistentFields;
 
 public void <init>(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2, java.lang.Object arg3) throws java.net.MalformedURLException
 {
@@ -84,12 +82,12 @@ private void checkSpecifyHandler(java.lang.Object arg0)
 
 }
 
-protected void set(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2, java.lang.Object arg3, java.lang.Object arg4)
+void set(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2, java.lang.Object arg3, java.lang.Object arg4)
 {
 
 }
 
-protected void set(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2, java.lang.Object arg3, java.lang.Object arg4, java.lang.Object arg5, java.lang.Object arg6, java.lang.Object arg7)
+void set(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2, java.lang.Object arg3, java.lang.Object arg4, java.lang.Object arg5, java.lang.Object arg6, java.lang.Object arg7)
 {
 
 }
@@ -215,6 +213,36 @@ private synchronized void writeObject(java.lang.Object arg0) throws java.io.IOEx
 }
 
 private synchronized void readObject(java.lang.Object arg0) throws java.io.IOException, java.lang.ClassNotFoundException
+{
+
+}
+
+private java.lang.Object readResolve() throws java.io.ObjectStreamException
+{
+
+}
+
+private java.net.URL setDeserializedFields(java.lang.Object arg0)
+{
+
+}
+
+private java.net.URL fabricateNewURL() throws java.io.InvalidObjectException
+{
+
+}
+
+private boolean isBuiltinStreamHandler(java.lang.Object arg0)
+{
+
+}
+
+private void resetState()
+{
+
+}
+
+private void setSerializedHashCode(java.lang.Object arg0)
 {
 
 }

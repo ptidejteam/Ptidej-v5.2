@@ -130,7 +130,7 @@ public class FewSmellsTest extends TestCase {
 			FewSmellsTest.NAME + "_SpaghettiCode.ini")));
 		Assert.assertEquals(
 			"Incorrect number of refused parent bequests found",
-			10,
+			3,
 			ad.getDesignSmells().size());
 	}
 	public void testSpaghettiDetection() {

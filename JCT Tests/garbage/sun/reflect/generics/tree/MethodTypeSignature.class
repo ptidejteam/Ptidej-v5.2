@@ -2,13 +2,13 @@ package sun.reflect.generics.tree;
 public class MethodTypeSignature
 implements sun.reflect.generics.tree.Signature
 {
-private java.lang.Object formalTypeParams;
+final private java.lang.Object formalTypeParams;
 
-private java.lang.Object parameterTypes;
+final private java.lang.Object parameterTypes;
 
-private java.lang.Object returnType;
+final private java.lang.Object returnType;
 
-private java.lang.Object exceptionTypes;
+final private java.lang.Object exceptionTypes;
 
 private void <init>(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2, java.lang.Object arg3)
 {

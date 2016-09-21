@@ -2,23 +2,6 @@ package java.util;
 abstract public class TimeZone
 implements java.io.Serializable, java.lang.Cloneable
 {
-private static class DisplayNames
-{
-final private static java.lang.Object CACHE;
-
-private void <init>()
-{
-
-}
-
-static void <clinit>()
-{
-
-}
-
-
-}
-
 final public static java.lang.Object SHORT;
 
 final public static java.lang.Object LONG;
@@ -30,8 +13,6 @@ final private static java.lang.Object ONE_HOUR;
 final private static java.lang.Object ONE_DAY;
 
 final static java.lang.Object serialVersionUID;
-
-final private static java.lang.Object allowSetDefault;
 
 final static java.lang.Object NO_TIMEZONE;
 
@@ -105,7 +86,7 @@ public java.lang.String getDisplayName(java.lang.Object arg0, java.lang.Object a
 
 }
 
-final private static java.lang.String[] getDisplayNames(java.lang.Object arg0, java.lang.Object arg1)
+private static java.lang.String[] getDisplayNames(java.lang.Object arg0, java.lang.Object arg1)
 {
 
 }
@@ -135,6 +116,16 @@ public static synchronized java.util.TimeZone getTimeZone(java.lang.Object arg0)
 
 }
 
+public static java.util.TimeZone getTimeZone(java.lang.Object arg0)
+{
+
+}
+
+public java.time.ZoneId toZoneId()
+{
+
+}
+
 private static java.util.TimeZone getTimeZone(java.lang.Object arg0, java.lang.Object arg1)
 {
 
@@ -150,7 +141,7 @@ public static synchronized java.lang.String[] getAvailableIDs()
 
 }
 
-native private static java.lang.String getSystemTimeZoneID(java.lang.Object arg0, java.lang.Object arg1)
+native private static java.lang.String getSystemTimeZoneID(java.lang.Object arg0)
 {
 
 }
@@ -175,22 +166,7 @@ private static synchronized java.util.TimeZone setDefaultZone()
 
 }
 
-private static boolean hasPermission()
-{
-
-}
-
 public static void setDefault(java.lang.Object arg0)
-{
-
-}
-
-private static java.util.TimeZone getDefaultInAppContext()
-{
-
-}
-
-private static void setDefaultInAppContext(java.lang.Object arg0)
 {
 
 }

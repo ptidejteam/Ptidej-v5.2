@@ -243,6 +243,16 @@ private void readObject(java.lang.Object arg0) throws java.io.IOException, java.
 
 }
 
+public static java.util.Date from(java.lang.Object arg0)
+{
+
+}
+
+public java.time.Instant toInstant()
+{
+
+}
+
 static void <clinit>()
 {
 

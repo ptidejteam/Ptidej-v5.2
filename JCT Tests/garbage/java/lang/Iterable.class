@@ -6,5 +6,15 @@ abstract public java.util.Iterator iterator()
 
 }
 
+public void forEach(java.lang.Object arg0)
+{
+
+}
+
+public java.util.Spliterator spliterator()
+{
+
+}
+
 
 }

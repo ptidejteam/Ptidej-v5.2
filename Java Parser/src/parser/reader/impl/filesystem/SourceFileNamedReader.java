@@ -11,11 +11,11 @@
 package parser.reader.impl.filesystem;
 
 import java.io.File;
+import common.tools.file.FileTools;
 import parser.reader.NamedReader;
 import parser.reader.NamedReaderType;
 import parser.reader.impl.NamedReaderFactory;
 import util.io.ProxyConsole;
-import common.tools.file.FileTools;
 
 /**
  * Source file is not necessary to be ended with .java
@@ -29,7 +29,9 @@ public class SourceFileNamedReader extends NamedReader {
 	 * @param name
 	 * @param type
 	 */
-	public SourceFileNamedReader(final String name, final NamedReaderType type) {
+	public SourceFileNamedReader(
+		final String name,
+		final NamedReaderType type) {
 		super(name, type);
 	}
 
@@ -43,17 +45,15 @@ public class SourceFileNamedReader extends NamedReader {
 		final File file = new File(this.getName());
 
 		if (!file.isFile()) {
-			ProxyConsole
-				.getInstance()
-				.errorOutput()
-				.println(this.getName() + " is not a file!");
-			return null;
+			ProxyConsole.getInstance().errorOutput().println(
+				this.getName() + " is not a file!");
+			throw new RuntimeException(this.getName() + " is not a file!");
 		}
 
-		return new NamedReader[] { NamedReaderFactory.Instance
-			.createNamedReader(
-				new String(FileTools.Instance.readFile(file)),
-				NamedReaderType.SourceCode) };
+		return new NamedReader[] {
+				NamedReaderFactory.Instance.createNamedReader(
+					new String(FileTools.Instance.readFile(file)),
+					NamedReaderType.SourceCode) };
 	}
 
 }

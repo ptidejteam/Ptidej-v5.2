@@ -11,7 +11,12 @@ abstract public java.lang.Object next()
 
 }
 
-abstract public void remove()
+public void remove()
+{
+
+}
+
+public void forEachRemaining(java.lang.Object arg0)
 {
 
 }

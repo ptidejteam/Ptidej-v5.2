@@ -28,6 +28,26 @@ abstract public int hashCode()
 
 }
 
+public static java.util.Comparator comparingByKey()
+{
+
+}
+
+public static java.util.Comparator comparingByValue()
+{
+
+}
+
+public static java.util.Comparator comparingByKey(java.lang.Object arg0)
+{
+
+}
+
+public static java.util.Comparator comparingByValue(java.lang.Object arg0)
+{
+
+}
+
 
 }
 
@@ -97,6 +117,61 @@ abstract public boolean equals(java.lang.Object arg0)
 }
 
 abstract public int hashCode()
+{
+
+}
+
+public java.lang.Object getOrDefault(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+public void forEach(java.lang.Object arg0)
+{
+
+}
+
+public void replaceAll(java.lang.Object arg0)
+{
+
+}
+
+public java.lang.Object putIfAbsent(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+public boolean remove(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+public boolean replace(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2)
+{
+
+}
+
+public java.lang.Object replace(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+public java.lang.Object computeIfAbsent(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+public java.lang.Object computeIfPresent(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+public java.lang.Object compute(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+public java.lang.Object merge(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2)
 {
 
 }

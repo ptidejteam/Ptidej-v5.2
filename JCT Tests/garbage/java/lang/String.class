@@ -17,6 +17,11 @@ public int compare(java.lang.Object arg0, java.lang.Object arg1)
 
 }
 
+private java.lang.Object readResolve()
+{
+
+}
+
 
 }
 
@@ -29,10 +34,6 @@ final private static java.lang.Object serialVersionUID;
 final private static java.lang.Object serialPersistentFields;
 
 final public static java.lang.Object CASE_INSENSITIVE_ORDER;
-
-final private static java.lang.Object HASHING_SEED;
-
-private transient java.lang.Object hash32;
 
 public void <init>()
 {
@@ -119,11 +120,6 @@ void <init>(java.lang.Object arg0, java.lang.Object arg1)
 
 }
 
-void <init>(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2)
-{
-
-}
-
 public int length()
 {
 
@@ -195,6 +191,11 @@ public boolean equals(java.lang.Object arg0)
 }
 
 public boolean contentEquals(java.lang.Object arg0)
+{
+
+}
+
+private boolean nonSyncContentEquals(java.lang.Object arg0)
 {
 
 }
@@ -289,6 +290,11 @@ public int indexOf(java.lang.Object arg0, java.lang.Object arg1)
 
 }
 
+static int indexOf(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2, java.lang.Object arg3, java.lang.Object arg4)
+{
+
+}
+
 static int indexOf(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2, java.lang.Object arg3, java.lang.Object arg4, java.lang.Object arg5, java.lang.Object arg6)
 {
 
@@ -300,6 +306,11 @@ public int lastIndexOf(java.lang.Object arg0)
 }
 
 public int lastIndexOf(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+static int lastIndexOf(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2, java.lang.Object arg3, java.lang.Object arg4)
 {
 
 }
@@ -365,6 +376,16 @@ public java.lang.String[] split(java.lang.Object arg0, java.lang.Object arg1)
 }
 
 public java.lang.String[] split(java.lang.Object arg0)
+{
+
+}
+
+public static java.lang.String join(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+public static java.lang.String join(java.lang.Object arg0, java.lang.Object arg1)
 {
 
 }
@@ -470,11 +491,6 @@ public static java.lang.String valueOf(java.lang.Object arg0)
 }
 
 native public java.lang.String intern()
-{
-
-}
-
-int hash32()
 {
 
 }

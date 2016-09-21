@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import junit.framework.Assert;
+import junit.framework.TestCase;
 import org.eclipse.jdt.core.dom.Comment;
 import parser.input.SourceInputsHolder;
 import parser.input.impl.FileSystemJavaProject;
@@ -21,7 +22,7 @@ import parser.reader.impl.filesystem.FileNamedReaderFactory;
 import parser.wrapper.JavaParser;
 import parser.wrapper.NamedCompilationUnit;
 
-public class JavaParserLineAndBlockCommentTest {
+public class JavaParserLineAndBlockCommentTest extends TestCase {
 	public void testParse() throws Exception {
 		final String[] classpathEntries = new String[] { "" };
 		final String[] sourcepathEntries =

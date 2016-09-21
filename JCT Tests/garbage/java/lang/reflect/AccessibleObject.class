@@ -45,7 +45,22 @@ public boolean isAnnotationPresent(java.lang.Object arg0)
 
 }
 
+public java.lang.annotation.Annotation[] getAnnotationsByType(java.lang.Object arg0)
+{
+
+}
+
 public java.lang.annotation.Annotation[] getAnnotations()
+{
+
+}
+
+public java.lang.annotation.Annotation getDeclaredAnnotation(java.lang.Object arg0)
+{
+
+}
+
+public java.lang.annotation.Annotation[] getDeclaredAnnotationsByType(java.lang.Object arg0)
 {
 
 }

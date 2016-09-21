@@ -18,6 +18,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.jar.JarInputStream;
 import org.apache.commons.lang.ArrayUtils;
+import com.ibm.toad.cfparse.ClassFile;
+import com.ibm.toad.cfparse.ConstantPool;
+import com.ibm.toad.cfparse.ConstantPoolEntry;
+import com.ibm.toad.cfparse.InterfaceList;
+import com.ibm.toad.cfparse.attributes.AttrInfoList;
+import com.ibm.toad.cfparse.attributes.CodeAttrInfo;
+import com.ibm.toad.cfparse.instruction.ImmutableCodeSegment;
+import com.ibm.toad.cfparse.instruction.JVMConstants;
+import com.ibm.toad.cfparse.utils.ByteArray;
 import padl.creator.classfile.relationship.ContainerRelationshipAnalyzer;
 import padl.creator.classfile.relationship.Context;
 import padl.creator.classfile.relationship.RelationshipAnalyzer;
@@ -46,15 +55,6 @@ import padl.kernel.impl.Factory;
 import padl.util.Util;
 import util.io.ProxyConsole;
 import util.io.SubtypeLoader;
-import com.ibm.toad.cfparse.ClassFile;
-import com.ibm.toad.cfparse.ConstantPool;
-import com.ibm.toad.cfparse.ConstantPoolEntry;
-import com.ibm.toad.cfparse.InterfaceList;
-import com.ibm.toad.cfparse.attributes.AttrInfoList;
-import com.ibm.toad.cfparse.attributes.CodeAttrInfo;
-import com.ibm.toad.cfparse.instruction.ImmutableCodeSegment;
-import com.ibm.toad.cfparse.instruction.JVMConstants;
-import com.ibm.toad.cfparse.utils.ByteArray;
 
 /**
  * @author Yann-Gaël Guéhéneuc
@@ -97,11 +97,10 @@ abstract class AbstractClassFileCreator {
 									aConstantPool.getAsJava(indices[0]);
 								String nameAndType =
 									aConstantPool.getAsJava(indices[1]);
-								calles.add(className
-										+ '.'
-										+ nameAndType.substring(
-											0,
-											nameAndType.indexOf('.')));
+								calles.add(
+									className + '.' + nameAndType.substring(
+										0,
+										nameAndType.indexOf('.')));
 							}
 						}
 						break;
@@ -146,18 +145,12 @@ abstract class AbstractClassFileCreator {
 
 			final ClassFile[] classFiles;
 			if (someClassFiles[i].endsWith(".jar")) {
-				classFiles =
-					SubtypeLoader.loadSubtypesFromJar(
-						null,
-						someClassFiles[i],
-						".class");
+				classFiles = SubtypeLoader
+					.loadSubtypesFromJar(null, someClassFiles[i], ".class");
 			}
 			else if (someClassFiles[i].endsWith(".class")) {
-				classFiles =
-					SubtypeLoader.loadSubtypeFromFile(
-						null,
-						someClassFiles[i],
-						".class");
+				classFiles = SubtypeLoader
+					.loadSubtypeFromFile(null, someClassFiles[i], ".class");
 			}
 			else if (recurseIntoDirectories) {
 				// Yann 2004/10/16: Recursion!
@@ -167,18 +160,14 @@ abstract class AbstractClassFileCreator {
 				// that would contain the name of a directory and whether
 				// to recurse for this paricular directory.
 				// TODO: Replace the recurseIntoDirectories with a type Directory
-				classFiles =
-					SubtypeLoader.loadRecursivelySubtypesFromDir(
-						null,
-						someClassFiles[i],
-						".class");
+				classFiles = SubtypeLoader.loadRecursivelySubtypesFromDir(
+					null,
+					someClassFiles[i],
+					".class");
 			}
 			else {
-				classFiles =
-					SubtypeLoader.loadSubtypesFromDir(
-						null,
-						someClassFiles[i],
-						".class");
+				classFiles = SubtypeLoader
+					.loadSubtypesFromDir(null, someClassFiles[i], ".class");
 			}
 
 			// @Note David: Is this sorting of classes by the alphabetical order?
@@ -216,17 +205,12 @@ abstract class AbstractClassFileCreator {
 
 		final ClassFile[] classFiles;
 		// I add this new package to the current AbstractLevelModel model.
-		ProxyConsole
-			.getInstance()
-			.normalOutput()
-			.print("Loading class files from in: ");
+		ProxyConsole.getInstance().normalOutput().print(
+			"Loading class files from in: ");
 		ProxyConsole.getInstance().normalOutput().println("jar input stream");
 
-		classFiles =
-			SubtypeLoader.loadSubtypesFromJarInputStream(
-				null,
-				inputStream,
-				".class");
+		classFiles = SubtypeLoader
+			.loadSubtypesFromJarInputStream(null, inputStream, ".class");
 
 		// @Note David: Is this sorting of classes by the alphabetical order?
 		// If it is, why is 
@@ -292,14 +276,14 @@ abstract class AbstractClassFileCreator {
 
 			try {
 				buffer.append("recognize");
-				buffer.append(constituentName.substring(constituentName
-					.lastIndexOf('.') + 1));
+				buffer.append(
+					constituentName
+						.substring(constituentName.lastIndexOf('.') + 1));
 				buffer.append("Priority");
-				sortedElements[x] =
-					((Integer) this
-						.getClass()
-						.getMethod(buffer.toString(), new java.lang.Class[0])
-						.invoke(this, new Object[0])).intValue();
+				sortedElements[x] = ((Integer) this
+					.getClass()
+					.getMethod(buffer.toString(), new java.lang.Class[0])
+					.invoke(this, new Object[0])).intValue();
 				buffer.setLength(0);
 			}
 			catch (final Throwable t) {
@@ -336,7 +320,8 @@ abstract class AbstractClassFileCreator {
 		// this should prevent the "duplicate actor ID" problem...
 
 		final List listOfSubmittedElements = new ArrayList();
-		for (int elementRecogniserNumber = 0; elementRecogniserNumber < listOfElements.length; elementRecogniserNumber++) {
+		for (int elementRecogniserNumber =
+			0; elementRecogniserNumber < listOfElements.length; elementRecogniserNumber++) {
 
 			// Yann 2006/08/03: Member entities!
 			// I should not iterate over the entities of the code-level model
@@ -362,8 +347,8 @@ abstract class AbstractClassFileCreator {
 				final char[] currentClassName =
 					currentClass.getName().toCharArray();
 
-				if (!Utils.isAnonymousOrLocalEntity(currentClassName)
-						&& !Utils.isLocalOrLocalMemberEntity(currentClassName)) {
+				if (!Utils.isAnonymousOrLocalEntity(currentClassName) && !Utils
+					.isLocalOrLocalMemberEntity(currentClassName)) {
 
 					final IFirstClassEntity firstClassEntity =
 						Utils.getEntityOrCreateGhost(
@@ -371,29 +356,34 @@ abstract class AbstractClassFileCreator {
 							currentClassName,
 							this.mapOfIDsEntities);
 
-					constituentName =
-						constituentsRepository.getElements()[sortedElements[elementRecogniserNumber]]
+					constituentName = constituentsRepository
+						.getElements()[sortedElements[elementRecogniserNumber]]
 							.getName();
 
 					if (!(firstClassEntity instanceof IGhost)) {
 						aCodeLevelModel.fireModelChange(
 							IModelListener.ENTITY_ANALYZED,
-							new AnalysisEvent(currentClassName, constituentName
-								.toCharArray()));
+							new AnalysisEvent(
+								currentClassName,
+								constituentName.toCharArray()));
 
 						// I reset the list of submitted elements and entities.
 						listOfSubmittedElements.clear();
 
 						// I fill up the Element.
-						for (int i = 0; i < currentClass.getMethods().length(); listOfSubmittedElements
-							.add(new ExtendedMethodInfo(
-								currentClass,
-								currentClass.getMethods().get(i++))))
+						for (int i = 0; i < currentClass
+							.getMethods()
+							.length(); listOfSubmittedElements.add(
+								new ExtendedMethodInfo(
+									currentClass,
+									currentClass.getMethods().get(i++))))
 							;
-						for (int i = 0; i < currentClass.getFields().length(); listOfSubmittedElements
-							.add(new ExtendedFieldInfo(
-								currentClass,
-								currentClass.getFields().get(i++))))
+						for (int i = 0; i < currentClass
+							.getFields()
+							.length(); listOfSubmittedElements.add(
+								new ExtendedFieldInfo(
+									currentClass,
+									currentClass.getFields().get(i++))))
 							;
 
 						try {
@@ -416,9 +406,9 @@ abstract class AbstractClassFileCreator {
 							//				listOfSubmittedElements,
 							//				this });
 							buffer.append("recognize");
-							buffer
-								.append(constituentName
-									.substring(constituentName.lastIndexOf('.') + 1));
+							buffer.append(
+								constituentName.substring(
+									constituentName.lastIndexOf('.') + 1));
 
 							this
 								.getClass()
@@ -432,20 +422,13 @@ abstract class AbstractClassFileCreator {
 											aCodeLevelModel });
 						}
 						catch (final NoSuchMethodException t) {
-							ProxyConsole
-								.getInstance()
-								.errorOutput()
-								.print(AbstractClassFileCreator.class.getName());
-							ProxyConsole
-								.getInstance()
-								.errorOutput()
-								.print(" cannot invoke ");
-							ProxyConsole
-								.getInstance()
-								.errorOutput()
-								.println(
-									listOfElements[sortedElements[elementRecogniserNumber]]
-										.getName());
+							ProxyConsole.getInstance().errorOutput().print(
+								AbstractClassFileCreator.class.getName());
+							ProxyConsole.getInstance().errorOutput().print(
+								" cannot invoke ");
+							ProxyConsole.getInstance().errorOutput().println(
+								listOfElements[sortedElements[elementRecogniserNumber]]
+									.getName());
 							//	t.printStackTrace(ProxyConsole
 							//		.getInstance()
 							//		.errorOutput());
@@ -460,24 +443,20 @@ abstract class AbstractClassFileCreator {
 							//		.flush();
 						}
 						catch (IllegalAccessException e) {
-							e.printStackTrace(ProxyConsole
-								.getInstance()
-								.errorOutput());
+							e.printStackTrace(
+								ProxyConsole.getInstance().errorOutput());
 						}
 						catch (IllegalArgumentException e) {
-							e.printStackTrace(ProxyConsole
-								.getInstance()
-								.errorOutput());
+							e.printStackTrace(
+								ProxyConsole.getInstance().errorOutput());
 						}
 						catch (InvocationTargetException e) {
-							e.printStackTrace(ProxyConsole
-								.getInstance()
-								.errorOutput());
+							e.printStackTrace(
+								ProxyConsole.getInstance().errorOutput());
 						}
 						catch (SecurityException e) {
-							e.printStackTrace(ProxyConsole
-								.getInstance()
-								.errorOutput());
+							e.printStackTrace(
+								ProxyConsole.getInstance().errorOutput());
 						}
 						finally {
 							// Yann 2004/03/31: Reset!
@@ -489,8 +468,9 @@ abstract class AbstractClassFileCreator {
 					else {
 						aCodeLevelModel.fireModelChange(
 							IModelListener.ENTITY_SKIPPED,
-							new AnalysisEvent(currentClassName, constituentName
-								.toCharArray()));
+							new AnalysisEvent(
+								currentClassName,
+								constituentName.toCharArray()));
 					}
 				}
 			}
@@ -562,10 +542,8 @@ abstract class AbstractClassFileCreator {
 					}
 					firstClassEntity.setVisibility(classFile.getAccess());
 
-					final IPackage enclosingPackage =
-						Utils.getPackage(
-							this.mapOfPackageNamesPackages,
-							entityID);
+					final IPackage enclosingPackage = Utils
+						.getPackage(this.mapOfPackageNamesPackages, entityID);
 					enclosingPackage.addConstituent(firstClassEntity);
 					this.mapOfIDsEntities
 						.put(entityDisplayID, firstClassEntity);
@@ -586,8 +564,12 @@ abstract class AbstractClassFileCreator {
 					}
 					memberEntity.setVisibility(classFile.getAccess());
 
+					final char[] enclosingEntityID = ArrayUtils.subarray(
+						entityID,
+						0,
+						ArrayUtils.lastIndexOf(entityID, '$'));
 					Utils
-						.searchForEnclosingEntity(aCodeLevelModel, entityID)
+						.searchForEntity(aCodeLevelModel, enclosingEntityID)
 						.addConstituent((IConstituentOfEntity) memberEntity);
 					this.mapOfIDsEntities.put(entityDisplayID, memberEntity);
 				}
@@ -622,9 +604,8 @@ abstract class AbstractClassFileCreator {
 				// Wow, for the longest time, I was not adding Object 
 				// as super-entity for interfaces: weird that it never 
 				// caused problem before???
-				if (!(firstClassEntity.equals(Factory
-					.getInstance()
-					.createHierarchyRoot()))) {
+				if (!(firstClassEntity
+					.equals(Factory.getInstance().createHierarchyRoot()))) {
 
 					final String superClassDisplayName =
 						classFile.getSuperName();
@@ -652,8 +633,8 @@ abstract class AbstractClassFileCreator {
 							this.mapOfIDsEntities);
 
 					if (firstClassEntity instanceof IClass) {
-						((IClass) firstClassEntity)
-							.addImplementedInterface((IInterfaceActor) superEntity);
+						((IClass) firstClassEntity).addImplementedInterface(
+							(IInterfaceActor) superEntity);
 					}
 					else {
 						((IInterfaceActor) firstClassEntity)
@@ -678,19 +659,17 @@ abstract class AbstractClassFileCreator {
 			final String entityDisplayName = classFile.getName();
 			final char[] entityName = entityDisplayName.toCharArray();
 			final char[] packageName = Utils.extractPackageName(entityName);
-			final IPackage enclosingPackage =
-				Utils.searchForPackage(
-					aCodeLevelModel,
-					entityName,
-					new PackageCreator() {
-						public IPackage create(final char[] aName) {
-							return Factory.getInstance().createPackage(aName);
-						}
-					});
+			final IPackage enclosingPackage = Utils.searchForPackage(
+				aCodeLevelModel,
+				entityName,
+				new PackageCreator() {
+					public IPackage create(final char[] aName) {
+						return Factory.getInstance().createPackage(aName);
+					}
+				});
 			if (!this.mapOfPackageNamesPackages.containsKey(packageName)) {
-				this.mapOfPackageNamesPackages.put(
-					String.valueOf(packageName),
-					enclosingPackage);
+				this.mapOfPackageNamesPackages
+					.put(String.valueOf(packageName), enclosingPackage);
 			}
 		}
 	}
@@ -747,11 +726,11 @@ abstract class AbstractClassFileCreator {
 					final IConstructor currentConstructor =
 						aCodeLevelModel.getFactory().createConstructor(
 							Utils.computeSignature(currentExtendedMethod),
-							Util.computeSimpleName(currentExtendedMethod
-								.getDeclaringClassName()));
+							Util.computeSimpleName(
+								currentExtendedMethod.getDeclaringClassName()));
 
-					currentConstructor.setVisibility(currentExtendedMethod
-						.getVisibility());
+					currentConstructor
+						.setVisibility(currentExtendedMethod.getVisibility());
 
 					final char[][] detectedParameters =
 						currentExtendedMethod.getParameters();
@@ -773,11 +752,10 @@ abstract class AbstractClassFileCreator {
 								ArrayUtils.subarray(paramType, 0, bracketIndex);
 						}
 
-						final IParameter parameter =
-							this.createParameter(
-								aCodeLevelModel,
-								paramType,
-								cardinality);
+						final IParameter parameter = this.createParameter(
+							aCodeLevelModel,
+							paramType,
+							cardinality);
 						currentConstructor.addConstituent(parameter);
 					}
 
@@ -791,9 +769,8 @@ abstract class AbstractClassFileCreator {
 							aCodeLevelModel,
 							currentExtendedMethod.getDeclaringClassName(),
 							this.mapOfIDsEntities);
-					if (!firstClassEntity
-						.doesContainConstituentWithID(currentConstructor
-							.getID())) {
+					if (!firstClassEntity.doesContainConstituentWithID(
+						currentConstructor.getID())) {
 
 						firstClassEntity.addConstituent(currentConstructor);
 					}
@@ -814,20 +791,19 @@ abstract class AbstractClassFileCreator {
 
 		final IParameter parameter;
 		if (Util.isPrimtiveType(someParamType)) {
-			parameter =
-				aCodeLevelModel.getFactory().createParameter(
-					aCodeLevelModel.getFactory().createPrimitiveEntity(
-						someParamType),
-					cardinality);
+			parameter = aCodeLevelModel.getFactory().createParameter(
+				aCodeLevelModel
+					.getFactory()
+					.createPrimitiveEntity(someParamType),
+				cardinality);
 		}
 		else {
-			parameter =
-				aCodeLevelModel.getFactory().createParameter(
-					Utils.getEntityOrCreateGhost(
-						aCodeLevelModel,
-						someParamType,
-						this.mapOfIDsEntities),
-					cardinality);
+			parameter = aCodeLevelModel.getFactory().createParameter(
+				Utils.getEntityOrCreateGhost(
+					aCodeLevelModel,
+					someParamType,
+					this.mapOfIDsEntities),
+				cardinality);
 		}
 		return parameter;
 	}
@@ -911,9 +887,8 @@ abstract class AbstractClassFileCreator {
 						.substring(callees[0].lastIndexOf('.') + 1)
 						.equals(extendedMethodInfo.getName())) {
 
-						final String calleesTypeName =
-							callees[0]
-								.substring(0, callees[0].lastIndexOf('.'));
+						final String calleesTypeName = callees[0]
+							.substring(0, callees[0].lastIndexOf('.'));
 
 						final IFirstClassEntity currentEntity =
 							Utils.getEntityOrCreateGhost(
@@ -922,8 +897,8 @@ abstract class AbstractClassFileCreator {
 								this.mapOfIDsEntities);
 
 						final Iterator iteratorOnContainerAggregation =
-							currentEntity
-								.getIteratorOnConstituents(IContainerAggregation.class);
+							currentEntity.getIteratorOnConstituents(
+								IContainerAggregation.class);
 						while (iteratorOnContainerAggregation.hasNext()) {
 							final IContainerAggregation aggregation =
 								(IContainerAggregation) iteratorOnContainerAggregation
@@ -934,8 +909,9 @@ abstract class AbstractClassFileCreator {
 							// getFieldType() (see v1) in the stead of
 							// getTargetEntity(). Now, it is the target
 							// actor that we want to check.
-							if (aggregation.getTargetEntity().equals(
-								calleesTypeName)) {
+							if (aggregation
+								.getTargetEntity()
+								.equals(calleesTypeName)) {
 
 								// TODO: The target method should not be "null"! 
 								final IDelegatingMethod delegatingMethod =
@@ -980,9 +956,9 @@ abstract class AbstractClassFileCreator {
 				final ExtendedFieldInfo currentField =
 					(ExtendedFieldInfo) element;
 				char[] fieldType = currentField.getType();
-				final int cardinality =
-					Util.isArrayOrCollection(fieldType) ? Constants.CARDINALITY_MANY
-							: Constants.CARDINALITY_ONE;
+				final int cardinality = Util.isArrayOrCollection(fieldType)
+						? Constants.CARDINALITY_MANY
+						: Constants.CARDINALITY_ONE;
 
 				// Yann 2003/11/29: Array!
 				// I must take care of removing brackets for array.
@@ -999,12 +975,11 @@ abstract class AbstractClassFileCreator {
 				// I must take care not to add primitive type.
 				final IField field;
 				if (Util.isPrimtiveType(fieldType)) {
-					field =
-						aCodeLevelModel.getFactory().createField(
-							currentField.getName(),
-							currentField.getName(),
-							fieldType,
-							cardinality);
+					field = aCodeLevelModel.getFactory().createField(
+						currentField.getName(),
+						currentField.getName(),
+						fieldType,
+						cardinality);
 				}
 				else {
 					final IFirstClassEntity targetEntity =
@@ -1022,12 +997,11 @@ abstract class AbstractClassFileCreator {
 					//				fieldType);
 					//		aCodeLevelModel.addConstituent(targetEntity);
 					//	}
-					field =
-						aCodeLevelModel.getFactory().createField(
-							currentField.getName(),
-							currentField.getName(),
-							targetEntity.getID(),
-							cardinality);
+					field = aCodeLevelModel.getFactory().createField(
+						currentField.getName(),
+						currentField.getName(),
+						targetEntity.getID(),
+						cardinality);
 				}
 				field.setVisibility(currentField.getVisibility());
 
@@ -1099,11 +1073,11 @@ abstract class AbstractClassFileCreator {
 					// actor ID to a method, instead of using toString()
 					// from MethodInfo.
 
-					currentMethod.setReturnType(currentExtendedMethod
-						.getReturnType());
+					currentMethod
+						.setReturnType(currentExtendedMethod.getReturnType());
 
-					currentMethod.setVisibility(currentExtendedMethod
-						.getVisibility());
+					currentMethod
+						.setVisibility(currentExtendedMethod.getVisibility());
 
 					final char[][] detectedParameters =
 						currentExtendedMethod.getParameters();
@@ -1147,11 +1121,10 @@ abstract class AbstractClassFileCreator {
 								ArrayUtils.subarray(paramType, 0, bracketIndex);
 						}
 
-						final IParameter parameter =
-							this.createParameter(
-								aCodeLevelModel,
-								paramType,
-								cardinality);
+						final IParameter parameter = this.createParameter(
+							aCodeLevelModel,
+							paramType,
+							cardinality);
 						currentMethod.addConstituent(parameter);
 					}
 

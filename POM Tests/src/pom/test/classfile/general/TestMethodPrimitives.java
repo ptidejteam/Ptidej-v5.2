@@ -73,7 +73,7 @@ public class TestMethodPrimitives extends junit.framework.TestCase {
 	public void testMI() {
 		final String methodName = "doNothing()";
 		final String[] usedFields =
-			{ "p1", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p",
+			{ "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p",
 					"p", "p", "p", "a", "p", "p", "a", "f3", "f3", "f3", "p" };
 		final IFirstClassEntity iEntity =
 			(IFirstClassEntity) this.currentModel

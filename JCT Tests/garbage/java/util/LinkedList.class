@@ -31,6 +31,61 @@ public void remove()
 
 }
 
+final static class LLSpliterator
+implements java.util.Spliterator
+{
+final static java.lang.Object BATCH_UNIT;
+
+final static java.lang.Object MAX_BATCH;
+
+final java.lang.Object list;
+
+java.lang.Object current;
+
+java.lang.Object est;
+
+java.lang.Object expectedModCount;
+
+java.lang.Object batch;
+
+void <init>(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2)
+{
+
+}
+
+final int getEst()
+{
+
+}
+
+public long estimateSize()
+{
+
+}
+
+public java.util.Spliterator trySplit()
+{
+
+}
+
+public void forEachRemaining(java.lang.Object arg0)
+{
+
+}
+
+public boolean tryAdvance(java.lang.Object arg0)
+{
+
+}
+
+public int characteristics()
+{
+
+}
+
+
+}
+
 private class ListItr
 implements java.util.ListIterator
 {
@@ -88,6 +143,11 @@ public void set(java.lang.Object arg0)
 }
 
 public void add(java.lang.Object arg0)
+{
+
+}
+
+public void forEachRemaining(java.lang.Object arg0)
 {
 
 }
@@ -400,6 +460,11 @@ private void writeObject(java.lang.Object arg0) throws java.io.IOException
 }
 
 private void readObject(java.lang.Object arg0) throws java.io.IOException, java.lang.ClassNotFoundException
+{
+
+}
+
+public java.util.Spliterator spliterator()
 {
 
 }

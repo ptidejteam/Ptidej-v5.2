@@ -1,7 +1,6 @@
 package java.lang.reflect;
 final public class Constructor
-extends java.lang.reflect.AccessibleObject
-implements java.lang.reflect.GenericDeclaration, java.lang.reflect.Member
+extends java.lang.reflect.Executable
 {
 private java.lang.Object clazz;
 
@@ -25,14 +24,17 @@ private volatile java.lang.Object constructorAccessor;
 
 private java.lang.Object root;
 
-private transient java.lang.Object declaredAnnotations;
-
 private sun.reflect.generics.factory.GenericsFactory getFactory()
 {
 
 }
 
-private sun.reflect.generics.repository.ConstructorRepository getGenericInfo()
+sun.reflect.generics.repository.ConstructorRepository getGenericInfo()
+{
+
+}
+
+java.lang.reflect.Executable getRoot()
 {
 
 }
@@ -43,6 +45,16 @@ void <init>(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2,
 }
 
 java.lang.reflect.Constructor copy()
+{
+
+}
+
+boolean hasGenericInformation()
+{
+
+}
+
+byte[] getAnnotationBytes()
 {
 
 }
@@ -68,6 +80,11 @@ public java.lang.reflect.TypeVariable[] getTypeParameters()
 }
 
 public java.lang.Class[] getParameterTypes()
+{
+
+}
+
+public int getParameterCount()
 {
 
 }
@@ -102,7 +119,17 @@ public java.lang.String toString()
 
 }
 
+void specificToStringHeader(java.lang.Object arg0)
+{
+
+}
+
 public java.lang.String toGenericString()
+{
+
+}
+
+void specificToGenericStringHeader(java.lang.Object arg0)
 {
 
 }
@@ -167,12 +194,22 @@ public java.lang.annotation.Annotation[] getDeclaredAnnotations()
 
 }
 
-private synchronized java.util.Map declaredAnnotations()
+public java.lang.annotation.Annotation[][] getParameterAnnotations()
 {
 
 }
 
-public java.lang.annotation.Annotation[][] getParameterAnnotations()
+void handleParameterNumberMismatch(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+public java.lang.reflect.AnnotatedType getAnnotatedReturnType()
+{
+
+}
+
+public java.lang.reflect.AnnotatedType getAnnotatedReceiverType()
 {
 
 }

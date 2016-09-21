@@ -2,52 +2,6 @@ package java.lang;
 public class Throwable
 implements java.io.Serializable
 {
-private static class WrappedPrintWriter
-extends java.lang.Throwable.PrintStreamOrWriter
-{
-final private java.lang.Object printWriter;
-
-void <init>(java.lang.Object arg0)
-{
-
-}
-
-java.lang.Object lock()
-{
-
-}
-
-void println(java.lang.Object arg0)
-{
-
-}
-
-
-}
-
-private static class WrappedPrintStream
-extends java.lang.Throwable.PrintStreamOrWriter
-{
-final private java.lang.Object printStream;
-
-void <init>(java.lang.Object arg0)
-{
-
-}
-
-java.lang.Object lock()
-{
-
-}
-
-void println(java.lang.Object arg0)
-{
-
-}
-
-
-}
-
 abstract private static class PrintStreamOrWriter
 {
 private void <init>()
@@ -80,6 +34,52 @@ private void <init>()
 }
 
 static void <clinit>()
+{
+
+}
+
+
+}
+
+private static class WrappedPrintStream
+extends java.lang.Throwable.PrintStreamOrWriter
+{
+final private java.lang.Object printStream;
+
+void <init>(java.lang.Object arg0)
+{
+
+}
+
+java.lang.Object lock()
+{
+
+}
+
+void println(java.lang.Object arg0)
+{
+
+}
+
+
+}
+
+private static class WrappedPrintWriter
+extends java.lang.Throwable.PrintStreamOrWriter
+{
+final private java.lang.Object printWriter;
+
+void <init>(java.lang.Object arg0)
+{
+
+}
+
+java.lang.Object lock()
+{
+
+}
+
+void println(java.lang.Object arg0)
 {
 
 }

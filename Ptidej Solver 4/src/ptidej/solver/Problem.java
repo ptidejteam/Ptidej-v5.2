@@ -395,7 +395,6 @@ public class Problem extends PalmProblem {
 					}
 				}
 				else {
-
 					if (constraint instanceof NotEqualConstraint) {
 						constr =
 							(((NotEqualConstraint) constraint).getClass())

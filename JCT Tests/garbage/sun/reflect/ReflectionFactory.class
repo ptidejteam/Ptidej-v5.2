@@ -19,9 +19,9 @@ public sun.reflect.ReflectionFactory run()
 
 private static java.lang.Object initted;
 
-private static java.lang.Object reflectionFactoryAccessPerm;
+final private static java.lang.Object reflectionFactoryAccessPerm;
 
-private static java.lang.Object soleInstance;
+final private static java.lang.Object soleInstance;
 
 private static volatile java.lang.Object langReflectAccess;
 
@@ -105,6 +105,11 @@ public java.lang.reflect.Field copyField(java.lang.Object arg0)
 }
 
 public java.lang.reflect.Constructor copyConstructor(java.lang.Object arg0)
+{
+
+}
+
+public byte[] getExecutableTypeAnnotationBytes(java.lang.Object arg0)
 {
 
 }

@@ -79,6 +79,11 @@ abstract public char get(java.lang.Object arg0)
 
 }
 
+abstract char getUnchecked(java.lang.Object arg0)
+{
+
+}
+
 abstract public java.nio.CharBuffer put(java.lang.Object arg0, java.lang.Object arg1)
 {
 
@@ -210,6 +215,11 @@ public java.nio.CharBuffer append(java.lang.Object arg0)
 }
 
 abstract public java.nio.ByteOrder order()
+{
+
+}
+
+public java.util.stream.IntStream chars()
 {
 
 }

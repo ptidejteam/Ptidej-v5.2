@@ -32,8 +32,8 @@ public class Composite1 extends Primitive {
 	public Composite1(final String name) {
 		super(name);
 	}
-	protected void setUp() throws IllegalAccessException,
-			InstantiationException {
+	protected void setUp()
+			throws IllegalAccessException, InstantiationException {
 
 		if (Composite1.FoundSolutions == null) {
 			final IDesignMotifModel pattern =
@@ -44,33 +44,31 @@ public class Composite1 extends Primitive {
 				final ICodeLevelModel codeLevelModel =
 					Factory.getInstance().createCodeLevelModel(
 						"ptidej.example.composite1");
-				codeLevelModel
-					.create(new CompleteClassFileCreator(
-						new String[] { "../Ptidej Tests/bin/ptidej/example/composite1/" }));
+				codeLevelModel.create(
+					new CompleteClassFileCreator(
+						new String[] {
+								"../Ptidej Tests/bin/ptidej/example/composite1/" }));
 
 				final IIdiomLevelModel idiomLevelModel =
 					(IIdiomLevelModel) new AACRelationshipsAnalysis()
 						.invoke(codeLevelModel);
 
 				// Expected solutions.
-				Composite1.ExpectedSolutions =
-					SolutionReader.getExpectedSolutions(
-						"Composite1",
-						idiomLevelModel);
+				Composite1.ExpectedSolutions = SolutionReader
+					.getExpectedSolutions("Composite1", idiomLevelModel);
 				Composite1.NumberOfExpectedSolutions =
 					SolutionReader.getExpectedNumberOfSolutions(
 						"Composite1",
 						idiomLevelModel);
 
 				// Solutions found.
-				Composite1.FoundSolutions =
-					this.testDesignPattern(
-						Composite1.class,
-						Primitive.ALL_SOLUTIONS,
-						pattern.getName(),
-						idiomLevelModel,
-						OccurrenceGenerator.SOLVER_COMBINATORIAL_AUTOMATIC,
-						OccurrenceGenerator.PROBLEM_AC4);
+				Composite1.FoundSolutions = this.testDesignPattern(
+					Composite1.class,
+					Primitive.ALL_SOLUTIONS,
+					pattern.getName(),
+					idiomLevelModel,
+					OccurrenceGenerator.SOLVER_COMBINATORIAL_AUTOMATIC,
+					OccurrenceGenerator.PROBLEM_AC4);
 			}
 			catch (final CreationException e) {
 				e.printStackTrace(ProxyConsole.getInstance().errorOutput());

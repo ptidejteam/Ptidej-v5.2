@@ -2,6 +2,39 @@ package java.util.zip;
 public class ZipFile
 implements java.io.Closeable, java.util.zip.ZipConstants
 {
+private class ZipEntryIterator
+implements java.util.Enumeration, java.util.Iterator
+{
+private java.lang.Object i;
+
+public void <init>()
+{
+
+}
+
+public boolean hasMoreElements()
+{
+
+}
+
+public boolean hasNext()
+{
+
+}
+
+public java.util.zip.ZipEntry nextElement()
+{
+
+}
+
+public java.util.zip.ZipEntry next()
+{
+
+}
+
+
+}
+
 private class ZipFileInflaterInputStream
 extends java.util.zip.InflaterInputStream
 {
@@ -42,7 +75,7 @@ protected void finalize() throws java.lang.Throwable
 private class ZipFileInputStream
 extends java.io.InputStream
 {
-private volatile java.lang.Object closeRequested;
+private volatile java.lang.Object zfisCloseRequested;
 
 protected java.lang.Object jzentry;
 
@@ -203,6 +236,11 @@ public java.lang.String getName()
 }
 
 public java.util.Enumeration entries()
+{
+
+}
+
+public java.util.stream.Stream stream()
 {
 
 }

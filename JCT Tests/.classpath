@@ -9,7 +9,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/PADL"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/PADL Creator JavaFile (JavaC)"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/PADL Creator JavaFile (JavaC) Tests"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre7"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

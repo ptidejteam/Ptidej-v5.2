@@ -119,7 +119,7 @@ public class SomeSmellsTest extends TestCase {
 		ad.detect(SomeSmellsTest.IdiomLevelModel);
 		ad.output(new PrintWriter(ProxyDisk.getInstance().fileTempOutput(
 			SomeSmellsTest.NAME + "_SpaghettiCode.ini")));
-		Assert.assertEquals("Incorrect number of message chains found", 1, ad
+		Assert.assertEquals("Incorrect number of message chains found", 0, ad
 			.getDesignSmells()
 			.size());
 	}

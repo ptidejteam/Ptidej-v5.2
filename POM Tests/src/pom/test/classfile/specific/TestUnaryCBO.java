@@ -63,7 +63,7 @@ public class TestUnaryCBO extends TestCase {
 			TestUnaryCBO.Metric.compute(
 				TestUnaryCBO.Model,
 				TestUnaryCBO.TestedClass),
-			0.0d);
+			1.0d);
 
 	}
 	/**
@@ -80,7 +80,7 @@ public class TestUnaryCBO extends TestCase {
 			TestUnaryCBO.Metric.compute(
 				TestUnaryCBO.Model,
 				TestUnaryCBO.TestedClass),
-			0.0d);
+			1.0d);
 	}
 	/**
 	 * Class has a field that is not used 
@@ -97,7 +97,7 @@ public class TestUnaryCBO extends TestCase {
 			TestUnaryCBO.Metric.compute(
 				TestUnaryCBO.Model,
 				TestUnaryCBO.TestedClass),
-			0.0d);
+			1.0d);
 	}
 	/**
 	 * Class has a field that it uses.
@@ -129,7 +129,7 @@ public class TestUnaryCBO extends TestCase {
 			TestUnaryCBO.Metric.compute(
 				TestUnaryCBO.Model,
 				TestUnaryCBO.TestedClass),
-			0.0d);
+			1.0d);
 	}
 	protected void setUp() throws Exception {
 		super.setUp();

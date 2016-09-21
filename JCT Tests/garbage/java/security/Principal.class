@@ -21,5 +21,10 @@ abstract public java.lang.String getName()
 
 }
 
+public boolean implies(java.lang.Object arg0)
+{
+
+}
+
 
 }

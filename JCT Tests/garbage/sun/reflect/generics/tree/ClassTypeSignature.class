@@ -2,7 +2,7 @@ package sun.reflect.generics.tree;
 public class ClassTypeSignature
 implements sun.reflect.generics.tree.FieldTypeSignature
 {
-private java.lang.Object path;
+final private java.lang.Object path;
 
 private void <init>(java.lang.Object arg0)
 {

@@ -33,7 +33,7 @@ public class TestMetricRepository extends TestCase {
 
 	private static ICodeLevelModel Model = null;
 	private static final String Root = "../POM Tests/data/java.lang.jar";
-	private static MetricsRepository metrics;
+	private static MetricsRepository Metrics;
 
 	protected void setUp() throws Exception {
 		super.setUp();
@@ -42,11 +42,11 @@ public class TestMetricRepository extends TestCase {
 				Factory.getInstance().createCodeLevelModel("Test.TestMetrics");
 			TestMetricRepository.Model.create(new CompleteClassFileCreator(
 				new String[] { TestMetricRepository.Root }));
-			TestMetricRepository.metrics = MetricsRepository.getInstance();
+			TestMetricRepository.Metrics = MetricsRepository.getInstance();
 		}
 	}
 	public void testUnarymetricList() {
-		Assert.assertNotNull(TestMetricRepository.metrics.getUnaryMetrics());
+		Assert.assertNotNull(TestMetricRepository.Metrics.getUnaryMetrics());
 	}
 	public void testRuntimeDeprecation() {
 		final StringWriter writer = new StringWriter();
@@ -61,7 +61,7 @@ public class TestMetricRepository extends TestCase {
 		Assert.assertEquals((double) 1, result, 0d);
 		Assert
 			.assertEquals(
-				"## util.lang.ConcreteReceiverGuard reports a runtime deprecation: calling method \"pom.metrics.repository.USELESS.<init>()\" from class \"pom.test.general.TestMetricRepository\"\r\n## Please do not instantiate metrics directly to allow efficient caching, use the methods of \"pom.metrics.MetricsRepository\" to obtain metric instances.\r\n",
+				"util.lang.ConcreteReceiverGuard reports a runtime deprecation: calling method \"pom.metrics.repository.USELESS.<init>()\" from class \"pom.test.classfile.general.TestMetricRepository\"\r\nPlease do not instantiate metrics directly to allow efficient caching, use the methods of \"pom.metrics.MetricsRepository\" to obtain metric instances.\r\n",
 				writer.toString());
 	}
 }

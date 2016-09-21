@@ -77,6 +77,8 @@ void <init>(java.lang.Object arg0, java.lang.Object arg1)
 
 static class InetAddressHolder
 {
+java.lang.Object originalHostName;
+
 java.lang.Object hostName;
 
 java.lang.Object address;
@@ -99,6 +101,11 @@ void init(java.lang.Object arg0, java.lang.Object arg1)
 }
 
 java.lang.String getHostName()
+{
+
+}
+
+java.lang.String getOriginalHostName()
 {
 
 }

@@ -2,6 +2,65 @@ package java.lang;
 final public class Class
 implements java.io.Serializable, java.lang.reflect.AnnotatedElement, java.lang.reflect.GenericDeclaration, java.lang.reflect.Type
 {
+private static class AnnotationData
+{
+final java.lang.Object annotations;
+
+final java.lang.Object declaredAnnotations;
+
+final java.lang.Object redefinedCount;
+
+void <init>(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2)
+{
+
+}
+
+
+}
+
+private static class Atomic
+{
+final private static java.lang.Object unsafe;
+
+final private static java.lang.Object reflectionDataOffset;
+
+final private static java.lang.Object annotationTypeOffset;
+
+final private static java.lang.Object annotationDataOffset;
+
+private void <init>()
+{
+
+}
+
+private static long objectFieldOffset(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+static boolean casReflectionData(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2)
+{
+
+}
+
+static boolean casAnnotationType(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2)
+{
+
+}
+
+static boolean casAnnotationData(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2)
+{
+
+}
+
+static void <clinit>()
+{
+
+}
+
+
+}
+
 final private static class EnclosingMethodInfo
 {
 private java.lang.Object enclosingClass;
@@ -59,7 +118,19 @@ private java.lang.Object methods;
 
 private java.lang.Object length;
 
+private java.lang.Object defaults;
+
 void <init>()
+{
+
+}
+
+void <init>(java.lang.Object arg0)
+{
+
+}
+
+boolean hasDefaults()
 {
 
 }
@@ -89,6 +160,11 @@ void addAllIfNotPresent(java.lang.Object arg0)
 
 }
 
+void addInterfaceMethods(java.lang.Object arg0)
+{
+
+}
+
 int length()
 {
 
@@ -99,7 +175,22 @@ java.lang.reflect.Method get(java.lang.Object arg0)
 
 }
 
-void removeByNameAndSignature(java.lang.Object arg0)
+java.lang.reflect.Method getFirst()
+{
+
+}
+
+void removeByNameAndDescriptor(java.lang.Object arg0)
+{
+
+}
+
+private void remove(java.lang.Object arg0)
+{
+
+}
+
+private boolean matchesNameAndDescriptor(java.lang.Object arg0, java.lang.Object arg1)
 {
 
 }
@@ -109,7 +200,47 @@ void compactAndTrim()
 
 }
 
+void removeLessSpecifics()
+{
+
+}
+
 java.lang.reflect.Method[] getArray()
+{
+
+}
+
+static boolean hasMoreSpecificClass(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+
+}
+
+private static class ReflectionData
+{
+volatile java.lang.Object declaredFields;
+
+volatile java.lang.Object publicFields;
+
+volatile java.lang.Object declaredMethods;
+
+volatile java.lang.Object publicMethods;
+
+volatile java.lang.Object declaredConstructors;
+
+volatile java.lang.Object publicConstructors;
+
+volatile java.lang.Object declaredPublicFields;
+
+volatile java.lang.Object declaredPublicMethods;
+
+volatile java.lang.Object interfaces;
+
+final java.lang.Object redefinedCount;
+
+void <init>(java.lang.Object arg0)
 {
 
 }
@@ -129,31 +260,17 @@ private transient volatile java.lang.Object newInstanceCallerCache;
 
 private transient java.lang.Object name;
 
+final private java.lang.Object classLoader;
+
 private static java.lang.Object allPermDomain;
 
 private static java.lang.Object useCaches;
 
-private transient volatile java.lang.Object declaredFields;
-
-private transient volatile java.lang.Object publicFields;
-
-private transient volatile java.lang.Object declaredMethods;
-
-private transient volatile java.lang.Object publicMethods;
-
-private transient volatile java.lang.Object declaredConstructors;
-
-private transient volatile java.lang.Object publicConstructors;
-
-private transient volatile java.lang.Object declaredPublicFields;
-
-private transient volatile java.lang.Object declaredPublicMethods;
+private transient volatile java.lang.Object reflectionData;
 
 private transient volatile java.lang.Object classRedefinedCount;
 
-private transient volatile java.lang.Object lastRedefinedCount;
-
-private transient java.lang.Object genericInfo;
+private transient volatile java.lang.Object genericInfo;
 
 final private static java.lang.Object serialVersionUID;
 
@@ -167,11 +284,9 @@ private transient volatile java.lang.Object enumConstants;
 
 private transient volatile java.lang.Object enumConstantDirectory;
 
-private transient java.lang.Object annotations;
+private transient volatile java.lang.Object annotationData;
 
-private transient java.lang.Object declaredAnnotations;
-
-private java.lang.Object annotationType;
+private transient volatile java.lang.Object annotationType;
 
 transient java.lang.Object classValueMap;
 
@@ -180,12 +295,17 @@ native private static void registerNatives()
 
 }
 
-private void <init>()
+private void <init>(java.lang.Object arg0)
 {
 
 }
 
 public java.lang.String toString()
+{
+
+}
+
+public java.lang.String toGenericString()
 {
 
 }
@@ -200,7 +320,7 @@ public static java.lang.Class forName(java.lang.Object arg0, java.lang.Object ar
 
 }
 
-native private static java.lang.Class forName0(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2) throws java.lang.ClassNotFoundException
+native private static java.lang.Class forName0(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2, java.lang.Object arg3) throws java.lang.ClassNotFoundException
 {
 
 }
@@ -260,7 +380,7 @@ public java.lang.ClassLoader getClassLoader()
 
 }
 
-native java.lang.ClassLoader getClassLoader0()
+java.lang.ClassLoader getClassLoader0()
 {
 
 }
@@ -285,7 +405,12 @@ public java.lang.Package getPackage()
 
 }
 
-native public java.lang.Class[] getInterfaces()
+public java.lang.Class[] getInterfaces()
+{
+
+}
+
+native private java.lang.Class[] getInterfaces0()
 {
 
 }
@@ -315,7 +440,7 @@ native void setSigners(java.lang.Object arg0)
 
 }
 
-public java.lang.reflect.Method getEnclosingMethod()
+public java.lang.reflect.Method getEnclosingMethod() throws java.lang.SecurityException
 {
 
 }
@@ -335,12 +460,12 @@ private static java.lang.Class toClass(java.lang.Object arg0)
 
 }
 
-public java.lang.reflect.Constructor getEnclosingConstructor()
+public java.lang.reflect.Constructor getEnclosingConstructor() throws java.lang.SecurityException
 {
 
 }
 
-public java.lang.Class getDeclaringClass()
+public java.lang.Class getDeclaringClass() throws java.lang.SecurityException
 {
 
 }
@@ -350,12 +475,17 @@ native private java.lang.Class getDeclaringClass0()
 
 }
 
-public java.lang.Class getEnclosingClass()
+public java.lang.Class getEnclosingClass() throws java.lang.SecurityException
 {
 
 }
 
 public java.lang.String getSimpleName()
+{
+
+}
+
+public java.lang.String getTypeName()
 {
 
 }
@@ -485,17 +615,7 @@ native private java.security.ProtectionDomain getProtectionDomain0()
 
 }
 
-native void setProtectionDomain0(java.lang.Object arg0)
-{
-
-}
-
 native static java.lang.Class getPrimitiveClass(java.lang.Object arg0)
-{
-
-}
-
-private static boolean isCheckMemberAccessOverridden(java.lang.Object arg0)
 {
 
 }
@@ -515,12 +635,17 @@ private java.lang.String resolveName(java.lang.Object arg0)
 
 }
 
-private void clearCachesOnClassRedefinition()
+private java.lang.Class.ReflectionData reflectionData()
 {
 
 }
 
-native private java.lang.String getGenericSignature()
+private java.lang.Class.ReflectionData newReflectionData(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+native private java.lang.String getGenericSignature0()
 {
 
 }
@@ -535,7 +660,17 @@ private sun.reflect.generics.repository.ClassRepository getGenericInfo()
 
 }
 
-native private byte[] getRawAnnotations()
+native byte[] getRawAnnotations()
+{
+
+}
+
+native byte[] getRawTypeAnnotations()
+{
+
+}
+
+static byte[] getExecutableTypeAnnotationBytes(java.lang.Object arg0)
 {
 
 }
@@ -575,7 +710,7 @@ private java.lang.reflect.Method[] privateGetPublicMethods()
 
 }
 
-private java.lang.reflect.Field searchFields(java.lang.Object arg0, java.lang.Object arg1)
+private static java.lang.reflect.Field searchFields(java.lang.Object arg0, java.lang.Object arg1)
 {
 
 }
@@ -590,7 +725,12 @@ private static java.lang.reflect.Method searchMethods(java.lang.Object arg0, jav
 
 }
 
-private java.lang.reflect.Method getMethod0(java.lang.Object arg0, java.lang.Object arg1)
+private java.lang.reflect.Method getMethod0(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2)
+{
+
+}
+
+private java.lang.reflect.Method privateGetMethodRecursive(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2, java.lang.Object arg3)
 {
 
 }
@@ -710,7 +850,22 @@ public boolean isAnnotationPresent(java.lang.Object arg0)
 
 }
 
+public java.lang.annotation.Annotation[] getAnnotationsByType(java.lang.Object arg0)
+{
+
+}
+
 public java.lang.annotation.Annotation[] getAnnotations()
+{
+
+}
+
+public java.lang.annotation.Annotation getDeclaredAnnotation(java.lang.Object arg0)
+{
+
+}
+
+public java.lang.annotation.Annotation[] getDeclaredAnnotationsByType(java.lang.Object arg0)
 {
 
 }
@@ -720,17 +875,37 @@ public java.lang.annotation.Annotation[] getDeclaredAnnotations()
 
 }
 
-private synchronized void initAnnotationsIfNecessary()
+private java.lang.Class.AnnotationData annotationData()
 {
 
 }
 
-void setAnnotationType(java.lang.Object arg0)
+private java.lang.Class.AnnotationData createAnnotationData(java.lang.Object arg0)
+{
+
+}
+
+boolean casAnnotationType(java.lang.Object arg0, java.lang.Object arg1)
 {
 
 }
 
 sun.reflect.annotation.AnnotationType getAnnotationType()
+{
+
+}
+
+java.util.Map getDeclaredAnnotationMap()
+{
+
+}
+
+public java.lang.reflect.AnnotatedType getAnnotatedSuperclass()
+{
+
+}
+
+public java.lang.reflect.AnnotatedType[] getAnnotatedInterfaces()
 {
 
 }

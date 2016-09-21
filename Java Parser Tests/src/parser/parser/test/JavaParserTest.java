@@ -12,12 +12,13 @@ package parser.parser.test;
 
 import java.util.Arrays;
 import junit.framework.Assert;
+import junit.framework.TestCase;
 import parser.input.SourceInputsHolder;
 import parser.input.impl.FileSystemJavaProject;
 import parser.wrapper.JavaParser;
 import parser.wrapper.NamedCompilationUnit;
 
-public class JavaParserTest {
+public class JavaParserTest extends TestCase {
 	public void testParse() throws Exception {
 		final String[] classpathEntries = new String[] { "" };
 		final String[] sourcepathEntries =

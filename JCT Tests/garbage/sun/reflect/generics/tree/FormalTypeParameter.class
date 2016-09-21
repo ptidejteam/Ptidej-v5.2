@@ -2,9 +2,9 @@ package sun.reflect.generics.tree;
 public class FormalTypeParameter
 implements sun.reflect.generics.tree.TypeTree
 {
-private java.lang.Object name;
+final private java.lang.Object name;
 
-private java.lang.Object bounds;
+final private java.lang.Object bounds;
 
 private void <init>(java.lang.Object arg0, java.lang.Object arg1)
 {

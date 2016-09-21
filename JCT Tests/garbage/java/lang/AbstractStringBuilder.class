@@ -101,7 +101,17 @@ public java.lang.AbstractStringBuilder append(java.lang.Object arg0)
 
 }
 
+java.lang.AbstractStringBuilder append(java.lang.Object arg0)
+{
+
+}
+
 public java.lang.AbstractStringBuilder append(java.lang.Object arg0)
+{
+
+}
+
+private java.lang.AbstractStringBuilder appendNull()
 {
 
 }
@@ -267,6 +277,11 @@ public int lastIndexOf(java.lang.Object arg0, java.lang.Object arg1)
 }
 
 public java.lang.AbstractStringBuilder reverse()
+{
+
+}
+
+private void reverseAllValidSurrogatePairs()
 {
 
 }

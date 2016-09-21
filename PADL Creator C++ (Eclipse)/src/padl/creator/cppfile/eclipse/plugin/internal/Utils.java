@@ -112,7 +112,7 @@ public class Utils {
 			"__int64".toCharArray(), "long".toCharArray(),
 			"float".toCharArray(), "double".toCharArray(),
 			"long double".toCharArray(), "wchar_t".toCharArray(),
-			"__wchar_t".toCharArray() };
+			"__wchar_t".toCharArray(), "void".toCharArray() };
 	static final String PROBLEM_TYPE = "ProblemType";
 	static final String REMPLACEMENT = "\\\\\\\\";
 	// Yann 2014/06/27: Ah, C++ and its varags...
@@ -164,10 +164,8 @@ public class Utils {
 			if (expression != null) {
 				// null if the statement has "condition declaration instead of condition expression"
 				// whatever that means...
-				padlStatement =
-					factory.createIfInstruction(expression
-						.toString()
-						.toCharArray());
+				padlStatement = factory
+					.createIfInstruction(expression.toString().toCharArray());
 				anOperation.addConstituent(padlStatement);
 			}
 
@@ -181,13 +179,12 @@ public class Utils {
 		else if (statement instanceof IASTSwitchStatement) {
 			final IASTSwitchStatement switchStatement =
 				(IASTSwitchStatement) statement;
-			padlStatement =
-				factory.createSwitchInstruction(switchStatement
+			padlStatement = factory.createSwitchInstruction(
+				switchStatement
 					.getControllerExpression()
 					.toString()
-					.toCharArray(), switchStatement
-					.getFileLocation()
-					.getEndingLineNumber()
+					.toCharArray(),
+				switchStatement.getFileLocation().getEndingLineNumber()
 						- switchStatement
 							.getFileLocation()
 							.getStartingLineNumber());
@@ -222,9 +219,8 @@ public class Utils {
 		if (!Utils.CacheCPPFunctionsSignatures.containsKey(aCPPFunction)) {
 			String id = aCPPFunction.toString();
 			id = id.replaceAll("\\?", Utils.PROBLEM_TYPE);
-			Utils.CacheCPPFunctionsSignatures.put(
-				aCPPFunction,
-				id.toCharArray());
+			Utils.CacheCPPFunctionsSignatures
+				.put(aCPPFunction, id.toCharArray());
 		}
 		return Utils.CacheCPPFunctionsSignatures.get(aCPPFunction);
 	}
@@ -242,9 +238,8 @@ public class Utils {
 					buffer.append(c);
 				}
 			}
-			Utils.CacheCPPNamesPADLNames.put(name, buffer
-				.toString()
-				.toCharArray());
+			Utils.CacheCPPNamesPADLNames
+				.put(name, buffer.toString().toCharArray());
 		}
 		return Utils.CacheCPPNamesPADLNames.get(name);
 	}
@@ -277,7 +272,8 @@ public class Utils {
 		buffer.append(aCounter);
 		return buffer.toString().toCharArray();
 	}
-	static Set<ITranslationUnit> findTranslationUnits(final ICElement[] children) {
+	static Set<ITranslationUnit> findTranslationUnits(
+		final ICElement[] children) {
 		final Set<ITranslationUnit> translationUnits =
 			new HashSet<ITranslationUnit>();
 
@@ -285,9 +281,9 @@ public class Utils {
 			final ICElement icElement = children[i];
 			if (icElement instanceof ICContainer) {
 				try {
-					translationUnits.addAll(Utils
-						.findTranslationUnits(((ICContainer) icElement)
-							.getChildren()));
+					translationUnits.addAll(
+						Utils.findTranslationUnits(
+							((ICContainer) icElement).getChildren()));
 				}
 				catch (final CModelException e) {
 					e.printStackTrace();
@@ -324,9 +320,8 @@ public class Utils {
 
 		final IScope functionScope = function.getFunctionScope();
 		if (functionScope != null) {
-			final ICPPASTFunctionDefinition enclosingFunction =
-				Utils.getEnclosingFunction((IASTName) functionScope
-					.getScopeName());
+			final ICPPASTFunctionDefinition enclosingFunction = Utils
+				.getEnclosingFunction((IASTName) functionScope.getScopeName());
 			if (enclosingFunction != null) {
 				return enclosingFunction.getBody();
 			}
@@ -421,8 +416,9 @@ public class Utils {
 		else if (theType.getBases() != null) {
 			for (final ICPPBase base : theType.getBases()) {
 				if (base.getBaseClass() instanceof ICPPClassType) {
-					if (Utils.getDeepCardinality((ICPPClassType) base
-						.getBaseClass()) == Constants.CARDINALITY_MANY) {
+					if (Utils.getDeepCardinality(
+						(ICPPClassType) base
+							.getBaseClass()) == Constants.CARDINALITY_MANY) {
 						return Constants.CARDINALITY_MANY;
 					}
 				}
@@ -431,7 +427,8 @@ public class Utils {
 
 		return Constants.CARDINALITY_ONE;
 	}
-	static ICPPASTFunctionDefinition getEnclosingFunction(final IASTNode aNode) {
+	static ICPPASTFunctionDefinition getEnclosingFunction(
+		final IASTNode aNode) {
 		if (aNode instanceof ICPPASTFunctionDefinition) {
 			return (ICPPASTFunctionDefinition) aNode;
 		}
@@ -462,12 +459,12 @@ public class Utils {
 			return Utils.getInterestingType(((IPointerType) aType).getType());
 		}
 		else if (aType instanceof ICPPParameterPackType) {
-			return Utils.getInterestingType(((ICPPParameterPackType) aType)
-				.getType());
+			return Utils
+				.getInterestingType(((ICPPParameterPackType) aType).getType());
 		}
 		else if (aType instanceof ICPPReferenceType) {
-			return Utils.getInterestingType(((ICPPReferenceType) aType)
-				.getType());
+			return Utils
+				.getInterestingType(((ICPPReferenceType) aType).getType());
 		}
 		else if (aType instanceof IQualifierType) {
 			return Utils.getInterestingType(((IQualifierType) aType).getType());
@@ -476,8 +473,8 @@ public class Utils {
 			return aType;
 		}
 		else if (aType instanceof ICPPFunctionType) {
-			return Utils.getInterestingType(((ICPPFunctionType) aType)
-				.getReturnType());
+			return Utils
+				.getInterestingType(((ICPPFunctionType) aType).getReturnType());
 		}
 		else if (aType instanceof ICPPTemplateTypeParameter) {
 			return aType;
@@ -578,7 +575,8 @@ public class Utils {
 		}
 		return Utils.purifyID(tmp);
 	}
-	static char[][] getQualifiedName(final ICPPASTQualifiedName aQualifiedName) {
+	static char[][] getQualifiedName(
+		final ICPPASTQualifiedName aQualifiedName) {
 		final IASTName[] names = aQualifiedName.getNames();
 		final char[][] qualifiedNameArray = new char[names.length][];
 		for (int i = 0; i < names.length; i++) {
@@ -604,8 +602,8 @@ public class Utils {
 		return Utils.getSimpleName(Utils.getQualifiedName(qualifiedNamed));
 	}
 	static char[] getSimpleName(final char[][] qualifiedNamedComponents) {
-		return Utils
-			.purifyID(qualifiedNamedComponents[qualifiedNamedComponents.length - 1]);
+		return Utils.purifyID(
+			qualifiedNamedComponents[qualifiedNamedComponents.length - 1]);
 	}
 	/**
 	 * Permet de savoir si une classe est abstraite ou non Pour savoir, en
@@ -686,11 +684,10 @@ public class Utils {
 		return Utils.CacheIDsPurifiedIDs.get(id);
 	}
 	static char[] removeQualifiers(char[] aName) {
-		char cleanedName[] =
-			ArrayUtils.subarray(
-				aName,
-				ArrayUtils.lastIndexOf(aName, ' ') + 1,
-				aName.length);
+		char cleanedName[] = ArrayUtils.subarray(
+			aName,
+			ArrayUtils.lastIndexOf(aName, ' ') + 1,
+			aName.length);
 		int indexOfLessThan = ArrayUtils.indexOf(cleanedName, '<');
 		if (indexOfLessThan > -1) {
 			cleanedName = ArrayUtils.subarray(cleanedName, 0, indexOfLessThan);
@@ -708,10 +705,8 @@ public class Utils {
 		buffer.append(" does not know what to do with ");
 		buffer.append(aMessage);
 		buffer.append(" \"");
-		buffer.append(ArrayUtils.subarray(
-			aTypeName,
-			0,
-			Math.min(aTypeName.length, 16)));
+		buffer.append(
+			ArrayUtils.subarray(aTypeName, 0, Math.min(aTypeName.length, 16)));
 		buffer.append("...\" (");
 		buffer.append(aTypeType.getName());
 		buffer.append(')');

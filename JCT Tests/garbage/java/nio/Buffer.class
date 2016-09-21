@@ -1,6 +1,8 @@
 package java.nio;
 abstract public class Buffer
 {
+final static java.lang.Object SPLITERATOR_CHARACTERISTICS;
+
 private java.lang.Object mark;
 
 private java.lang.Object position;

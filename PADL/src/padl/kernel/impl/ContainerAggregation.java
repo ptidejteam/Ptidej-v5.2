@@ -420,8 +420,9 @@ class ContainerAggregation extends Association implements IElementMarker,
 				new GenericContainerOfNaturallyOrderedConstituents(this);
 		}
 		else {
-			// TODO Necessary?
-			// this.container.removeAllConstituent();
+			// Yann 2016/09/19: Question!
+			// Why is it necessary?
+			this.container.resetListOfConstituents();
 		}
 		if (!this.isAbstract()) {
 			this.container.addConstituent(this.originField);

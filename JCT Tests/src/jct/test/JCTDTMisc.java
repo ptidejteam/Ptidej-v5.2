@@ -53,9 +53,11 @@ public final class JCTDTMisc extends TestCase {
 	private static String getFileContent(final File file) {
 		try {
 			final char characters[] = new char[(int) file.length()];
+			final BufferedReader bufferedReader = new BufferedReader(
+				new InputStreamReader(new FileInputStream(file)));
 			final int length =
-				new BufferedReader(new InputStreamReader(new FileInputStream(
-					file))).read(characters, 0, characters.length);
+				bufferedReader.read(characters, 0, characters.length);
+			bufferedReader.close();
 			return new String(characters, 0, length);
 		}
 		catch (final IOException e) {
@@ -78,14 +80,14 @@ public final class JCTDTMisc extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		if (!this.garbageDir.exists() && !this.garbageDir.mkdirs()) {
-			Assert.fail("Cannot create garbage directory (" + Constant.TMP_PATH
-					+ ") !");
+			Assert.fail(
+				"Cannot create garbage directory (" + Constant.TMP_PATH
+						+ ") !");
 		}
 
 	}
 
 	private IJCTRootNode getJCTInstance(String serializedFile) {
-
 		try {
 			final File file = new File(this.rscPath + serializedFile);
 			final ObjectInputStream ois =
@@ -118,11 +120,12 @@ public final class JCTDTMisc extends TestCase {
 			jct.accept(new JCTPrettyPrinter(this.garbageDir));
 
 			for (int i = 0; i < fileNames.length; i++) {
-				Assert.assertEquals("difference between files "
-						+ outputFiles[i].getCanonicalPath() + " and "
-						+ expectedFiles[i].getCanonicalPath(), JCTDTMisc
-					.getFileContent(expectedFiles[i]), JCTDTMisc
-					.getFileContent(outputFiles[i]));
+				Assert.assertEquals(
+					"difference between files "
+							+ outputFiles[i].getCanonicalPath() + " and "
+							+ expectedFiles[i].getCanonicalPath(),
+					JCTDTMisc.getFileContent(expectedFiles[i]),
+					JCTDTMisc.getFileContent(outputFiles[i]));
 			}
 		}
 		catch (final IOException e) {

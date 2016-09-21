@@ -464,6 +464,11 @@ private static int toLower(java.lang.Object arg0)
 
 }
 
+private static int toUpper(java.lang.Object arg0)
+{
+
+}
+
 private static boolean equal(java.lang.Object arg0, java.lang.Object arg1)
 {
 
@@ -475,6 +480,11 @@ private static boolean equalIgnoringCase(java.lang.Object arg0, java.lang.Object
 }
 
 private static int hash(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+private static int normalizedHash(java.lang.Object arg0, java.lang.Object arg1)
 {
 
 }

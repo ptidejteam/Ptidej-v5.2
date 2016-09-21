@@ -26,6 +26,6 @@ public class ChromeTest extends TestCase {
 				.getCodeLevelModelUsingOSGiEmbedded(
 					"../PADL Creator C++ (Eclipse) Tests/data/Chrome v1.0.154.53/");
 		Assert.assertNotNull("The code-level model is null!", codeLevelModel);
-		Assert.assertTrue(codeLevelModel.getNumberOfTopLevelEntities() > 8000);
+		Assert.assertTrue(codeLevelModel.getNumberOfTopLevelEntities() > 5000);
 	}
 }

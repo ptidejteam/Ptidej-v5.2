@@ -31,7 +31,10 @@ import util.io.ProxyConsole;
 
 class GenericContainerOfTopLevelEntities implements Serializable {
 	private static final long serialVersionUID = -714741910389826912L;
-	private final class ModelListener extends ModelListenerAdapter {
+	private final class ModelListener extends ModelListenerAdapter
+			implements Serializable {
+
+		private static final long serialVersionUID = -3585462658647723807L;
 		public void entityAdded(EntityEvent entityEvent) {
 			GenericContainerOfTopLevelEntities.this.dirty = true;
 		}
@@ -54,8 +57,8 @@ class GenericContainerOfTopLevelEntities implements Serializable {
 	//	private final Map mapOfIDsEntities = new TreeMap();
 	// I removed the final to make DB4O works...
 	// TODO: Understand how to keep it final with DB4O!
-	private Map mapOfIDsEntities = new TreeMap(
-		CharArrayComparator.getInstance());
+	private Map mapOfIDsEntities =
+		new TreeMap(CharArrayComparator.getInstance());
 
 	public GenericContainerOfTopLevelEntities(
 		final IAbstractModel anAbstractModel) {
@@ -64,10 +67,10 @@ class GenericContainerOfTopLevelEntities implements Serializable {
 		this.dirty = true;
 	}
 
-	public void addTopLevelEntity(final IConstituentOfModel aConstituentOfModel) {
-		this.mapOfIDsEntities.put(
-			aConstituentOfModel.getID(),
-			aConstituentOfModel);
+	public void addTopLevelEntity(
+		final IConstituentOfModel aConstituentOfModel) {
+		this.mapOfIDsEntities
+			.put(aConstituentOfModel.getID(), aConstituentOfModel);
 	}
 
 	// Yann 2011/06/20: Top-level entities...
@@ -78,10 +81,8 @@ class GenericContainerOfTopLevelEntities implements Serializable {
 	// non-empty package to the model! This new implementation should improved
 	// performances...
 	private void createMapOfIDsEntities() {
-		ProxyConsole
-			.getInstance()
-			.debugOutput()
-			.print("(Re)Creating the maps of IDs and Entities");
+		ProxyConsole.getInstance().debugOutput().print(
+			"(Re)Creating the maps of IDs and Entities");
 		// Yann 2008/11/17: Walker!
 		// I cannot use the visitor to count the number
 		// of entities as new entity *not* taken into
@@ -105,8 +106,8 @@ class GenericContainerOfTopLevelEntities implements Serializable {
 			if (constituent instanceof IPackage) {
 				this.createMapOfIDsEntities((IPackage) constituent);
 			}
-			else if (IFirstClassEntity.class.isAssignableFrom(constituent
-				.getClass())) {
+			else if (IFirstClassEntity.class
+				.isAssignableFrom(constituent.getClass())) {
 
 				this.createMapOfIDsEntities((IFirstClassEntity) constituent);
 			}
@@ -124,9 +125,8 @@ class GenericContainerOfTopLevelEntities implements Serializable {
 		// Yann 2010/06/20: Arrays!
 		// The mapOfIDsEntities now implements a comparator
 		// for char arrays to avoid unnecessary conversion.
-		this.mapOfIDsEntities.put(
-			aConstituentOfModel.getID(),
-			aConstituentOfModel);
+		this.mapOfIDsEntities
+			.put(aConstituentOfModel.getID(), aConstituentOfModel);
 	}
 	private void createMapOfIDsEntities(final IPackage aPackage) {
 		final Iterator iterator = aPackage.getIteratorOnConstituents();
@@ -135,8 +135,8 @@ class GenericContainerOfTopLevelEntities implements Serializable {
 			if (constituent instanceof IPackage) {
 				this.createMapOfIDsEntities((IPackage) constituent);
 			}
-			else if (IFirstClassEntity.class.isAssignableFrom(constituent
-				.getClass())) {
+			else if (IFirstClassEntity.class
+				.isAssignableFrom(constituent.getClass())) {
 
 				this.createMapOfIDsEntities((IFirstClassEntity) constituent);
 			}

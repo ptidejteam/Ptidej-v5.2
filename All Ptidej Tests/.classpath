@@ -57,7 +57,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Java Parser Data Extractor"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/PADL Creator JavaFile (Eclipse)"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/PADL Creator JavaFile (Eclipse) Tests"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre7"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/MoDeC Bytecode Instrumentation"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/MoDeC Bytecode Instrumentation Tests"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/MoDeC Invoker"/>
@@ -77,5 +76,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Ptidej UI AspectJ Tests"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Ptidej UI Primitives AWT"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

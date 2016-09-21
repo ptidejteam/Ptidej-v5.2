@@ -77,5 +77,10 @@ abstract public int hashCode()
 
 }
 
+public java.util.Spliterator spliterator()
+{
+
+}
+
 
 }

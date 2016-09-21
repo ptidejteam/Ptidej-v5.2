@@ -34,5 +34,5 @@ Export-Package: choco,
  choco.test.search,
  choco.test.util,
  choco.util
-Bundle-RequiredExecutionEnvironment: J2SE-1.4
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Require-Bundle: org.junit;bundle-version="3.8.2"

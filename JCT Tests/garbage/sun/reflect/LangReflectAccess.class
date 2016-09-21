@@ -36,6 +36,11 @@ abstract public void setConstructorAccessor(java.lang.Object arg0, java.lang.Obj
 
 }
 
+abstract public byte[] getExecutableTypeAnnotationBytes(java.lang.Object arg0)
+{
+
+}
+
 abstract public int getConstructorSlot(java.lang.Object arg0)
 {
 

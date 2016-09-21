@@ -7,11 +7,11 @@ final private java.lang.Object memberDefaults;
 
 final private java.lang.Object members;
 
-private java.lang.Object retention;
+final private java.lang.Object retention;
 
-private java.lang.Object inherited;
+final private java.lang.Object inherited;
 
-public static synchronized sun.reflect.annotation.AnnotationType getInstance(java.lang.Object arg0)
+public static sun.reflect.annotation.AnnotationType getInstance(java.lang.Object arg0)
 {
 
 }
@@ -52,6 +52,11 @@ public boolean isInherited()
 }
 
 public java.lang.String toString()
+{
+
+}
+
+static void <clinit>()
 {
 
 }

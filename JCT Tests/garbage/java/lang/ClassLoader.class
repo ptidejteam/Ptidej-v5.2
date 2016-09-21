@@ -7,11 +7,15 @@ java.lang.Object handle;
 
 private java.lang.Object jniVersion;
 
-private java.lang.Object fromClass;
+final private java.lang.Object fromClass;
 
 java.lang.Object name;
 
-native void load(java.lang.Object arg0)
+java.lang.Object isBuiltin;
+
+java.lang.Object loaded;
+
+native void load(java.lang.Object arg0, java.lang.Object arg1)
 {
 
 }
@@ -21,12 +25,12 @@ native long find(java.lang.Object arg0)
 
 }
 
-native void unload()
+native void unload(java.lang.Object arg0, java.lang.Object arg1)
 {
 
 }
 
-public void <init>(java.lang.Object arg0, java.lang.Object arg1)
+public void <init>(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2)
 {
 
 }
@@ -187,11 +191,6 @@ private java.security.ProtectionDomain preDefineClass(java.lang.Object arg0, jav
 }
 
 private java.lang.String defineClassSourceLocation(java.lang.Object arg0)
-{
-
-}
-
-private java.lang.Class defineTransformedClass(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2, java.lang.Object arg3, java.lang.Object arg4, java.lang.Object arg5, java.lang.Object arg6) throws java.lang.ClassFormatError
 {
 
 }
@@ -406,12 +405,12 @@ static void loadLibrary(java.lang.Object arg0, java.lang.Object arg1, java.lang.
 
 }
 
-private static boolean loadLibrary0(java.lang.Object arg0, java.lang.Object arg1)
+native private static java.lang.String findBuiltinLib(java.lang.Object arg0)
 {
 
 }
 
-private static boolean loadLibrary1(java.lang.Object arg0, java.lang.Object arg1)
+private static boolean loadLibrary0(java.lang.Object arg0, java.lang.Object arg1)
 {
 
 }

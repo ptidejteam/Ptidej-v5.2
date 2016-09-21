@@ -33,6 +33,11 @@ public static sun.util.calendar.CalendarSystem forName(java.lang.Object arg0)
 
 }
 
+public static java.util.Properties getCalendarProperties() throws java.io.IOException
+{
+
+}
+
 abstract public java.lang.String getName()
 {
 

@@ -182,6 +182,8 @@ final static java.lang.Object JAVA_VERSION;
 
 final private static java.lang.Object DEBUG;
 
+final private static java.lang.Object DEBUG_LOOKUP_CACHE;
+
 final private static java.lang.Object DISABLE_JAR_CHECKING;
 
 private java.lang.Object path;
@@ -195,6 +197,12 @@ java.lang.Object lmap;
 private java.lang.Object jarHandler;
 
 private java.lang.Object closed;
+
+private static volatile java.lang.Object lookupCacheEnabled;
+
+private java.lang.Object lookupCacheURLs;
+
+private java.lang.Object lookupCacheLoader;
 
 public void <init>(java.lang.Object arg0, java.lang.Object arg1)
 {
@@ -247,6 +255,56 @@ public java.util.Enumeration getResources(java.lang.Object arg0, java.lang.Objec
 }
 
 public java.util.Enumeration getResources(java.lang.Object arg0)
+{
+
+}
+
+synchronized void initLookupCache(java.lang.Object arg0)
+{
+
+}
+
+static void disableAllLookupCaches()
+{
+
+}
+
+native private static java.net.URL[] getLookupCacheURLs(java.lang.Object arg0)
+{
+
+}
+
+native private static int[] getLookupCacheForClassLoader(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+native private static boolean knownToNotExist0(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+synchronized boolean knownToNotExist(java.lang.Object arg0)
+{
+
+}
+
+private synchronized int[] getLookupCache(java.lang.Object arg0)
+{
+
+}
+
+private boolean ensureLoaderOpened(java.lang.Object arg0)
+{
+
+}
+
+private synchronized void validateLookupCache(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+private synchronized sun.misc.URLClassPath.Loader getNextLoader(java.lang.Object arg0, java.lang.Object arg1)
 {
 
 }

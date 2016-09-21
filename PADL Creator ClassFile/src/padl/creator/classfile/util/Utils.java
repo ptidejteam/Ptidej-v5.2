@@ -13,14 +13,13 @@ package padl.creator.classfile.util;
 import java.util.Map;
 import java.util.StringTokenizer;
 import org.apache.commons.lang.ArrayUtils;
+import com.ibm.toad.cfparse.ClassFile;
+import com.ibm.toad.cfparse.utils.Access;
 import padl.kernel.IAbstractLevelModel;
-import padl.kernel.IConstituentOfEntity;
 import padl.kernel.IFirstClassEntity;
 import padl.kernel.IPackage;
 import padl.kernel.impl.Factory;
 import padl.util.Util;
-import com.ibm.toad.cfparse.ClassFile;
-import com.ibm.toad.cfparse.utils.Access;
 
 /**
  * @author Yann-Gaël Guéhéneuc
@@ -40,7 +39,8 @@ public class Utils {
 	 * @param a method info 
 	 * @return the method signature
 	 */
-	public static char[] computeSignature(final ExtendedMethodInfo aMethodInfo) {
+	public static char[] computeSignature(
+		final ExtendedMethodInfo aMethodInfo) {
 		final StringBuffer signature = new StringBuffer();
 		signature.append(aMethodInfo.getName());
 		signature.append('(');
@@ -64,10 +64,8 @@ public class Utils {
 				return aJVMClassName;
 			}
 		}
-		return ArrayUtils.subarray(
-			aJVMClassName,
-			index + 1,
-			aJVMClassName.length);
+		return ArrayUtils
+			.subarray(aJVMClassName, index + 1, aJVMClassName.length);
 	}
 	public static IFirstClassEntity createGhost(
 		final IAbstractLevelModel anAbstractLevelModel,
@@ -77,16 +75,27 @@ public class Utils {
 			anAbstractLevelModel.getFactory().createGhost(
 				anEntityName,
 				Utils.computeSimpleName(anEntityName));
-		final IPackage enclosingPackage =
-			Utils.searchForPackage(
-				anAbstractLevelModel,
-				anEntityName,
-				new PackageCreator() {
-					public IPackage create(final char[] aName) {
-						return Factory.getInstance().createPackageGhost(aName);
-					}
-				});
+		final IPackage enclosingPackage = Utils.searchForPackage(
+			anAbstractLevelModel,
+			anEntityName,
+			new PackageCreator() {
+				public IPackage create(final char[] aName) {
+					return Factory.getInstance().createPackageGhost(aName);
+				}
+			});
 		enclosingPackage.addConstituent(firstClassEntity);
+		return firstClassEntity;
+	}
+	public static IFirstClassEntity createMemberGhost(
+		final IAbstractLevelModel anAbstractLevelModel,
+		final IFirstClassEntity aFirstClassEntity,
+		final char[] anEntityName) {
+
+		final IFirstClassEntity firstClassEntity =
+			anAbstractLevelModel.getFactory().createMemberGhost(
+				anEntityName,
+				Utils.computeSimpleName(anEntityName));
+		aFirstClassEntity.addConstituent(firstClassEntity);
 		return firstClassEntity;
 	}
 	public static char[] extractPackageName(final char[] aJVMClassName) {
@@ -112,9 +121,9 @@ public class Utils {
 		// the DeepRelationshipAnalyser attemps to add the
 		// array java.lang.String[]... Don't know why!
 		if (Util.isArray(anEntityName)) {
-			firstClassEntity =
-				(IFirstClassEntity) anAbstractLevelModel
-					.getTopLevelEntityFromID(ArrayUtils.subarray(
+			firstClassEntity = (IFirstClassEntity) anAbstractLevelModel
+				.getTopLevelEntityFromID(
+					ArrayUtils.subarray(
 						anEntityName,
 						0,
 						ArrayUtils.indexOf(anEntityName, '[')));
@@ -123,9 +132,8 @@ public class Utils {
 			//	IFirstClassEntity firstClassEntity =
 			//		(IFirstClassEntity) aMapOfIDsEntities.get(String
 			//			.valueOf(anEntityName));
-			firstClassEntity =
-				(IFirstClassEntity) anAbstractLevelModel
-					.getTopLevelEntityFromID(anEntityName);
+			firstClassEntity = (IFirstClassEntity) anAbstractLevelModel
+				.getTopLevelEntityFromID(anEntityName);
 		}
 
 		if (firstClassEntity == null) {
@@ -137,9 +145,8 @@ public class Utils {
 				firstClassEntity =
 					Utils.searchForEntity(anAbstractLevelModel, anEntityName);
 			}
-			aMapOfIDsEntities.put(
-				String.valueOf(anEntityName),
-				firstClassEntity);
+			aMapOfIDsEntities
+				.put(String.valueOf(anEntityName), firstClassEntity);
 		}
 		return firstClassEntity;
 	}
@@ -147,8 +154,8 @@ public class Utils {
 		final Map aMapOfPackageNamesPackages,
 		final char[] aJVMClassName) {
 
-		return (IPackage) aMapOfPackageNamesPackages.get(String.valueOf(Utils
-			.extractPackageName(aJVMClassName)));
+		return (IPackage) aMapOfPackageNamesPackages
+			.get(String.valueOf(Utils.extractPackageName(aJVMClassName)));
 	}
 	public static boolean isAnonymousOrLocalEntity(final char[] anEntityName) {
 		final int first = ArrayUtils.indexOf(anEntityName, '$');
@@ -159,28 +166,9 @@ public class Utils {
 			}
 
 			try {
-				Integer.parseInt(String.valueOf(ArrayUtils.subarray(
-					anEntityName,
-					first + 1,
-					last)));
-			}
-			catch (final NumberFormatException nfe) {
-				return false;
-			}
-			return true;
-		}
-
-		return false;
-	}
-	public static boolean isLocalOrLocalMemberEntity(final char[] anEntityName) {
-		final int first = ArrayUtils.indexOf(anEntityName, '$');
-		int next = ArrayUtils.indexOf(anEntityName, '$', first + 1);
-		if (first > -1 && next > -1) {
-			try {
-				Integer.parseInt(String.valueOf(ArrayUtils.subarray(
-					anEntityName,
-					first + 1,
-					next)));
+				Integer.parseInt(
+					String.valueOf(
+						ArrayUtils.subarray(anEntityName, first + 1, last)));
 			}
 			catch (final NumberFormatException nfe) {
 				return false;
@@ -194,7 +182,26 @@ public class Utils {
 		return !Utils.isInterface(classFile);
 	}
 	public static boolean isInterface(final ClassFile classFile) {
-		return (classFile.getAccess() & Access.ACC_INTERFACE) == Access.ACC_INTERFACE;
+		return (classFile.getAccess()
+				& Access.ACC_INTERFACE) == Access.ACC_INTERFACE;
+	}
+	public static boolean isLocalOrLocalMemberEntity(
+		final char[] anEntityName) {
+		final int first = ArrayUtils.indexOf(anEntityName, '$');
+		int next = ArrayUtils.indexOf(anEntityName, '$', first + 1);
+		if (first > -1 && next > -1) {
+			try {
+				Integer.parseInt(
+					String.valueOf(
+						ArrayUtils.subarray(anEntityName, first + 1, next)));
+			}
+			catch (final NumberFormatException nfe) {
+				return false;
+			}
+			return true;
+		}
+
+		return false;
 	}
 	public static boolean isMemberEntity(final char[] anEntityName) {
 		int first = ArrayUtils.indexOf(anEntityName, '$') + 1;
@@ -205,10 +212,9 @@ public class Utils {
 			}
 
 			try {
-				Integer.parseInt(String.valueOf(ArrayUtils.subarray(
-					anEntityName,
-					first,
-					second)));
+				Integer.parseInt(
+					String.valueOf(
+						ArrayUtils.subarray(anEntityName, first, second)));
 			}
 			catch (final NumberFormatException nfe) {
 				return true;
@@ -246,124 +252,82 @@ public class Utils {
 	public static boolean isSpecialMethod(final char[] aMethodName) {
 		return ArrayUtils.indexOf(aMethodName, '<') > -1;
 	}
-	public static IFirstClassEntity searchForEnclosingEntity(
-		final IAbstractLevelModel anAbstractLevelModel,
-		final char[] aMembreEntityName) {
+	private static IFirstClassEntity searchForEnclosedEntity(
+		final IAbstractLevelModel anAbstractModel,
+		final IFirstClassEntity anEnclosingEntity,
+		final char[] anEntityName) {
 
-		char[] enclosingEntityName =
-			ArrayUtils.subarray(
-				aMembreEntityName,
+		final char[] nameFirstPart;
+		if (Utils.isMemberEntity(anEntityName)) {
+			nameFirstPart = ArrayUtils.subarray(
+				anEntityName,
 				0,
-				ArrayUtils.indexOf(aMembreEntityName, '$'));
-		IFirstClassEntity enclosingEntity =
-			(IFirstClassEntity) anAbstractLevelModel
-				.getTopLevelEntityFromID(enclosingEntityName);
-
-		// Yann 2006/02/08: Ghosts...
-		// If I cannot find an entity, then it is a ghost...
-		if (enclosingEntity == null) {
-			enclosingEntity =
-				Utils.createGhost(anAbstractLevelModel, enclosingEntityName);
+				ArrayUtils.indexOf(anEntityName, '$'));
+		}
+		else {
+			nameFirstPart =
+				ArrayUtils.subarray(anEntityName, 0, anEntityName.length);
 		}
 
-		enclosingEntityName =
-			ArrayUtils.subarray(
-				aMembreEntityName,
-				enclosingEntityName.length + 1,
-				aMembreEntityName.length);
-		while (ArrayUtils.indexOf(enclosingEntityName, '$') > 0) {
-			// Yann 2014/02/21: Weird code!
-			//	final char[] enclosingMemberEntityName =
-			//		ArrayUtils.subarray(
-			//			enclosingEntityName,
-			//			0,
-			//			ArrayUtils.indexOf(enclosingEntityName, '$'));
-			IFirstClassEntity newMemberEnclosingEntity =
-				(IFirstClassEntity) enclosingEntity
-					.getConstituentFromID(aMembreEntityName);
+		// Yann 2016/09/18: Member IDs!
+		// Member entities have their fully-qualified names (with $) as IDs...
+		final char[] id = ArrayUtils.addAll(
+			ArrayUtils.add(anEnclosingEntity.getID(), '$'),
+			nameFirstPart);
 
-			// Yann 2006/02/08: Ghosts...
-			// If I cannot find an entity, then it is a ghost...
-			// Thus, I built recursively Ghost entities and
-			// member Ghost entities...
-			if (newMemberEnclosingEntity == null) {
-				newMemberEnclosingEntity =
-					anAbstractLevelModel.getFactory().createMemberGhost(
-						aMembreEntityName,
-						Utils.computeSimpleName(aMembreEntityName));
-				enclosingEntity
-					.addConstituent((IConstituentOfEntity) newMemberEnclosingEntity);
-			}
-			enclosingEntity = newMemberEnclosingEntity;
+		IFirstClassEntity firstClassEntity =
+			(IFirstClassEntity) anEnclosingEntity.getConstituentFromID(id);
+		if (firstClassEntity == null) {
+			firstClassEntity =
+				Utils.createMemberGhost(anAbstractModel, anEnclosingEntity, id);
+		}
 
-			enclosingEntityName =
+		if (Utils.isMemberEntity(anEntityName)) {
+			return Utils.searchForEnclosedEntity(
+				anAbstractModel,
+				firstClassEntity,
 				ArrayUtils.subarray(
-					enclosingEntityName,
-					ArrayUtils.indexOf(enclosingEntityName, '$') + 1,
-					enclosingEntityName.length);
+					anEntityName,
+					ArrayUtils.indexOf(anEntityName, '$') + 1,
+					anEntityName.length));
 		}
-
-		return enclosingEntity;
+		else {
+			return firstClassEntity;
+		}
 	}
 	public static IFirstClassEntity searchForEntity(
 		final IAbstractLevelModel anAbstractModel,
 		final char[] anEntityName) {
 
+		final char[] nameFirstPart;
 		if (Utils.isMemberEntity(anEntityName)) {
-			final IFirstClassEntity enclosingEntity =
-				(IFirstClassEntity) Utils.searchForEnclosingEntity(
-					anAbstractModel,
-					anEntityName);
-
-			final char[] name =
-				ArrayUtils.subarray(
-					anEntityName,
-					ArrayUtils.lastIndexOf(anEntityName, '$') + 1,
-					anEntityName.length);
-			// Yann 2010/09/25: Fix bug in a very particular case!
-			// It is legal in Java for a member class to have the same
-			// name as a field declared both in the same enclosing
-			// class. This very particular case led to an exception
-			// because an IField was being assigned to an IFirstClassEntity.
-			// Assuming that a member entity will always have its
-			// fully-qualified JVM name as ID, I changed the code from:
-			//		IFirstClassEntity membreEntity =
-			//			(IFirstClassEntity) enclosingEntity
-			//				.getConstituentFromName(name);
-			// to:
-			// Yann 2014/02/21: Weird code!
-			final StringBuffer memberEntityID = new StringBuffer();
-			memberEntityID.append(enclosingEntity.getID());
-			memberEntityID.append('$');
-			memberEntityID.append(name);
-			IFirstClassEntity membreEntity =
-				(IFirstClassEntity) enclosingEntity
-					.getConstituentFromID(memberEntityID
-						.toString()
-						.toCharArray());
-			// TODO: Remove the unwritten constraint that a member class must of its fully-qualified JVM name as ID. 
-
-			// Yann 2006/02/08: Ghosts...
-			// If I cannot find a member entity, then it is a ghost...
-			if (membreEntity == null) {
-				membreEntity =
-					anAbstractModel.getFactory().createMemberGhost(
-						memberEntityID.toString().toCharArray(),
-						name);
-				enclosingEntity
-					.addConstituent((IConstituentOfEntity) membreEntity);
-			}
-
-			return membreEntity;
+			nameFirstPart = ArrayUtils.subarray(
+				anEntityName,
+				0,
+				ArrayUtils.indexOf(anEntityName, '$'));
 		}
 		else {
-			IFirstClassEntity firstClassEntity =
-				(IFirstClassEntity) anAbstractModel
-					.getTopLevelEntityFromID(anEntityName);
-			if (firstClassEntity == null) {
-				firstClassEntity =
-					Utils.createGhost(anAbstractModel, anEntityName);
-			}
+			nameFirstPart =
+				ArrayUtils.subarray(anEntityName, 0, anEntityName.length);
+		}
+
+		IFirstClassEntity firstClassEntity = (IFirstClassEntity) anAbstractModel
+			.getTopLevelEntityFromID(nameFirstPart);
+		if (firstClassEntity == null) {
+			firstClassEntity =
+				Utils.createGhost(anAbstractModel, nameFirstPart);
+		}
+
+		if (Utils.isMemberEntity(anEntityName)) {
+			return Utils.searchForEnclosedEntity(
+				anAbstractModel,
+				firstClassEntity,
+				ArrayUtils.subarray(
+					anEntityName,
+					ArrayUtils.indexOf(anEntityName, '$') + 1,
+					anEntityName.length));
+		}
+		else {
 			return firstClassEntity;
 		}
 	}
@@ -390,9 +354,8 @@ public class Utils {
 				packageNameTokenizer.nextToken();
 			final char[] packagePartName = packagePartDisplayName.toCharArray();
 			if (enclosingPackage == null) {
-				enclosingPackage =
-					(IPackage) anAbstractLevelModel
-						.getConstituentFromID(packagePartName);
+				enclosingPackage = (IPackage) anAbstractLevelModel
+					.getConstituentFromID(packagePartName);
 
 				if (enclosingPackage == null) {
 					enclosingPackage = aPackageCreator.create(packagePartName);
@@ -400,9 +363,8 @@ public class Utils {
 				}
 			}
 			else {
-				IPackage newEnclosingPackage =
-					(IPackage) enclosingPackage
-						.getConstituentFromID(packagePartName);
+				IPackage newEnclosingPackage = (IPackage) enclosingPackage
+					.getConstituentFromID(packagePartName);
 
 				if (newEnclosingPackage == null) {
 					newEnclosingPackage =

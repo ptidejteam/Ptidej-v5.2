@@ -118,7 +118,7 @@ public class TestListeners extends TestCase {
 			TestListeners.IdiomLevelModel.getTopLevelEntityFromID("Z"
 				.toCharArray());
 
-		anZ.addModelListener(new ModelStatistics());
+		// anZ.addModelListener(new ModelStatistics());
 
 		final IObservable observable =
 			(IObservable) Reflector.getObjectFromReflectedField(

@@ -217,12 +217,12 @@ private void setFieldAccessor(java.lang.Object arg0, java.lang.Object arg1)
 
 }
 
-static java.lang.String getTypeName(java.lang.Object arg0)
+public java.lang.annotation.Annotation getAnnotation(java.lang.Object arg0)
 {
 
 }
 
-public java.lang.annotation.Annotation getAnnotation(java.lang.Object arg0)
+public java.lang.annotation.Annotation[] getAnnotationsByType(java.lang.Object arg0)
 {
 
 }
@@ -233,6 +233,16 @@ public java.lang.annotation.Annotation[] getDeclaredAnnotations()
 }
 
 private synchronized java.util.Map declaredAnnotations()
+{
+
+}
+
+native private byte[] getTypeAnnotationBytes0()
+{
+
+}
+
+public java.lang.reflect.AnnotatedType getAnnotatedType()
 {
 
 }

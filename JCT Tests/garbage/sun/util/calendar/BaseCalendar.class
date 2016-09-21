@@ -147,7 +147,7 @@ public int getMonthLength(java.lang.Object arg0)
 
 }
 
-final private int getMonthLength(java.lang.Object arg0, java.lang.Object arg1)
+private int getMonthLength(java.lang.Object arg0, java.lang.Object arg1)
 {
 
 }

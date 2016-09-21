@@ -17,6 +17,11 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Vector;
 import org.apache.commons.lang.ArrayUtils;
+import com.ibm.toad.cfparse.attributes.AttrInfoList;
+import com.ibm.toad.cfparse.attributes.CodeAttrInfo;
+import com.ibm.toad.cfparse.instruction.ImmutableCodeSegment;
+import com.ibm.toad.cfparse.instruction.JVMConstants;
+import com.ibm.toad.cfparse.utils.Access;
 import padl.creator.classfile.util.ExtendedMethodInfo;
 import padl.creator.classfile.util.ExtendedMethodInvocation;
 import padl.creator.classfile.util.Utils;
@@ -38,11 +43,6 @@ import padl.kernel.impl.Factory;
 import padl.util.Util;
 import util.io.ProxyConsole;
 import util.lang.Modifier;
-import com.ibm.toad.cfparse.attributes.AttrInfoList;
-import com.ibm.toad.cfparse.attributes.CodeAttrInfo;
-import com.ibm.toad.cfparse.instruction.ImmutableCodeSegment;
-import com.ibm.toad.cfparse.instruction.JVMConstants;
-import com.ibm.toad.cfparse.utils.Access;
 
 /**
  * @author Yann-Gal Guhneuc
@@ -69,8 +69,9 @@ public class RelationshipAnalyzer {
 			final IElement element = (IElement) iterator.next();
 			if (element.getClass().equals(aRelationship.getClass())) {
 				final IRelationship relationship = (IRelationship) element;
-				if (relationship.getTargetEntity().equals(
-					aRelationship.getTargetEntity())
+				if (relationship
+					.getTargetEntity()
+					.equals(aRelationship.getTargetEntity())
 						&& relationship.getCardinality() == aRelationship
 							.getCardinality()
 						&& relationship.getVisibility() == aRelationship
@@ -169,10 +170,9 @@ public class RelationshipAnalyzer {
 		String methodName =
 			completeNameMethod.substring(completeNameMethod.indexOf(' ') + 1);
 		methodName = methodName.substring(0, methodName.indexOf('.'));
-		final String localArgs =
-			completeNameMethod.substring(
-				completeNameMethod.indexOf('('),
-				completeNameMethod.indexOf(')') + 1);
+		final String localArgs = completeNameMethod.substring(
+			completeNameMethod.indexOf('('),
+			completeNameMethod.indexOf(')') + 1);
 		return (methodName + localArgs).toCharArray();
 	}
 	private static String extractFieldName(final String aFieldInfo) {
@@ -199,10 +199,8 @@ public class RelationshipAnalyzer {
 	private static char[] extractReturnType(final String completeNameMethod) {
 		String returnType =
 			completeNameMethod.substring(completeNameMethod.indexOf(" ") + 1);
-		returnType =
-			returnType.substring(
-				returnType.indexOf(".") + 1,
-				returnType.indexOf(" "));
+		returnType = returnType
+			.substring(returnType.indexOf(".") + 1, returnType.indexOf(" "));
 		return returnType.toCharArray();
 	}
 	public static void initialise(final Map aMapOfIDsEntities) {
@@ -213,11 +211,10 @@ public class RelationshipAnalyzer {
 		final ICodeLevelModel aCodeLevelModel,
 		final boolean storeMethodInvocation) {
 
-		final RelationshipAnalyzer analyzer =
-			new RelationshipAnalyzer(
-				aListOfSubmittedConstituents,
-				aCodeLevelModel,
-				storeMethodInvocation);
+		final RelationshipAnalyzer analyzer = new RelationshipAnalyzer(
+			aListOfSubmittedConstituents,
+			aCodeLevelModel,
+			storeMethodInvocation);
 
 		// Yann 2004/08/02: Explanations.
 		// First, I build the method invocations for all methods
@@ -251,10 +248,9 @@ public class RelationshipAnalyzer {
 		this.codeLevelModel = aCodeLevelModel;
 		this.storeMethodInvocation = storeMethodInvocation;
 
-		this.lightMethodInvocationAnalyzer =
-			new LightMethodInvocationAnalyzer(
-				this.codeLevelModel.getFactory(),
-				this.codeLevelModel);
+		this.lightMethodInvocationAnalyzer = new LightMethodInvocationAnalyzer(
+			this.codeLevelModel.getFactory(),
+			this.codeLevelModel);
 
 		this.listOfMethodInvocations = new ArrayList();
 	}
@@ -293,8 +289,10 @@ public class RelationshipAnalyzer {
 						RelationshipAnalyzer.MapOfIDsEntities);
 
 				// final long startTime = System.currentTimeMillis();
-				this.listOfMethodInvocations.addAll(this
-					.analyseLightMethodInvocations(currentEntity, methodInfo));
+				this.listOfMethodInvocations.addAll(
+					this.analyseLightMethodInvocations(
+						currentEntity,
+						methodInfo));
 				// OutputManager.getCurrentOutputManager().getOutput().println(System.currentTimeMillis() - startTime);
 
 				// TODO: This is not the best place to call computeMethodInvocations(),
@@ -324,8 +322,10 @@ public class RelationshipAnalyzer {
 				// programming. However, it helps in increasing performances
 				// by avoiding to recompute many variables to compute then
 				// method invocations.
-				this.listOfMethodInvocations.addAll(this
-					.analyseDeepMethodInvocations(currentEntity, methodInfo));
+				this.listOfMethodInvocations.addAll(
+					this.analyseDeepMethodInvocations(
+						currentEntity,
+						methodInfo));
 			}
 		}
 	}
@@ -333,9 +333,8 @@ public class RelationshipAnalyzer {
 		final IFirstClassEntity currentEntity,
 		final ExtendedMethodInfo methodInfo) {
 
-		final IOperation currentMethod =
-			(IOperation) currentEntity.getConstituentFromID(Utils
-				.computeSignature(methodInfo));
+		final IOperation currentMethod = (IOperation) currentEntity
+			.getConstituentFromID(Utils.computeSignature(methodInfo));
 		final DeepMethodInvocationAnalyzer analyzer =
 			DeepMethodInvocationAnalyzer.getUniqueInstance();
 		final List couplesOfUsedAttributes = analyzer.analyzeMethod(methodInfo);
@@ -369,77 +368,79 @@ public class RelationshipAnalyzer {
 				foundArrayLoad = true;
 			}
 
-			if (!isFieldEmpty
-					&& !isMethodEmpty
-					&& !Utils.isAnonymousOrLocalEntity(nextCouple[0].substring(
-						0,
-						nextCouple[0].indexOf(" ")).toCharArray())) {
+			if (!isFieldEmpty && !isMethodEmpty
+					&& !Utils.isAnonymousOrLocalEntity(
+						nextCouple[0]
+							.substring(0, nextCouple[0].indexOf(" "))
+							.toCharArray())) {
 
 				callingFields = this.createFieldsFromFieldInfos(nextCouple[0]);
 
 				// Yann 2004/06/02: Field assignment!
 				// I want to know when a field is assigned to
 				// distinguish data type from ordanary class.
-				if (nextCouple[1].equals(String
-					.valueOf(RelationshipAnalyzer.EQUAL_SIGN))) {
+				if (nextCouple[1]
+					.equals(String.valueOf(RelationshipAnalyzer.EQUAL_SIGN))) {
 
 					calledMethod = RelationshipAnalyzer.ASSIGNMENT_METHOD;
 				}
 				else {
 					calledMethod = this.createOperation(nextCouple[1]);
 				}
-				entityDeclaringField =
-					Utils.getEntityOrCreateGhost(
-						this.codeLevelModel,
-						nextCouple[0]
-							.substring(0, nextCouple[0].indexOf(" "))
-							.toCharArray(),
-						RelationshipAnalyzer.MapOfIDsEntities);
-				if (nextCouple[1].equals(String
-					.valueOf(RelationshipAnalyzer.EQUAL_SIGN))) {
+				entityDeclaringField = Utils.getEntityOrCreateGhost(
+					this.codeLevelModel,
+					nextCouple[0]
+						.substring(0, nextCouple[0].indexOf(" "))
+						.toCharArray(),
+					RelationshipAnalyzer.MapOfIDsEntities);
+				if (nextCouple[1]
+					.equals(String.valueOf(RelationshipAnalyzer.EQUAL_SIGN))) {
 
 					entityDeclaringMethod = null;
 				}
 				else {
 					final String fieldNameAndType =
 						nextCouple[0].substring(nextCouple[0].indexOf(" ") + 1);
-					final String fieldType =
-						fieldNameAndType.substring(fieldNameAndType
-							.indexOf('.') + 1);
-					entityDeclaringMethod =
-						Utils.getEntityOrCreateGhost(
-							this.codeLevelModel,
-							fieldType.toCharArray(),
-							RelationshipAnalyzer.MapOfIDsEntities);
+
+					String fieldType = fieldNameAndType
+						.substring(fieldNameAndType.indexOf('.') + 1);
+					final int hashCharPos = fieldType.indexOf('#');
+					if (hashCharPos > 0) {
+						fieldType = fieldType.substring(0, hashCharPos);
+					}
+
+					entityDeclaringMethod = Utils.getEntityOrCreateGhost(
+						this.codeLevelModel,
+						fieldType.toCharArray(),
+						RelationshipAnalyzer.MapOfIDsEntities);
 				}
-				methodInvocation =
-					new ExtendedMethodInvocation(
-						this.codeLevelModel.getFactory(),
-						currentEntity,
-						currentMethod,
-						// Yann 2012/02/02: Not sure!
-						// I believe that we should use the commented code
-						// instead of the uncommented code. However, the
-						// commented code leads to the creation of more
-						// aggregation relationships than expected, see
-						// for example the test
-						//	padl.creator.test.classfile.example.CreationLink_INSTANCE_CREATION_3
-						RelationshipAnalyzer
-							.computeMethodInvocationTypeThroughField(
-								(IField) callingFields.lastElement(),
-								calledMethod),
-						((IField) callingFields.lastElement()).getCardinality(),
-						entityDeclaringMethod,
-						entityDeclaringField);
+				methodInvocation = new ExtendedMethodInvocation(
+					this.codeLevelModel.getFactory(),
+					currentEntity,
+					currentMethod,
+					// Yann 2012/02/02: Not sure!
+					// I believe that we should use the commented code
+					// instead of the uncommented code. However, the
+					// commented code leads to the creation of more
+					// aggregation relationships than expected, see
+					// for example the test
+					//	padl.creator.test.classfile.example.CreationLink_INSTANCE_CREATION_3
+					RelationshipAnalyzer
+						.computeMethodInvocationTypeThroughField(
+							(IField) callingFields.lastElement(),
+							calledMethod),
+					((IField) callingFields.lastElement()).getCardinality(),
+					entityDeclaringMethod,
+					entityDeclaringField);
 				methodInvocation.setCallingField(callingFields);
 				methodInvocation.setCalledMethod(calledMethod);
 				methodInvocations.add(methodInvocation);
 			}
-			else if (!isFieldEmpty
-					&& isMethodEmpty
-					&& !Utils.isAnonymousOrLocalEntity(nextCouple[0].substring(
-						0,
-						nextCouple[0].indexOf(" ")).toCharArray())) {
+			else if (!isFieldEmpty && isMethodEmpty
+					&& !Utils.isAnonymousOrLocalEntity(
+						nextCouple[0]
+							.substring(0, nextCouple[0].indexOf(" "))
+							.toCharArray())) {
 
 				callingFields = this.createFieldsFromFieldInfos(nextCouple[0]);
 				// Yann 2007/01/24: Unneeded test
@@ -449,27 +450,25 @@ public class RelationshipAnalyzer {
 				if (callingFields.get(0) == null) {
 					break;
 				}
-				entityDeclaringField =
-					Utils.getEntityOrCreateGhost(
-						this.codeLevelModel,
-						nextCouple[0]
-							.substring(0, nextCouple[0].indexOf(" "))
-							.toCharArray(),
-						RelationshipAnalyzer.MapOfIDsEntities);
+				entityDeclaringField = Utils.getEntityOrCreateGhost(
+					this.codeLevelModel,
+					nextCouple[0]
+						.substring(0, nextCouple[0].indexOf(" "))
+						.toCharArray(),
+					RelationshipAnalyzer.MapOfIDsEntities);
 				// Yann 2012/02/02: Null Object!
 				// The use of the "null" value below is really ugly
 				// and suggest misadapted interface: at least a Null
 				// Object should be used in this code.
 				// TODO: Remove the use of "null"
-				methodInvocation =
-					new ExtendedMethodInvocation(
-						this.codeLevelModel.getFactory(),
-						currentEntity,
-						currentMethod,
-						IMethodInvocation.OTHER,
-						((IField) callingFields.lastElement()).getCardinality(),
-						null,
-						entityDeclaringField);
+				methodInvocation = new ExtendedMethodInvocation(
+					this.codeLevelModel.getFactory(),
+					currentEntity,
+					currentMethod,
+					IMethodInvocation.OTHER,
+					((IField) callingFields.lastElement()).getCardinality(),
+					null,
+					entityDeclaringField);
 				methodInvocation.setCallingField(callingFields);
 				methodInvocations.add(methodInvocation);
 
@@ -477,26 +476,26 @@ public class RelationshipAnalyzer {
 				// The idea is to remember if a static array is
 				// used just before an instance method invocation,
 				// then a dedicated IMetodInvocation is created.
-				if (((IField) callingFields.lastElement()).getCardinality() == Constants.CARDINALITY_MANY) {
+				if (((IField) callingFields.lastElement())
+					.getCardinality() == Constants.CARDINALITY_MANY) {
 					foundArrayStaticOrNot = true;
 					foundFieldStaticOrNot = callingFields;
 					foundEntityDeclaringField = entityDeclaringField;
 				}
 			}
-			else if (isFieldEmpty
-					&& !isMethodEmpty
-					&& !Utils.isAnonymousOrLocalEntity(nextCouple[1].substring(
-						0,
-						nextCouple[1].indexOf(" ")).toCharArray())) {
-
-				calledMethod = this.createOperation(nextCouple[1]);
-				entityDeclaringMethod =
-					Utils.getEntityOrCreateGhost(
-						this.codeLevelModel,
+			else if (isFieldEmpty && !isMethodEmpty
+					&& !Utils.isAnonymousOrLocalEntity(
 						nextCouple[1]
 							.substring(0, nextCouple[1].indexOf(" "))
-							.toCharArray(),
-						RelationshipAnalyzer.MapOfIDsEntities);
+							.toCharArray())) {
+
+				calledMethod = this.createOperation(nextCouple[1]);
+				entityDeclaringMethod = Utils.getEntityOrCreateGhost(
+					this.codeLevelModel,
+					nextCouple[1]
+						.substring(0, nextCouple[1].indexOf(" "))
+						.toCharArray(),
+					RelationshipAnalyzer.MapOfIDsEntities);
 
 				// Yann 2012/03/23: New case!
 				// Ségla found out that in Lucene Core v3.0.3, the callee is
@@ -509,20 +508,19 @@ public class RelationshipAnalyzer {
 					// used just before an instance method invocation,
 					// then a dedicated IMetodInvocation is created.
 					if (foundArrayStaticOrNot && foundArrayLoad) {
-						methodInvocation =
-							new ExtendedMethodInvocation(
-								this.codeLevelModel.getFactory(),
-								currentEntity,
-								currentMethod,
-								RelationshipAnalyzer
-									.computeMethodInvocationTypeThroughField(
-										(IField) foundFieldStaticOrNot
-											.lastElement(),
-										calledMethod),
-								((IField) foundFieldStaticOrNot.lastElement())
-									.getCardinality(),
-								entityDeclaringMethod,
-								foundEntityDeclaringField);
+						methodInvocation = new ExtendedMethodInvocation(
+							this.codeLevelModel.getFactory(),
+							currentEntity,
+							currentMethod,
+							RelationshipAnalyzer
+								.computeMethodInvocationTypeThroughField(
+									(IField) foundFieldStaticOrNot
+										.lastElement(),
+									calledMethod),
+							((IField) foundFieldStaticOrNot.lastElement())
+								.getCardinality(),
+							entityDeclaringMethod,
+							foundEntityDeclaringField);
 						methodInvocation.setCallingField(foundFieldStaticOrNot);
 						methodInvocation.setCalledMethod(calledMethod);
 						methodInvocations.add(methodInvocation);
@@ -542,8 +540,8 @@ public class RelationshipAnalyzer {
 
 						final int cardinality;
 						// I must use getID because I need the package name, not just the simple name.
-						if (Util.isArrayOrCollection(entityDeclaringMethod
-							.getID()) || foundArrayLoad) {
+						if (Util.isArrayOrCollection(
+							entityDeclaringMethod.getID()) || foundArrayLoad) {
 
 							cardinality = Constants.CARDINALITY_MANY;
 						}
@@ -551,17 +549,16 @@ public class RelationshipAnalyzer {
 							cardinality = Constants.CARDINALITY_ONE;
 						}
 
-						methodInvocation =
-							new ExtendedMethodInvocation(
-								this.codeLevelModel.getFactory(),
-								currentEntity,
-								currentMethod,
-								RelationshipAnalyzer
-									.computeMethodInvocationTypeDirect(
-										currentMethod,
-										calledMethod),
-								cardinality,
-								entityDeclaringMethod);
+						methodInvocation = new ExtendedMethodInvocation(
+							this.codeLevelModel.getFactory(),
+							currentEntity,
+							currentMethod,
+							RelationshipAnalyzer
+								.computeMethodInvocationTypeDirect(
+									currentMethod,
+									calledMethod),
+							cardinality,
+							entityDeclaringMethod);
 						methodInvocation.setCalledMethod(calledMethod);
 						methodInvocations.add(methodInvocation);
 					}
@@ -569,8 +566,8 @@ public class RelationshipAnalyzer {
 			}
 
 			if (this.storeMethodInvocation && methodInvocation != null) {
-				currentMethod.addConstituent(methodInvocation
-					.getMethodInvocation());
+				currentMethod
+					.addConstituent(methodInvocation.getMethodInvocation());
 			}
 		}
 
@@ -628,14 +625,15 @@ public class RelationshipAnalyzer {
 			//		AbstractState state = DefaultState.getCurrentDefaultState();
 			this.lightMethodInvocationAnalyzer
 				.initialise(anEntity, aMethodInfo);
-			for (int j = 0; j < immutableCodeSegment.getNumInstructions(); j++) {
+			for (int j = 0; j < immutableCodeSegment
+				.getNumInstructions(); j++) {
 				final int offset = immutableCodeSegment.getOffset(j);
 				this.lightMethodInvocationAnalyzer.handleRequest(offset);
 				// state.handleRequest(context, offset);
 				// state = state.getNextState();
 			}
-			methodInvocations.addAll(this.lightMethodInvocationAnalyzer
-				.listOfMethodInvocations());
+			methodInvocations.addAll(
+				this.lightMethodInvocationAnalyzer.listOfMethodInvocations());
 		}
 
 		// Yann 2004/08/02: Question!
@@ -654,9 +652,8 @@ public class RelationshipAnalyzer {
 		//				Util.computeSimpleName(anEntity.getName()));
 		//	}
 		//	else {
-		method =
-			(IOperation) anEntity.getConstituentFromID(Utils
-				.computeSignature(aMethodInfo));
+		method = (IOperation) anEntity
+			.getConstituentFromID(Utils.computeSignature(aMethodInfo));
 		//	}
 		methodInvocations.addAll(this.analyseParameters(anEntity, method));
 		methodInvocations.addAll(this.analyseReturnType(anEntity, method));
@@ -666,17 +663,16 @@ public class RelationshipAnalyzer {
 		// its appropriate method invocations, else how could
 		// I reproduce the AAC algorithm elsewhere???
 		if (this.storeMethodInvocation) {
-			final IOperation currentMethod =
-				(IOperation) anEntity.getConstituentFromID(Utils
-					.computeSignature(aMethodInfo));
+			final IOperation currentMethod = (IOperation) anEntity
+				.getConstituentFromID(Utils.computeSignature(aMethodInfo));
 
 			final Iterator iterator = methodInvocations.iterator();
 			while (iterator.hasNext()) {
 				final ExtendedMethodInvocation methodInvocation =
 					(ExtendedMethodInvocation) iterator.next();
 
-				currentMethod.addConstituent(methodInvocation
-					.getMethodInvocation());
+				currentMethod
+					.addConstituent(methodInvocation.getMethodInvocation());
 			}
 		}
 
@@ -716,24 +712,22 @@ public class RelationshipAnalyzer {
 
 					final ExtendedMethodInvocation methodInvocation;
 					if (Access.isStatic(aMethod.getVisibility())) {
-						methodInvocation =
-							new ExtendedMethodInvocation(
-								this.codeLevelModel.getFactory(),
-								anOriginEntity,
-								aMethod,
-								IMethodInvocation.CLASS_CLASS,
-								parameter.getCardinality(),
-								(IFirstClassEntity) targetEntity);
+						methodInvocation = new ExtendedMethodInvocation(
+							this.codeLevelModel.getFactory(),
+							anOriginEntity,
+							aMethod,
+							IMethodInvocation.CLASS_CLASS,
+							parameter.getCardinality(),
+							(IFirstClassEntity) targetEntity);
 					}
 					else {
-						methodInvocation =
-							new ExtendedMethodInvocation(
-								this.codeLevelModel.getFactory(),
-								anOriginEntity,
-								aMethod,
-								IMethodInvocation.INSTANCE_CLASS,
-								parameter.getCardinality(),
-								(IFirstClassEntity) targetEntity);
+						methodInvocation = new ExtendedMethodInvocation(
+							this.codeLevelModel.getFactory(),
+							anOriginEntity,
+							aMethod,
+							IMethodInvocation.INSTANCE_CLASS,
+							parameter.getCardinality(),
+							(IFirstClassEntity) targetEntity);
 					}
 
 					// Yann 2004/04/04: Duplicate!
@@ -814,24 +808,22 @@ public class RelationshipAnalyzer {
 
 				final ExtendedMethodInvocation methodInvocation;
 				if (Access.isStatic(aMethod.getVisibility())) {
-					methodInvocation =
-						new ExtendedMethodInvocation(
-							this.codeLevelModel.getFactory(),
-							anEntity,
-							aMethod,
-							IMethodInvocation.CLASS_INSTANCE,
-							cardinality,
-							targetEntity);
+					methodInvocation = new ExtendedMethodInvocation(
+						this.codeLevelModel.getFactory(),
+						anEntity,
+						aMethod,
+						IMethodInvocation.CLASS_INSTANCE,
+						cardinality,
+						targetEntity);
 				}
 				else {
-					methodInvocation =
-						new ExtendedMethodInvocation(
-							this.codeLevelModel.getFactory(),
-							anEntity,
-							aMethod,
-							IMethodInvocation.INSTANCE_INSTANCE,
-							cardinality,
-							targetEntity);
+					methodInvocation = new ExtendedMethodInvocation(
+						this.codeLevelModel.getFactory(),
+						anEntity,
+						aMethod,
+						IMethodInvocation.INSTANCE_INSTANCE,
+						cardinality,
+						targetEntity);
 				}
 
 				// Yann 2004/04/04: Duplicate!
@@ -881,9 +873,8 @@ public class RelationshipAnalyzer {
 		// Yann 2004/08/02: Analysis of parameters.
 		// I don't really need to analyse parameters of newly created
 		// methods (in ghosts) because these don't have any parameters.
-		this.listOfMethodInvocations.addAll(this.analyseParameters(
-			anOriginEntity,
-			constructor));
+		this.listOfMethodInvocations
+			.addAll(this.analyseParameters(anOriginEntity, constructor));
 
 		return constructor;
 	}
@@ -907,20 +898,18 @@ public class RelationshipAnalyzer {
 		final IFirstClassEntity entityDeclaringMethod;
 		if (Util.isArray(methodClassName)) {
 			entityDeclaringMethod = Factory.getInstance().createHierarchyRoot();
-			RelationshipAnalyzer.MapOfIDsEntities.put(
-				methodClassName,
-				entityDeclaringMethod);
+			RelationshipAnalyzer.MapOfIDsEntities
+				.put(methodClassName, entityDeclaringMethod);
 			//	Utils.getEntityOrCreateGhost(
 			//		this.codeLevelModel,
 			//		RelationshipAnalyzer.JAVA_LANG_OBJECT,
 			//		RelationshipAnalyzer.MapOfIDsEntities);
 		}
 		else {
-			entityDeclaringMethod =
-				Utils.getEntityOrCreateGhost(
-					this.codeLevelModel,
-					methodClassName,
-					RelationshipAnalyzer.MapOfIDsEntities);
+			entityDeclaringMethod = Utils.getEntityOrCreateGhost(
+				this.codeLevelModel,
+				methodClassName,
+				RelationshipAnalyzer.MapOfIDsEntities);
 		}
 
 		// Yann 2006/02/08: Members!
@@ -941,17 +930,12 @@ public class RelationshipAnalyzer {
 		//		}
 		//	}
 
-		final IOperation calledMethod =
-			this.searchForMethod(
-				usedMethodName,
-				returnType,
-				entityDeclaringMethod);
+		final IOperation calledMethod = this
+			.searchForMethod(usedMethodName, returnType, entityDeclaringMethod);
 
 		if (calledMethod == null) {
-			ProxyConsole
-				.getInstance()
-				.errorOutput()
-				.println("Cannot find called method!");
+			ProxyConsole.getInstance().errorOutput().println(
+				"Cannot find called method!");
 			ProxyConsole.getInstance().errorOutput().print('\t');
 			ProxyConsole.getInstance().errorOutput().print("Method name   :");
 			ProxyConsole.getInstance().errorOutput().println(usedMethodName);
@@ -960,15 +944,10 @@ public class RelationshipAnalyzer {
 			ProxyConsole.getInstance().errorOutput().println(returnType);
 			ProxyConsole.getInstance().errorOutput().print('\t');
 			ProxyConsole.getInstance().errorOutput().print("Declaring type: ");
-			ProxyConsole
-				.getInstance()
-				.errorOutput()
-				.println(entityDeclaringMethod.getDisplayName());
-			ProxyConsole
-				.getInstance()
-				.errorOutput()
-				.println(
-					"Missing called method can happen if there is a compile error: a method is called but undefined in the class of the instance on which it is called.");
+			ProxyConsole.getInstance().errorOutput().println(
+				entityDeclaringMethod.getDisplayName());
+			ProxyConsole.getInstance().errorOutput().println(
+				"Missing called method can happen if there is a compile error: a method is called but undefined in the class of the instance on which it is called.");
 		}
 
 		return calledMethod;
@@ -991,11 +970,10 @@ public class RelationshipAnalyzer {
 					oneFieldInfo.substring(0, oneFieldInfo.indexOf(" "));
 
 				// Gets from the abstract level model the entity within its name
-				entityDeclaringField =
-					Utils.getEntityOrCreateGhost(
-						this.codeLevelModel,
-						entityNameDeclaringField.toCharArray(),
-						RelationshipAnalyzer.MapOfIDsEntities);
+				entityDeclaringField = Utils.getEntityOrCreateGhost(
+					this.codeLevelModel,
+					entityNameDeclaringField.toCharArray(),
+					RelationshipAnalyzer.MapOfIDsEntities);
 				// Yann 2006/02/08: Members!
 				// The getConstituentFromID() method takes care of members and ghosts...
 				//	// Tests if the entity exists. Otherwise, I create a ghost. 
@@ -1032,9 +1010,8 @@ public class RelationshipAnalyzer {
 				//		}
 				//	}
 				//	else {
-				aCallingField =
-					(IField) entityDeclaringField
-						.getConstituentFromID(usedFieldName);
+				aCallingField = (IField) entityDeclaringField
+					.getConstituentFromID(usedFieldName);
 				// Yann 2007/01/24: Unneeded test
 				// The test of the usedFieldName being empty
 				// is only needed because of the bug documented
@@ -1042,9 +1019,8 @@ public class RelationshipAnalyzer {
 				if (aCallingField == null && !usedFieldName.equals("")) {
 					final String fieldType =
 						RelationshipAnalyzer.extractFieldType(oneFieldInfo);
-					final int cardinality =
-						padl.util.Util.isArrayOrCollection(fieldType
-							.toCharArray()) ? Constants.CARDINALITY_MANY
+					final int cardinality = padl.util.Util.isArrayOrCollection(
+						fieldType.toCharArray()) ? Constants.CARDINALITY_MANY
 								: Constants.CARDINALITY_ONE;
 
 					aCallingField =
@@ -1074,15 +1050,13 @@ public class RelationshipAnalyzer {
 			this.codeLevelModel.getFactory().createMethod(anID, aName);
 		method.setReturnType(aReturnType);
 
-		this.listOfMethodInvocations.addAll(this.analyseReturnType(
-			anOriginEntity,
-			method));
+		this.listOfMethodInvocations
+			.addAll(this.analyseReturnType(anOriginEntity, method));
 		// Yann 2004/08/02: Analysis of parameters.
 		// I don't really need to analyse parameters of newly created
 		// methods (in ghosts) because these don't have any parameters.
-		this.listOfMethodInvocations.addAll(this.analyseParameters(
-			anOriginEntity,
-			method));
+		this.listOfMethodInvocations
+			.addAll(this.analyseParameters(anOriginEntity, method));
 
 		return method;
 	}
@@ -1130,15 +1104,14 @@ public class RelationshipAnalyzer {
 						//				messageType.getCardinality());
 						//	}
 						//	else {
-						relationship =
-							this.codeLevelModel
-								.getFactory()
-								.createUseRelationship(
-									name,
-									methodInvocation.getTargetEntity(),
-									methodInvocation.getCardinality());
-						relationship.setVisibility(methodInvocation
-							.getVisibility());
+						relationship = this.codeLevelModel
+							.getFactory()
+							.createUseRelationship(
+								name,
+								methodInvocation.getTargetEntity(),
+								methodInvocation.getCardinality());
+						relationship
+							.setVisibility(methodInvocation.getVisibility());
 						// Yann 2004/07/31: Origin entity.
 						// The current entity is not the origin entity,
 						// the origin entity is stored in the message
@@ -1151,15 +1124,14 @@ public class RelationshipAnalyzer {
 
 					case IMethodInvocation.CLASS_INSTANCE :
 					case IMethodInvocation.INSTANCE_INSTANCE :
-						relationship =
-							this.codeLevelModel
-								.getFactory()
-								.createAssociationRelationship(
-									name,
-									methodInvocation.getTargetEntity(),
-									methodInvocation.getCardinality());
-						relationship.setVisibility(methodInvocation
-							.getVisibility());
+						relationship = this.codeLevelModel
+							.getFactory()
+							.createAssociationRelationship(
+								name,
+								methodInvocation.getTargetEntity(),
+								methodInvocation.getCardinality());
+						relationship
+							.setVisibility(methodInvocation.getVisibility());
 						// Yann 2004/07/31: Origin entity.
 						// The current entity is not the origin entity,
 						// the origin entity is stored in the message
@@ -1173,15 +1145,14 @@ public class RelationshipAnalyzer {
 					case IMethodInvocation.CLASS_CLASS_FROM_FIELD :
 					case IMethodInvocation.INSTANCE_CLASS_FROM_FIELD :
 					case IMethodInvocation.INSTANCE_INSTANCE_FROM_FIELD :
-						relationship =
-							this.codeLevelModel
-								.getFactory()
-								.createAggregationRelationship(
-									name,
-									methodInvocation.getTargetEntity(),
-									methodInvocation.getCardinality());
-						relationship.setVisibility(methodInvocation
-							.getVisibility());
+						relationship = this.codeLevelModel
+							.getFactory()
+							.createAggregationRelationship(
+								name,
+								methodInvocation.getTargetEntity(),
+								methodInvocation.getCardinality());
+						relationship
+							.setVisibility(methodInvocation.getVisibility());
 						// Yann 2004/07/31: Origin entity.
 						// The current entity is not the origin entity,
 						// the origin entity is stored in the message
@@ -1193,15 +1164,14 @@ public class RelationshipAnalyzer {
 						break;
 
 					case IMethodInvocation.INSTANCE_CREATION :
-						relationship =
-							this.codeLevelModel
-								.getFactory()
-								.createCreationRelationship(
-									name,
-									methodInvocation.getTargetEntity(),
-									methodInvocation.getCardinality());
-						relationship.setVisibility(methodInvocation
-							.getVisibility());
+						relationship = this.codeLevelModel
+							.getFactory()
+							.createCreationRelationship(
+								name,
+								methodInvocation.getTargetEntity(),
+								methodInvocation.getCardinality());
+						relationship
+							.setVisibility(methodInvocation.getVisibility());
 						// Yann 2004/07/31: Origin entity.
 						// The current entity is not the origin entity,
 						// the origin entity is stored in the message
@@ -1287,33 +1257,28 @@ public class RelationshipAnalyzer {
 			// Yann 2004/05/20: Constructors.
 			// If the method is a constructor, its name is
 			// its declaring class name.
-			final char[] name =
-				ArrayUtils.subarray(
-					usedMethodName,
-					0,
-					ArrayUtils.indexOf(usedMethodName, '('));
+			final char[] name = ArrayUtils.subarray(
+				usedMethodName,
+				0,
+				ArrayUtils.indexOf(usedMethodName, '('));
 			if (Utils.isSpecialMethod(name)) {
 				// Creates a new constructor that will be added to the ghost
-				calledMethod =
-					this.createConstructor(
-						entityDeclaringMethod,
-						usedMethodName);
+				calledMethod = this
+					.createConstructor(entityDeclaringMethod, usedMethodName);
 			}
 			else {
 				// Creates a new method that will be added to the ghost
-				calledMethod =
-					this.createMethod(
-						entityDeclaringMethod,
-						usedMethodName,
-						returnType,
-						name);
+				calledMethod = this.createMethod(
+					entityDeclaringMethod,
+					usedMethodName,
+					returnType,
+					name);
 			}
 			entityDeclaringMethod.addConstituent(calledMethod);
 		}
 		else {
-			calledMethod =
-				(IOperation) entityDeclaringMethod
-					.getConstituentFromID(usedMethodName);
+			calledMethod = (IOperation) entityDeclaringMethod
+				.getConstituentFromID(usedMethodName);
 		}
 
 		// Yann 2006/08/03: Compatibility!
@@ -1334,29 +1299,26 @@ public class RelationshipAnalyzer {
 			 * Iterate on all parents to find method
 			 */
 			while (iterator.hasNext() && calledMethod == null) {
-				calledMethod =
-					this.searchForMethod(
-						usedMethodName,
-						returnType,
-						(IFirstClassEntity) iterator.next());
+				calledMethod = this.searchForMethod(
+					usedMethodName,
+					returnType,
+					(IFirstClassEntity) iterator.next());
 			}
 		}
 
 		if (entityDeclaringMethod instanceof IClass) {
-			iterator =
-				((IClass) entityDeclaringMethod)
-					.getIteratorOnImplementedInterfaces();
+			iterator = ((IClass) entityDeclaringMethod)
+				.getIteratorOnImplementedInterfaces();
 			if (calledMethod == null && iterator.hasNext()) {
 				/*
 				* Aminata & Venera : 2011/08/19 
 				* Iterate on all interfaces to find method
 				*/
 				while (iterator.hasNext() && calledMethod == null) {
-					calledMethod =
-						this.searchForMethod(
-							usedMethodName,
-							returnType,
-							(IFirstClassEntity) iterator.next());
+					calledMethod = this.searchForMethod(
+						usedMethodName,
+						returnType,
+						(IFirstClassEntity) iterator.next());
 				}
 			}
 		}

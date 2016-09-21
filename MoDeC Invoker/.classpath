@@ -5,6 +5,6 @@
 	<classpathentry kind="src" path="/MoDeC Bytecode Instrumentation"/>
 	<classpathentry kind="src" path="/MoDeC Bytecode Instrumentation Tests"/>
 	<classpathentry kind="src" path="/MoDeC Metamodel"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre7"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

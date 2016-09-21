@@ -24,6 +24,6 @@ public class QMakeTest extends TestCase {
 			EclipseCPPParserCaller.getInstance().getCodeLevelModelUsingOSGiEmbedded(
 				"../PADL Creator C++ (Eclipse) Tests/data/QMake/");
 		Assert.assertNotNull("The code-level model is null!", codeLevelModel);
-		Assert.assertEquals(845, codeLevelModel.getNumberOfTopLevelEntities());
+		Assert.assertEquals(847, codeLevelModel.getNumberOfTopLevelEntities());
 	}
 }

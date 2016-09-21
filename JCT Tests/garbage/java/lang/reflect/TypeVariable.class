@@ -1,6 +1,6 @@
 package java.lang.reflect;
 abstract public interface TypeVariable
-extends java.lang.reflect.Type
+extends java.lang.reflect.AnnotatedElement, java.lang.reflect.Type
 {
 abstract public java.lang.reflect.Type[] getBounds()
 {
@@ -13,6 +13,11 @@ abstract public java.lang.reflect.GenericDeclaration getGenericDeclaration()
 }
 
 abstract public java.lang.String getName()
+{
+
+}
+
+abstract public java.lang.reflect.AnnotatedType[] getAnnotatedBounds()
 {
 
 }
