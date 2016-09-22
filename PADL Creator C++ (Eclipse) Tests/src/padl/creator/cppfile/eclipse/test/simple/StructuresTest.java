@@ -45,7 +45,7 @@ public class StructuresTest extends TestCase {
 				.getTopLevelEntityFromID("SourceFiles");
 		final IStructure structure =
 			(IStructure) clazz
-				.getConstituentFromID("SourceFiles.SourceFileNode");
+				.getConstituentFromID("SourceFiles$SourceFileNode");
 		Assert.assertNotNull("No structure!?", structure);
 	}
 }
