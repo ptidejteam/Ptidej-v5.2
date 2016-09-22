@@ -52,9 +52,10 @@ public final class JoinerDetection extends AbstractMicroPatternDetection
 				if (anOtherEntity instanceof IOperation) {
 					final IOperation currentMethod = (IOperation) anOtherEntity;
 					// Detect static attribute initialization and constructor
-					if (!currentMethod.getDisplayName().equals("<clinit>")
-							&& (!currentMethod.getDisplayID().startsWith(
-								"<init>"))) {
+					if (!currentMethod.getDisplayName().startsWith("<clinit>")
+							&& (!currentMethod
+								.getDisplayID()
+								.startsWith("<init>"))) {
 						return false;
 					}
 				}

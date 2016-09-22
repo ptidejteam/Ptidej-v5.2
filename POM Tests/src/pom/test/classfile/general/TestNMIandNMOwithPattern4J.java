@@ -59,7 +59,7 @@ public final class TestNMIandNMOwithPattern4J extends TestCase {
 				.getTopLevelEntityFromID("gr.uom.java.pattern.PatternDescriptor");
 		Assert.assertEquals(
 			"Computing NMI on gr.uom.java.pattern.PatternDescriptor",
-			65d,
+			69d,
 			((IUnaryMetric) MetricsRepository.getMetric("NMI")).compute(
 				Model,
 				firstClassEntity),

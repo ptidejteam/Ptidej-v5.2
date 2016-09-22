@@ -47,8 +47,8 @@ public class Launcher implements IApplication {
 		return arguments.length == 0;
 	}
 	private File getDirMetadata(final File directoryPtidej) {
-		final File destination =
-			new File(directoryPtidej.getAbsolutePath() + File.separatorChar
+		final File destination = new File(
+			directoryPtidej.getAbsolutePath() + File.separatorChar
 					+ Common.EQUINOX_RUNTIME_WORKSPACE
 					+ Constants.META_DATA_DIRECTORY);
 
@@ -63,8 +63,8 @@ public class Launcher implements IApplication {
 		// Yann 2013/05/16: Current working directory
 		// I search for the source folder from the CWD
 		// which is given by System.getProperty("user.dir")
-		File source =
-			new File(System.getProperty("user.dir") + File.separatorChar
+		File source = new File(
+			System.getProperty("user.dir") + File.separatorChar
 					+ rootDirectoryContainingCPPFiles);
 		ProxyConsole
 			.getInstance()
@@ -83,14 +83,10 @@ public class Launcher implements IApplication {
 				.print("Looking for C++ files in ");
 			ProxyConsole.getInstance().debugOutput().println(source);
 			if (!source.exists()) {
-				ProxyConsole
-					.getInstance()
-					.errorOutput()
-					.print("Cannot find the C++ files to analyses in \"");
-				ProxyConsole
-					.getInstance()
-					.errorOutput()
-					.print(source.getAbsolutePath());
+				ProxyConsole.getInstance().errorOutput().print(
+					"Cannot find the C++ files to analyses in \"");
+				ProxyConsole.getInstance().errorOutput().print(
+					source.getAbsolutePath());
 				ProxyConsole.getInstance().errorOutput().println('\"');
 			}
 			else {
@@ -104,19 +100,15 @@ public class Launcher implements IApplication {
 		return source;
 	}
 	private File getDirPtidej(Map<?, ?> someArguments) {
-		final File directoryPtidej =
-			new File(Launcher.getArgumentValue(
+		final File directoryPtidej = new File(
+			Launcher.getArgumentValue(
 				someArguments,
 				Common.ARGUMENT_DIRECTORY_PTIDEJ_WORKSPACE));
 		if (!directoryPtidej.exists()) {
-			ProxyConsole
-				.getInstance()
-				.errorOutput()
-				.print("Cannot find the Ptidej Workspace at ");
-			ProxyConsole
-				.getInstance()
-				.errorOutput()
-				.println(directoryPtidej.getAbsolutePath() + File.separatorChar);
+			ProxyConsole.getInstance().errorOutput().print(
+				"Cannot find the Ptidej Workspace at ");
+			ProxyConsole.getInstance().errorOutput().println(
+				directoryPtidej.getAbsolutePath() + File.separatorChar);
 		}
 		else {
 			ProxyConsole
@@ -127,16 +119,16 @@ public class Launcher implements IApplication {
 		return directoryPtidej;
 	}
 	private File getDirSafe(final File directoryPtidej) {
-		final File destination =
-			new File(directoryPtidej.getAbsolutePath() + File.separatorChar
+		final File destination = new File(
+			directoryPtidej.getAbsolutePath() + File.separatorChar
 					+ Common.EQUINOX_RUNTIME_WORKSPACE
 					+ Constants.SAFE_CPP_PROJECT_NAME);
 
 		return destination;
 	}
 	private File getDirTarget(final File directoryPtidej) {
-		final File destination =
-			new File(directoryPtidej.getAbsolutePath() + File.separatorChar
+		final File destination = new File(
+			directoryPtidej.getAbsolutePath() + File.separatorChar
 					+ Common.EQUINOX_RUNTIME_WORKSPACE
 					+ Constants.CPP_PROJECT_NAME);
 
@@ -154,18 +146,14 @@ public class Launcher implements IApplication {
 
 		try {
 			if (directoryDestination.exists()) {
-				ProxyConsole
-					.getInstance()
-					.debugOutput()
-					.println(
-						"Destination exists at "
-								+ directoryDestination.getAbsolutePath()
-								+ File.separatorChar);
+				ProxyConsole.getInstance().debugOutput().println(
+					"Destination exists at "
+							+ directoryDestination.getAbsolutePath()
+							+ File.separatorChar);
 				FileUtils.deleteQuietly(directoryDestination);
 			}
-			FileUtils.copyDirectory(
-				directorySafeCPPProject,
-				directoryDestination);
+			FileUtils
+				.copyDirectory(directorySafeCPPProject, directoryDestination);
 
 			FileUtils.copyDirectory(
 				directoryOrigin,
@@ -195,11 +183,8 @@ public class Launcher implements IApplication {
 		//		ProxyConsole.getInstance().errorOutput());
 
 		if (this.areArgumentsEmpty(someArguments)) {
-			ProxyConsole
-				.getInstance()
-				.errorOutput()
-				.println(
-					"No arguments given to the application, please check your runtime configuration. (application.args = new Sring[0])");
+			ProxyConsole.getInstance().errorOutput().println(
+				"No arguments given to the application, please check your runtime configuration. (application.args = new Sring[0])");
 			throw new RuntimeException(
 				"No arguments given to the application, please check your runtime configuration. (application.args = new Sring[0])");
 		}
@@ -225,25 +210,24 @@ public class Launcher implements IApplication {
 				directoryOriginCPPFiles,
 				directoryTargetCPPFiles);
 
-			ProxyConsole
-				.getInstance()
-				.debugOutput()
-				.println("Starting creating code-level model from C++ file(s).");
+			ProxyConsole.getInstance().debugOutput().println(
+				"Starting creating code-level model from C++ file(s).");
 
 			try {
 				final GeneratorFromCPPProject generator =
 					new GeneratorFromCPPProject();
 				final ICodeLevelModel model = generator.build();
 
-				ProxyConsole
-					.getInstance()
-					.debugOutput()
-					.print(
-						"Done creating code-level model from C++ file(s), found ");
+				ProxyConsole.getInstance().debugOutput().print(
+					"Done creating code-level model from C++ file(s), found ");
 
 				if (isInRemoteJVM) {
 					Common.writeCodeLevelModel(model);
 				}
+
+				// Yann 2016/09/21: Clean up!
+				// I don't forget to erase the source directory used by Eclipse
+				FileUtils.deleteQuietly(directoryTargetCPPFiles);
 
 				return model;
 			}

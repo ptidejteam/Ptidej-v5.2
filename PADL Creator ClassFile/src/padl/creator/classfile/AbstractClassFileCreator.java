@@ -22,10 +22,12 @@ import com.ibm.toad.cfparse.ClassFile;
 import com.ibm.toad.cfparse.ConstantPool;
 import com.ibm.toad.cfparse.ConstantPoolEntry;
 import com.ibm.toad.cfparse.InterfaceList;
+import com.ibm.toad.cfparse.MethodInfo;
 import com.ibm.toad.cfparse.attributes.AttrInfoList;
 import com.ibm.toad.cfparse.attributes.CodeAttrInfo;
 import com.ibm.toad.cfparse.instruction.ImmutableCodeSegment;
 import com.ibm.toad.cfparse.instruction.JVMConstants;
+import com.ibm.toad.cfparse.utils.AttrUtils;
 import com.ibm.toad.cfparse.utils.ByteArray;
 import padl.creator.classfile.relationship.ContainerRelationshipAnalyzer;
 import padl.creator.classfile.relationship.Context;
@@ -373,18 +375,35 @@ abstract class AbstractClassFileCreator {
 						// I fill up the Element.
 						for (int i = 0; i < currentClass
 							.getMethods()
-							.length(); listOfSubmittedElements.add(
-								new ExtendedMethodInfo(
-									currentClass,
-									currentClass.getMethods().get(i++))))
-							;
+							.length(); i++) {
+
+							// Yann 2016/09/21: Synthetic attributes!
+							// Starting with JDK 1.6. generic introduced
+							// all kind of perks... including "new"
+							// synthetic methods!
+							// https://docs.oracle.com/javase/tutorial/java/generics/bridgeMethods.html
+							final MethodInfo methodInfo =
+								currentClass.getMethods().get(i);
+							if (AttrUtils.getAttrByName(
+								methodInfo.getAttrs(),
+								"Synthetic") == null) {
+
+								listOfSubmittedElements.add(
+									new ExtendedMethodInfo(
+										currentClass,
+										methodInfo));
+							}
+						}
+
 						for (int i = 0; i < currentClass
 							.getFields()
-							.length(); listOfSubmittedElements.add(
+							.length(); i++) {
+
+							listOfSubmittedElements.add(
 								new ExtendedFieldInfo(
 									currentClass,
-									currentClass.getFields().get(i++))))
-							;
+									currentClass.getFields().get(i)));
+						}
 
 						try {
 							// Yann 2002/07/31: Priorities.
