@@ -494,7 +494,9 @@ public class Utils {
 		if (interestingType instanceof IBasicType) {
 			typeName = ((IBasicType) interestingType).toString();
 		}
-		else if (interestingType instanceof IProblemType) {
+		else if (interestingType instanceof IProblemType
+				|| interestingType == null) {
+
 			typeName = Utils.PROBLEM_TYPE;
 		}
 		else {

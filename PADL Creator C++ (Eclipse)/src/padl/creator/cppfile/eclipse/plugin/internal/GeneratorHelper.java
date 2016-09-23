@@ -281,6 +281,8 @@ class GeneratorHelper {
 			.replaceAll("const ", "")
 			.replaceAll(", \\.\\.\\.", "")
 			.replaceAll(" CPPMETHOD", "")
+			.replaceAll("/", "US")
+			.replaceAll("#", "NUM")
 			.toCharArray();
 
 		final char[] name;

@@ -51,7 +51,7 @@ public class FewSmellsTest extends TestCase {
 		ad.output(
 			new PrintWriter(
 				ProxyDisk.getInstance().fileTempOutput(
-					FewSmellsTest.NAME + "_SpaghettiCode.ini")));
+					FewSmellsTest.NAME + "_AntiSingletonDetection.ini")));
 		Assert.assertEquals(
 			"Incorrect number of anti-singletons found",
 			0,
@@ -64,7 +64,7 @@ public class FewSmellsTest extends TestCase {
 		ad.output(
 			new PrintWriter(
 				ProxyDisk.getInstance().fileTempOutput(
-					FewSmellsTest.NAME + "_SpaghettiCode.ini")));
+					FewSmellsTest.NAME + "_BaseClassShouldBeAbstractDetection.ini")));
 		Assert.assertEquals(
 			"Incorrect number of base-classes that should be abstract found",
 			1,
@@ -76,7 +76,7 @@ public class FewSmellsTest extends TestCase {
 		ad.output(
 			new PrintWriter(
 				ProxyDisk.getInstance().fileTempOutput(
-					FewSmellsTest.NAME + "_SpaghettiCode.ini")));
+					FewSmellsTest.NAME + "_LargeClassDetection.ini")));
 		Assert.assertEquals(
 			"Incorrect number of large classes found",
 			0,
@@ -88,7 +88,7 @@ public class FewSmellsTest extends TestCase {
 		ad.output(
 			new PrintWriter(
 				ProxyDisk.getInstance().fileTempOutput(
-					FewSmellsTest.NAME + "_SpaghettiCode.ini")));
+					FewSmellsTest.NAME + "_LazyClassDetection.ini")));
 		Assert.assertEquals(
 			"Incorrect number of lazy classes found",
 			0,
@@ -100,7 +100,7 @@ public class FewSmellsTest extends TestCase {
 		ad.output(
 			new PrintWriter(
 				ProxyDisk.getInstance().fileTempOutput(
-					FewSmellsTest.NAME + "_SpaghettiCode.ini")));
+					FewSmellsTest.NAME + "_LongMethodDetection.ini")));
 		Assert.assertEquals(
 			"Incorrect number of long methods found",
 			7,
@@ -112,7 +112,7 @@ public class FewSmellsTest extends TestCase {
 		ad.output(
 			new PrintWriter(
 				ProxyDisk.getInstance().fileTempOutput(
-					FewSmellsTest.NAME + "_SpaghettiCode.ini")));
+					FewSmellsTest.NAME + "_LongParameterListDetection.ini")));
 		Assert.assertEquals(
 			"Incorrect number of long parameter lists found",
 			6,
@@ -125,7 +125,7 @@ public class FewSmellsTest extends TestCase {
 		ad.output(
 			new PrintWriter(
 				ProxyDisk.getInstance().fileTempOutput(
-					FewSmellsTest.NAME + "_SpaghettiCode.ini")));
+					FewSmellsTest.NAME + "_ManyFieldAttributesButNotComplexDetection.ini")));
 		Assert.assertEquals(
 			"Incorrect number of classes with many fields but not complex found",
 			4,
@@ -137,7 +137,7 @@ public class FewSmellsTest extends TestCase {
 		ad.output(
 			new PrintWriter(
 				ProxyDisk.getInstance().fileTempOutput(
-					FewSmellsTest.NAME + "_SpaghettiCode.ini")));
+					FewSmellsTest.NAME + "_MessageChainsDetection.ini")));
 		Assert.assertEquals(
 			"Incorrect number of message chains found",
 			0,
@@ -149,7 +149,8 @@ public class FewSmellsTest extends TestCase {
 		ad.output(
 			new PrintWriter(
 				ProxyDisk.getInstance().fileTempOutput(
-					FewSmellsTest.NAME + "_SpaghettiCode.ini")));
+					FewSmellsTest.NAME
+							+ "_RefusedParentBequestDetection.ini")));
 		// TODO Subsequent runs give different number: 2, 3, or 4! Why is that?!
 		Assert.assertTrue(
 			"Incorrect number of refused parent bequests found",

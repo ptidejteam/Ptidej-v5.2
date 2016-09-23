@@ -774,3 +774,255 @@ IndentedParagraph		0.0
 Main		0.0
 Paragraph		0.0
 Title		0.0
+
+
+---------------------------------
+Ptidej run on 2016-09-23 09:48:52
+---------------------------------
+
+util.repository.impl.FileRepositoryFactory has for running path: /D:/Shared/Dropbox/Ptidej Workspaces/v5.2/CPL/bin/
+util.repository.impl.FileRepositoryFactory is creating a ClassFileRepository for: util.repository.impl.FileFolderRepository
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Design Motifs/bin/padl/motif
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Layouts/bin/ptidej/ui/layout
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Analyses/bin/padl/analysis
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Analyses/bin/ptidej/ui/analysis
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Viewer Extensions/bin/ptidej/viewer/extension
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SAD/bin/sad/codesmell/detection
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SAD/bin/sad/designsmell/detection
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Micro-pattern Analysis/bin/padl/micropattern
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL/bin/padl/visitor
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Design Motifs/bin/padl/motif/visitor
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/POM/bin/pom/metrics
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/pqmod
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/qmood
+Sep 23, 2016 9:49:05 AM java.util.prefs.WindowsPreferences <init>
+WARNING: Could not open/create prefs root node Software\JavaSoft\Prefs at root 0x80000002. Windows RegCreateKeyEx(...) returned error code 5.
+Loading class files in: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej Tests/rsc/ptidej/Examples/../../../bin/ptidej/example/composite2/
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL/bin/padl/kernel/impl
+
+Code smell AbstractClass
+Entities		ACAIC
+PrintStream		0.0
+Class		0.0
+Object		0.0
+String		0.0
+System		0.0
+Vector		0.0
+AbstractDocument		0.0
+Document		0.0
+Element		0.0
+IndentedParagraph		0.0
+Main		0.0
+Paragraph		0.0
+Title		0.0
+Entities		ACMIC
+PrintStream		0.0
+Class		0.0
+Object		0.0
+String		0.0
+System		0.0
+Vector		0.0
+AbstractDocument		0.0
+Document		0.0
+Element		0.0
+IndentedParagraph		0.0
+Main		0.0
+Paragraph		0.0
+Title		0.0
+Entities		ANA
+PrintStream		1.0
+Class		1.0
+Object		1.0
+String		1.0
+System		1.0
+Vector		1.0
+AbstractDocument		1.0
+Document		1.0
+Element		1.0
+IndentedParagraph		1.0
+Main		1.0
+Paragraph		1.0
+Title		1.0
+Entities		CBOin
+PrintStream		1.0
+Class		0.0
+Object		1.0
+String		0.0
+System		1.0
+Vector		5.0
+AbstractDocument		1.0
+Document		9.0
+Element		0.0
+IndentedParagraph		0.0
+Main		0.0
+Paragraph		0.0
+Title		0.0
+Entities		CBOout
+PrintStream		0.0
+Class		0.0
+Object		0.0
+String		0.0
+System		0.0
+Vector		0.0
+AbstractDocument		3.0
+Document		6.0
+Element		0.0
+IndentedParagraph		0.0
+Main		9.0
+Paragraph		0.0
+Title		0.0
+Entities		CBOin
+PrintStream		1.0
+Class		0.0
+Object		1.0
+String		0.0
+System		1.0
+Vector		5.0
+AbstractDocument		1.0
+Document		9.0
+Element		0.0
+IndentedParagraph		0.0
+Main		0.0
+Paragraph		0.0
+Title		0.0
+
+Code smell DataClass
+
+Code smell DataClass
+
+Code smell LargeClassDetection
+
+Code smell LargeClassDetection
+
+Code smell LargeClassDetection
+
+Code smell LargeClassDetection
+
+Code smell LargeClassDetection
+
+Code smell LargeClassDetection
+
+Code smell LargeClassDetection
+
+Code smell LargeClassDetection
+
+Code smell LargeClassDetection
+
+Code smell LargeClassDetection
+
+Code smell LargeClassOnlyDetection
+
+Code smell LargeClassDetection
+
+Code smell NotComplexClassDetection
+
+Code smell LowCohesionDetection
+
+Code smell NotAbstract
+Exception in thread "AWT-EventQueue-0" java.lang.IllegalArgumentException: origin not in parent's hierarchy
+	at java.awt.PopupMenu.show(Unknown Source)
+	at ptidej.viewer.awt.occurrences.ListPanel$2.mousePressed(ListPanel.java:463)
+	at java.awt.Component.processMouseEvent(Unknown Source)
+	at java.awt.Component.processEvent(Unknown Source)
+	at java.awt.Component.dispatchEventImpl(Unknown Source)
+	at java.awt.Component.dispatchEvent(Unknown Source)
+	at java.awt.EventQueue.dispatchEventImpl(Unknown Source)
+	at java.awt.EventQueue.access$500(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+Exception in thread "AWT-EventQueue-0" java.lang.IllegalArgumentException: origin not in parent's hierarchy
+	at java.awt.PopupMenu.show(Unknown Source)
+	at ptidej.viewer.awt.occurrences.ListPanel$2.mousePressed(ListPanel.java:463)
+	at java.awt.Component.processMouseEvent(Unknown Source)
+	at java.awt.Component.processEvent(Unknown Source)
+	at java.awt.Component.dispatchEventImpl(Unknown Source)
+	at java.awt.Component.dispatchEvent(Unknown Source)
+	at java.awt.EventQueue.dispatchEventImpl(Unknown Source)
+	at java.awt.EventQueue.access$500(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+
+Code smell AbstractClass
+Exception in thread "AWT-EventQueue-0" java.lang.IllegalArgumentException: origin not in parent's hierarchy
+	at java.awt.PopupMenu.show(Unknown Source)
+	at ptidej.viewer.awt.occurrences.ListPanel$2.mousePressed(ListPanel.java:463)
+	at java.awt.Component.processMouseEvent(Unknown Source)
+	at java.awt.Component.processEvent(Unknown Source)
+	at java.awt.Component.dispatchEventImpl(Unknown Source)
+	at java.awt.Component.dispatchEvent(Unknown Source)
+	at java.awt.EventQueue.dispatchEventImpl(Unknown Source)
+	at java.awt.EventQueue.access$500(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+	at ptidej.ui.kernel.builder.Builder.createDefaultLabelText(Builder.java:371)
+	at ptidej.ui.kernel.builder.Builder.getLabelText(Builder.java:518)
+	at ptidej.viewer.widget.HierarchicalTreeCell.<init>(HierarchicalTreeCell.java:100)
+	at ptidej.viewer.ui.window.SourceHierarchicalModelWindow.processSourceModel(SourceHierarchicalModelWindow.java:368)
+	at ptidej.viewer.ui.window.SourceHierarchicalModelWindow.processSourceModel(SourceHierarchicalModelWindow.java:377)
+	at ptidej.viewer.ui.window.SourceHierarchicalModelWindow.processSourceModel(SourceHierarchicalModelWindow.java:377)
+	at ptidej.viewer.ui.window.SourceHierarchicalModelWindow.setSourceModelSpecifics(SourceHierarchicalModelWindow.java:444)
+	at ptidej.viewer.ui.AbstractRepresentationWindow.setSourceModel(AbstractRepresentationWindow.java:676)
+	at ptidej.viewer.ui.AbstractRepresentationWindow$Worker.done(AbstractRepresentationWindow.java:279)
+	at javax.swing.SwingWorker$5.run(Unknown Source)
+	at javax.swing.SwingWorker$DoSubmitAccumulativeRunnable.run(Unknown Source)
+	at sun.swing.AccumulativeRunnable.run(Unknown Source)
+	at javax.swing.SwingWorker$DoSubmitAccumulativeRunnable.actionPerformed(Unknown Source)
+	at javax.swing.Timer.fireActionPerformed(Unknown Source)
+	at javax.swing.Timer$DoPostEvent.run(Unknown Source)
+	at java.awt.event.InvocationEvent.dispatch(Unknown Source)
+	at java.awt.EventQueue.dispatchEventImpl(Unknown Source)
+	at java.awt.EventQueue.access$500(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
