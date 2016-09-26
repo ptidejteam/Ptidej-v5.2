@@ -1026,3 +1026,142 @@ Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
 	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
 	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
 	at java.awt.EventDispatchThread.run(Unknown Source)
+
+
+---------------------------------
+Ptidej run on 2016-09-23 15:10:54
+---------------------------------
+
+util.repository.impl.FileRepositoryFactory has for running path: /D:/Shared/Dropbox/Ptidej Workspaces/v5.2/CPL/bin/
+util.repository.impl.FileRepositoryFactory is creating a ClassFileRepository for: util.repository.impl.FileFolderRepository
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Design Motifs/bin/padl/motif
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Layouts/bin/ptidej/ui/layout
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Analyses/bin/padl/analysis
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Analyses/bin/ptidej/ui/analysis
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Viewer Extensions/bin/ptidej/viewer/extension
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SAD/bin/sad/codesmell/detection
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SAD/bin/sad/designsmell/detection
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Micro-pattern Analysis/bin/padl/micropattern
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL/bin/padl/visitor
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Design Motifs/bin/padl/motif/visitor
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/POM/bin/pom/metrics
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/pqmod
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/qmood
+Sep 23, 2016 3:11:46 PM java.util.prefs.WindowsPreferences <init>
+WARNING: Could not open/create prefs root node Software\JavaSoft\Prefs at root 0x80000002. Windows RegCreateKeyEx(...) returned error code 5.
+Number of classes: 0
+Number of ghosts: 0
+Number of interfaces: 0
+Number of association relationships: 0
+Number of aggregation relationships [1,n]: 0
+Number of aggregation relationships [1,1]: 0
+Number of composition relationships: 0
+Number of container-aggregation relationships [1,n]: 0
+Number of container-aggregation relationships [1,1]: 0
+Number of container-composition relationships: 0
+Number of creation relationships: 0
+Number of use relationships: 0
+Number of fields: 0
+Number of methods: 0
+Number of message sends: 0
+Exception in thread "AWT-EventQueue-0" java.lang.ClassCastException: ptidej.ui.kernel.Interface cannot be cast to ptidej.ui.kernel.Element
+	at ptidej.ui.kernel.builder.Builder.getElement(Builder.java:472)
+	at ptidej.ui.kernel.Entity.addElement(Entity.java:56)
+	at ptidej.ui.kernel.Entity.computeElements(Entity.java:322)
+	at ptidej.ui.kernel.ModelGraph.construct(ModelGraph.java:281)
+	at ptidej.viewer.ui.window.SourceHierarchicalModelWindow.updateWindowDisplay(SourceHierarchicalModelWindow.java:487)
+	at ptidej.viewer.ui.window.SourceHierarchicalModelWindow.access$3(SourceHierarchicalModelWindow.java:473)
+	at ptidej.viewer.ui.window.SourceHierarchicalModelWindow$1.itemStateChanged(SourceHierarchicalModelWindow.java:103)
+	at javax.swing.AbstractButton.fireItemStateChanged(Unknown Source)
+	at ptidej.viewer.widget.HierarchicalTreeCellCheckbox.fireItemStateChanged(HierarchicalTreeCellCheckbox.java:39)
+	at javax.swing.AbstractButton$Handler.itemStateChanged(Unknown Source)
+	at javax.swing.DefaultButtonModel.fireItemStateChanged(Unknown Source)
+	at javax.swing.JToggleButton$ToggleButtonModel.setSelected(Unknown Source)
+	at javax.swing.JToggleButton$ToggleButtonModel.setPressed(Unknown Source)
+	at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(Unknown Source)
+	at java.awt.Component.processMouseEvent(Unknown Source)
+	at javax.swing.JComponent.processMouseEvent(Unknown Source)
+	at java.awt.Component.processEvent(Unknown Source)
+	at java.awt.Container.processEvent(Unknown Source)
+	at java.awt.Component.dispatchEventImpl(Unknown Source)
+	at java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.awt.Component.dispatchEvent(Unknown Source)
+	at javax.swing.plaf.basic.BasicTreeUI$MouseInputHandler.mouseReleased(Unknown Source)
+	at java.awt.AWTEventMulticaster.mouseReleased(Unknown Source)
+	at java.awt.Component.processMouseEvent(Unknown Source)
+	at javax.swing.JComponent.processMouseEvent(Unknown Source)
+	at java.awt.Component.processEvent(Unknown Source)
+	at java.awt.Container.processEvent(Unknown Source)
+	at java.awt.Component.dispatchEventImpl(Unknown Source)
+	at java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.awt.Component.dispatchEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.processMouseEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.dispatchEvent(Unknown Source)
+	at java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.awt.Window.dispatchEventImpl(Unknown Source)
+	at java.awt.Component.dispatchEvent(Unknown Source)
+	at java.awt.EventQueue.dispatchEventImpl(Unknown Source)
+	at java.awt.EventQueue.access$500(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+
+
+---------------------------------
+Ptidej run on 2016-09-26 10:00:42
+---------------------------------
+
+util.repository.impl.FileRepositoryFactory has for running path: /D:/Shared/Dropbox/Ptidej Workspaces/v5.2/CPL/bin/
+util.repository.impl.FileRepositoryFactory is creating a ClassFileRepository for: util.repository.impl.FileFolderRepository
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Design Motifs/bin/padl/motif
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Layouts/bin/ptidej/ui/layout
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Analyses/bin/padl/analysis
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Analyses/bin/ptidej/ui/analysis
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Viewer Extensions/bin/ptidej/viewer/extension
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SAD/bin/sad/codesmell/detection
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SAD/bin/sad/designsmell/detection
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Micro-pattern Analysis/bin/padl/micropattern
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL/bin/padl/visitor
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Design Motifs/bin/padl/motif/visitor
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/POM/bin/pom/metrics
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/pqmod
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/qmood
+Sep 26, 2016 10:00:50 AM java.util.prefs.WindowsPreferences <init>
+WARNING: Could not open/create prefs root node Software\JavaSoft\Prefs at root 0x80000002. Windows RegCreateKeyEx(...) returned error code 5.
+
+
+---------------------------------
+Ptidej run on 2016-09-26 10:12:46
+---------------------------------
+
+util.repository.impl.FileRepositoryFactory has for running path: /D:/Shared/Dropbox/Ptidej Workspaces/v5.2/CPL/bin/
+util.repository.impl.FileRepositoryFactory is creating a ClassFileRepository for: util.repository.impl.FileFolderRepository
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Design Motifs/bin/padl/motif
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Layouts/bin/ptidej/ui/layout
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Analyses/bin/padl/analysis
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Analyses/bin/ptidej/ui/analysis
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Viewer Extensions/bin/ptidej/viewer/extension
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SAD/bin/sad/codesmell/detection
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SAD/bin/sad/designsmell/detection
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Micro-pattern Analysis/bin/padl/micropattern
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL/bin/padl/visitor
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Design Motifs/bin/padl/motif/visitor
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/POM/bin/pom/metrics
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/pqmod
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/qmood
+Sep 26, 2016 10:13:23 AM java.util.prefs.WindowsPreferences <init>
+WARNING: Could not open/create prefs root node Software\JavaSoft\Prefs at root 0x80000002. Windows RegCreateKeyEx(...) returned error code 5.

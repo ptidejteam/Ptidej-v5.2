@@ -31,6 +31,7 @@ import padl.kernel.IFirstClassEntity;
 import padl.kernel.IGhost;
 import padl.kernel.IInterface;
 import padl.kernel.IMemberClass;
+import padl.kernel.IMemberEntity;
 import padl.kernel.IMemberInterface;
 import padl.kernel.IMethod;
 import padl.kernel.IMethodInvocation;
@@ -71,8 +72,8 @@ public class Builder {
 			Builder.UniqueInstances = new HashMap();
 		}
 		if (Builder.UniqueInstances.get(aPrimitiveFactory) == null) {
-			Builder.UniqueInstances.put(aPrimitiveFactory, new Builder(
-				aPrimitiveFactory));
+			Builder.UniqueInstances
+				.put(aPrimitiveFactory, new Builder(aPrimitiveFactory));
 		}
 		return (Builder) Builder.UniqueInstances.get(aPrimitiveFactory);
 	}
@@ -97,10 +98,9 @@ public class Builder {
 
 		Element aGraphicalElement = null;
 		if (anElement instanceof IDelegatingMethod) {
-			aTargetEntity =
-				((IDelegatingMethod) anElement)
-					.getTargetAssoc()
-					.getTargetEntity();
+			aTargetEntity = ((IDelegatingMethod) anElement)
+				.getTargetAssoc()
+				.getTargetEntity();
 
 			// Yann 01/07/31: Hack!
 			// Because a subset of a pattern may have elements with invalid targets.
@@ -108,12 +108,11 @@ public class Builder {
 				aTargetGraphicalEntity = (Entity) this.getEntity(aTargetEntity);
 
 				if (aTargetGraphicalEntity != null) {
-					aGraphicalElement =
-						new Delegation(
-							this.primitiveFactory,
-							this.getEntity(anEntity),
-							aTargetGraphicalEntity,
-							(IDelegatingMethod) anElement);
+					aGraphicalElement = new Delegation(
+						this.primitiveFactory,
+						this.getEntity(anEntity),
+						aTargetGraphicalEntity,
+						(IDelegatingMethod) anElement);
 				}
 			}
 		}
@@ -132,53 +131,48 @@ public class Builder {
 				//	&& aTargetGraphicalEntity != null
 				if (anOriginGraphicalEntity != aTargetGraphicalEntity) {
 					if (anElement instanceof IComposition) {
-						aGraphicalElement =
-							new Composition(
-								this.primitiveFactory,
-								((IComposition) anElement).getDisplayName(),
-								((IComposition) anElement).getCardinality(),
-								anOriginGraphicalEntity,
-								aTargetGraphicalEntity);
+						aGraphicalElement = new Composition(
+							this.primitiveFactory,
+							((IComposition) anElement).getDisplayName(),
+							((IComposition) anElement).getCardinality(),
+							anOriginGraphicalEntity,
+							aTargetGraphicalEntity);
 					}
 					else if (anElement instanceof IAggregation) {
-						aGraphicalElement =
-							new Aggregation(
-								this.primitiveFactory,
-								((IAggregation) anElement).getDisplayName(),
-								((IAggregation) anElement).getCardinality(),
-								anOriginGraphicalEntity,
-								aTargetGraphicalEntity);
+						aGraphicalElement = new Aggregation(
+							this.primitiveFactory,
+							((IAggregation) anElement).getDisplayName(),
+							((IAggregation) anElement).getCardinality(),
+							anOriginGraphicalEntity,
+							aTargetGraphicalEntity);
 					}
 					else if (anElement instanceof IContainerComposition) {
-						aGraphicalElement =
-							new ContainerComposition(
-								this.primitiveFactory,
-								((IContainerComposition) anElement)
-									.getDisplayName(),
-								((IContainerComposition) anElement)
-									.getCardinality(),
-								anOriginGraphicalEntity,
-								aTargetGraphicalEntity);
+						aGraphicalElement = new ContainerComposition(
+							this.primitiveFactory,
+							((IContainerComposition) anElement)
+								.getDisplayName(),
+							((IContainerComposition) anElement)
+								.getCardinality(),
+							anOriginGraphicalEntity,
+							aTargetGraphicalEntity);
 					}
 					else if (anElement instanceof IContainerAggregation) {
-						aGraphicalElement =
-							new ContainerAggregation(
-								this.primitiveFactory,
-								((IContainerAggregation) anElement)
-									.getDisplayName(),
-								((IContainerAggregation) anElement)
-									.getCardinality(),
-								anOriginGraphicalEntity,
-								aTargetGraphicalEntity);
+						aGraphicalElement = new ContainerAggregation(
+							this.primitiveFactory,
+							((IContainerAggregation) anElement)
+								.getDisplayName(),
+							((IContainerAggregation) anElement)
+								.getCardinality(),
+							anOriginGraphicalEntity,
+							aTargetGraphicalEntity);
 					}
 					else if (anElement instanceof IAssociation) {
-						aGraphicalElement =
-							new Association(
-								this.primitiveFactory,
-								((IAssociation) anElement).getDisplayName(),
-								((IAssociation) anElement).getCardinality(),
-								anOriginGraphicalEntity,
-								aTargetGraphicalEntity);
+						aGraphicalElement = new Association(
+							this.primitiveFactory,
+							((IAssociation) anElement).getDisplayName(),
+							((IAssociation) anElement).getCardinality(),
+							anOriginGraphicalEntity,
+							aTargetGraphicalEntity);
 					}
 				}
 			}
@@ -196,12 +190,11 @@ public class Builder {
 				aTargetGraphicalEntity = this.getEntity(aTargetEntity);
 
 				if (aTargetGraphicalEntity != null) {
-					aGraphicalElement =
-						new Creation(
-							this.primitiveFactory,
-							anOriginGraphicalEntity,
-							((ICreation) anElement).getDisplayName(),
-							aTargetGraphicalEntity);
+					aGraphicalElement = new Creation(
+						this.primitiveFactory,
+						anOriginGraphicalEntity,
+						((ICreation) anElement).getDisplayName(),
+						aTargetGraphicalEntity);
 				}
 			}
 		}
@@ -214,12 +207,11 @@ public class Builder {
 				aTargetGraphicalEntity = this.getEntity(aTargetEntity);
 
 				if (aTargetGraphicalEntity != null) {
-					aGraphicalElement =
-						new Use(
-							this.primitiveFactory,
-							anOriginGraphicalEntity,
-							((IUseRelationship) anElement).getDisplayName(),
-							aTargetGraphicalEntity);
+					aGraphicalElement = new Use(
+						this.primitiveFactory,
+						anOriginGraphicalEntity,
+						((IUseRelationship) anElement).getDisplayName(),
+						aTargetGraphicalEntity);
 				}
 			}
 		}
@@ -228,8 +220,9 @@ public class Builder {
 				new Method(this.primitiveFactory, (IMethod) anElement);
 		}
 		else if (anElement instanceof IConstructor) {
-			aGraphicalElement =
-				new Constructor(this.primitiveFactory, (IConstructor) anElement);
+			aGraphicalElement = new Constructor(
+				this.primitiveFactory,
+				(IConstructor) anElement);
 		}
 		else if (anElement instanceof IField) {
 			aGraphicalElement =
@@ -241,7 +234,8 @@ public class Builder {
 
 		return aGraphicalElement;
 	}
-	private final Entity createDefaultEntity(final IConstituentOfModel anEntity) {
+	private final Entity createDefaultEntity(
+		final IConstituentOfModel anEntity) {
 		final Entity aGraphicalEntity;
 
 		if (anEntity instanceof IClass) {
@@ -253,11 +247,10 @@ public class Builder {
 				new Ghost(this.primitiveFactory, this, (IGhost) anEntity);
 		}
 		else if (anEntity instanceof IInterface) {
-			aGraphicalEntity =
-				new Interface(
-					this.primitiveFactory,
-					this,
-					(IInterface) anEntity);
+			aGraphicalEntity = new Interface(
+				this.primitiveFactory,
+				this,
+				(IInterface) anEntity);
 		}
 		else {
 			// Yann 2004/16/12: Null!
@@ -356,29 +349,31 @@ public class Builder {
 			return Utils.getIcon(iconImageName);
 		}
 	}
-	private final String createDefaultLabelText(final IConstituent aConstituent) {
+	private final String createDefaultLabelText(
+		final IConstituent aConstituent) {
 		String labelText;
 		if (aConstituent instanceof IField) {
-			labelText =
-				((IField) aConstituent).getDisplayTypeName() + " : "
-						+ aConstituent.getDisplayName();
+			labelText = ((IField) aConstituent).getDisplayTypeName() + " : "
+					+ aConstituent.getDisplayName();
 		}
 		else if (aConstituent instanceof IMethodInvocation) {
 			final IMethodInvocation invocation =
 				(IMethodInvocation) aConstituent;
 			if (invocation.getTargetEntity() == null) {
-				labelText =
-					invocation.getFirstCallingField().getDisplayName()
-							+ " = ...";
+				final IField field = invocation.getFirstCallingField();
+				if (field == null) {
+					labelText = "... = ...";
+				}
+				else {
+					labelText = field.getDisplayName() + " = ...";
+				}
 			}
 			else {
 				labelText = invocation.getTargetEntity().getDisplayID();
 				if (invocation.getFirstCallingField() != null) {
-					labelText +=
-						"."
-								+ invocation
-									.getFirstCallingField()
-									.getDisplayName();
+					labelText += "." + invocation
+						.getFirstCallingField()
+						.getDisplayName();
 				}
 				if (invocation.getCalledMethod() != null) {
 					labelText +=
@@ -393,10 +388,9 @@ public class Builder {
 			labelText = aConstituent.getDisplayID();
 		}
 		else if (aConstituent instanceof IOperation) {
-			labelText =
-				aConstituent.toString().substring(
-					0,
-					aConstituent.toString().lastIndexOf(')') + 1);
+			labelText = aConstituent.toString().substring(
+				0,
+				aConstituent.toString().lastIndexOf(')') + 1);
 		}
 		else if (aConstituent instanceof IStatement) {
 			labelText =
@@ -432,12 +426,11 @@ public class Builder {
 				aTargetGraphicalEntity = this.getEntity(aTargetEntity);
 
 				if (aTargetGraphicalEntity != null) {
-					aGraphicalStatement =
-						new Use(
-							this.primitiveFactory,
-							anOriginGraphicalEntity,
-							((IMethodInvocation) aStatement).getDisplayName(),
-							aTargetGraphicalEntity);
+					aGraphicalStatement = new Use(
+						this.primitiveFactory,
+						anOriginGraphicalEntity,
+						((IMethodInvocation) aStatement).getDisplayName(),
+						aTargetGraphicalEntity);
 				}
 			}
 		}
@@ -474,9 +467,8 @@ public class Builder {
 
 		final String id = anElement.getDisplayPath();
 		if (this.cacheOfGraphicalConstituents.get(id) == null) {
-			this.cacheOfGraphicalConstituents.put(
-				id,
-				this.createDefaultElement(anEntity, anElement));
+			this.cacheOfGraphicalConstituents
+				.put(id, this.createDefaultElement(anEntity, anElement));
 		}
 		return (Element) this.cacheOfGraphicalConstituents.get(id);
 	}
@@ -486,36 +478,47 @@ public class Builder {
 
 		final String id = aStatement.getDisplayPath();
 		if (this.cacheOfGraphicalConstituents.get(id) == null) {
-			this.cacheOfGraphicalConstituents.put(
-				id,
-				this.createDefaultStatement(anEntity, aStatement));
+			this.cacheOfGraphicalConstituents
+				.put(id, this.createDefaultStatement(anEntity, aStatement));
 		}
 		return (Element) this.cacheOfGraphicalConstituents.get(id);
 	}
 	public final Entity getEntity(final IConstituentOfModel anEntity) {
-		final String id = anEntity.getDisplayPath();
+		String id = anEntity.getDisplayPath();
+
+		// Yann 2016/09/26: Members!
+		// The graphical library does not support member entities,
+		// it has not constituents for these. So, if something
+		// (say, an association) points to a member entity, I get
+		// the enclosing first-class entity of the member entity.
+		if (anEntity instanceof IMemberEntity) {
+			// TODO This is a hack! because the Builder should not
+			// know of the peculiarities of the path system! It
+			// should call:
+			//	id = Finder.findContainer(id, this.abstractLevelModel);
+			// but the Builder currently does not know about the model.
+			id = id.substring(0, id.indexOf('$'));
+		}
+
 		if (this.cacheOfGraphicalConstituents.get(id) == null) {
-			this.cacheOfGraphicalConstituents.put(
-				id,
-				this.createDefaultEntity(anEntity));
+			this.cacheOfGraphicalConstituents
+				.put(id, this.createDefaultEntity(anEntity));
 		}
 		return (Entity) this.cacheOfGraphicalConstituents.get(id);
 	}
 	public final Icon getLabelIcon(final IConstituent aConstituent) {
 		final String id = aConstituent.getDisplayPath();
 		if (this.cacheOfLabelIcons.get(id) == null) {
-			this.cacheOfLabelIcons.put(
-				id,
-				this.createDefaultLabelIcon(aConstituent));
+			this.cacheOfLabelIcons
+				.put(id, this.createDefaultLabelIcon(aConstituent));
 		}
 		return (Icon) this.cacheOfLabelIcons.get(id);
 	}
 	public final String getLabelText(final IConstituent aConstituent) {
 		final String id = aConstituent.getDisplayPath();
 		if (this.cacheOfLabelTexts.get(id) == null) {
-			this.cacheOfLabelTexts.put(
-				id,
-				this.createDefaultLabelText(aConstituent));
+			this.cacheOfLabelTexts
+				.put(id, this.createDefaultLabelText(aConstituent));
 		}
 		return (String) this.cacheOfLabelTexts.get(id);
 	}
