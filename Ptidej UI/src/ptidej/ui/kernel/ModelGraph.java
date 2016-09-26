@@ -65,7 +65,8 @@ public class ModelGraph implements IVisibility {
 			aSetOfEntitiesToDisplay,
 			aSetOfEntitiesToSelect);
 	}
-	public void addSelectionListener(final ISelectionListener aSelectionListener) {
+	public void addSelectionListener(
+		final ISelectionListener aSelectionListener) {
 		// Yann 2014/03/28: Reset!
 		// Because now I can reset a ModelGraph, I must store
 		// any listeners so that I can attach them back to the
@@ -399,17 +400,22 @@ public class ModelGraph implements IVisibility {
 	public final void setVisibleElements(final int someVisibleElements) {
 		// Yann 2002/12/15: Ghost are invisible!
 		// I add ghost entities if needed here by constructing the model.
+
+		if ((this.getVisibleElements()
+				& IVisibility.GHOST_ENTITIES_DISPLAY) != (someVisibleElements
+						& IVisibility.GHOST_ENTITIES_DISPLAY)) {
+
+			this.construct();
+		}
+
 		// Yann 2015/02/06: Hack => Bug
 		// See the class OptionPanel!
 		// Because I did not do anything, the visibility the graph was not set correctly.
 		this.visibility = someVisibleElements;
 
-		if ((this.getVisibleElements() & IVisibility.GHOST_ENTITIES_DISPLAY) != (someVisibleElements & IVisibility.GHOST_ENTITIES_DISPLAY)) {
-			this.construct();
-		}
-
 		for (int i = 0; i < this.graphModelConstituents.length; i++) {
-			this.graphModelConstituents[i].setVisibleElements(someVisibleElements);
+			this.graphModelConstituents[i]
+				.setVisibleElements(someVisibleElements);
 		}
 	}
 }

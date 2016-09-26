@@ -1165,3 +1165,26 @@ util.repository.impl.FileFolderRepository is the current repository on: D:/Share
 util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/qmood
 Sep 26, 2016 10:13:23 AM java.util.prefs.WindowsPreferences <init>
 WARNING: Could not open/create prefs root node Software\JavaSoft\Prefs at root 0x80000002. Windows RegCreateKeyEx(...) returned error code 5.
+
+
+---------------------------------
+Ptidej run on 2016-09-26 14:02:03
+---------------------------------
+
+util.repository.impl.FileRepositoryFactory has for running path: /D:/Shared/Dropbox/Ptidej Workspaces/v5.2/CPL/bin/
+util.repository.impl.FileRepositoryFactory is creating a ClassFileRepository for: util.repository.impl.FileFolderRepository
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Design Motifs/bin/padl/motif
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Layouts/bin/ptidej/ui/layout
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Analyses/bin/padl/analysis
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Analyses/bin/ptidej/ui/analysis
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/Ptidej UI Viewer Extensions/bin/ptidej/viewer/extension
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SAD/bin/sad/codesmell/detection
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SAD/bin/sad/designsmell/detection
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Micro-pattern Analysis/bin/padl/micropattern
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL/bin/padl/visitor
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/PADL Design Motifs/bin/padl/motif/visitor
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/POM/bin/pom/metrics
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/pqmod
+util.repository.impl.FileFolderRepository is the current repository on: D:/Shared/Dropbox/Ptidej Workspaces/v5.2/SQUAD/bin/squad/quality/qmood
+Sep 26, 2016 2:02:26 PM java.util.prefs.WindowsPreferences <init>
+WARNING: Could not open/create prefs root node Software\JavaSoft\Prefs at root 0x80000002. Windows RegCreateKeyEx(...) returned error code 5.
