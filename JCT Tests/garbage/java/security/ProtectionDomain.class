@@ -27,9 +27,84 @@ private static java.security.AccessControlContext getCombinedACC(java.lang.Objec
 
 }
 
-final class Key
+final static class Key
 {
 void <init>()
+{
+
+}
+
+
+}
+
+private static class PDCache
+implements sun.misc.JavaSecurityProtectionDomainAccess.ProtectionDomainCache
+{
+final private java.lang.Object pdMap;
+
+final private java.lang.Object queue;
+
+private void <init>()
+{
+
+}
+
+public void put(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+public java.security.PermissionCollection get(java.lang.Object arg0)
+{
+
+}
+
+private static void processQueue(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+
+}
+
+private static class WeakProtectionDomainKey
+extends java.lang.ref.WeakReference
+{
+final private java.lang.Object hash;
+
+final private static java.lang.Object NULL_KEY;
+
+void <init>(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+void <init>(java.lang.Object arg0)
+{
+
+}
+
+private void <init>(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+private void <init>(java.lang.Object arg0)
+{
+
+}
+
+public int hashCode()
+{
+
+}
+
+public boolean equals(java.lang.Object arg0)
+{
+
+}
+
+static void <clinit>()
 {
 
 }

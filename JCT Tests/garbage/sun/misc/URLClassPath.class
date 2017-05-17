@@ -29,7 +29,7 @@ extends sun.misc.URLClassPath.Loader
 {
 private java.lang.Object jar;
 
-private java.lang.Object csu;
+final private java.lang.Object csu;
 
 private java.lang.Object index;
 
@@ -37,13 +37,15 @@ private java.lang.Object metaIndex;
 
 private java.lang.Object handler;
 
-private java.lang.Object lmap;
+final private java.lang.Object lmap;
+
+final private java.lang.Object acc;
 
 private java.lang.Object closed;
 
 final private static java.lang.Object zipAccess;
 
-void <init>(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2) throws java.io.IOException
+void <init>(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2, java.lang.Object arg3) throws java.io.IOException
 {
 
 }
@@ -186,6 +188,8 @@ final private static java.lang.Object DEBUG_LOOKUP_CACHE;
 
 final private static java.lang.Object DISABLE_JAR_CHECKING;
 
+final private static java.lang.Object DISABLE_ACC_CHECKING;
+
 private java.lang.Object path;
 
 java.lang.Object urls;
@@ -198,18 +202,25 @@ private java.lang.Object jarHandler;
 
 private java.lang.Object closed;
 
+final private java.lang.Object acc;
+
 private static volatile java.lang.Object lookupCacheEnabled;
 
 private java.lang.Object lookupCacheURLs;
 
 private java.lang.Object lookupCacheLoader;
 
-public void <init>(java.lang.Object arg0, java.lang.Object arg1)
+public void <init>(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2)
 {
 
 }
 
 public void <init>(java.lang.Object arg0)
+{
+
+}
+
+public void <init>(java.lang.Object arg0, java.lang.Object arg1)
 {
 
 }

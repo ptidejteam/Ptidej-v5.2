@@ -25,6 +25,8 @@ final private static java.lang.Object soleInstance;
 
 private static volatile java.lang.Object langReflectAccess;
 
+private static volatile java.lang.Object hasStaticInitializerMethod;
+
 private static java.lang.Object noInflation;
 
 private static java.lang.Object inflationThreshold;
@@ -119,6 +121,66 @@ public java.lang.reflect.Constructor newConstructorForSerialization(java.lang.Ob
 
 }
 
+final public java.lang.reflect.Constructor newConstructorForSerialization(java.lang.Object arg0)
+{
+
+}
+
+final private java.lang.reflect.Constructor generateConstructor(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+final public java.lang.reflect.Constructor newConstructorForExternalization(java.lang.Object arg0)
+{
+
+}
+
+final public java.lang.invoke.MethodHandle readObjectForSerialization(java.lang.Object arg0)
+{
+
+}
+
+final public java.lang.invoke.MethodHandle readObjectNoDataForSerialization(java.lang.Object arg0)
+{
+
+}
+
+final public java.lang.invoke.MethodHandle writeObjectForSerialization(java.lang.Object arg0)
+{
+
+}
+
+final private java.lang.invoke.MethodHandle findReadWriteObjectForSerialization(java.lang.Object arg0, java.lang.Object arg1, java.lang.Object arg2)
+{
+
+}
+
+final public java.lang.invoke.MethodHandle readResolveForSerialization(java.lang.Object arg0)
+{
+
+}
+
+final public java.lang.invoke.MethodHandle writeReplaceForSerialization(java.lang.Object arg0)
+{
+
+}
+
+private java.lang.invoke.MethodHandle getReplaceResolveForSerialization(java.lang.Object arg0, java.lang.Object arg1)
+{
+
+}
+
+final public boolean hasStaticInitializerForSerialization(java.lang.Object arg0)
+{
+
+}
+
+final public java.io.OptionalDataException newOptionalDataExceptionForSerialization(java.lang.Object arg0)
+{
+
+}
+
 static int inflationThreshold()
 {
 
@@ -130,6 +192,11 @@ private static void checkInitted()
 }
 
 private static sun.reflect.LangReflectAccess langReflectAccess()
+{
+
+}
+
+private static boolean packageEquals(java.lang.Object arg0, java.lang.Object arg1)
 {
 
 }

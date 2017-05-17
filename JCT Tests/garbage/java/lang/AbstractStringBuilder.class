@@ -6,6 +6,8 @@ java.lang.Object value;
 
 java.lang.Object count;
 
+final private static java.lang.Object MAX_ARRAY_SIZE;
+
 void <init>()
 {
 
@@ -36,7 +38,12 @@ private void ensureCapacityInternal(java.lang.Object arg0)
 
 }
 
-void expandCapacity(java.lang.Object arg0)
+private int newCapacity(java.lang.Object arg0)
+{
+
+}
+
+private int hugeCapacity(java.lang.Object arg0)
 {
 
 }
