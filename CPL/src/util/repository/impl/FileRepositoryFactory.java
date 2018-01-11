@@ -312,7 +312,7 @@ public class FileRepositoryFactory {
 
 		this.type = FileRepositoryFactory.JAR_IN_JAR_FILE_REPOSITORY;
 	}
-	private void tryWebApp(ClassLoader cl) throws NoSuchMethodException {
+	private void tryWebApp(final ClassLoader cl) throws NoSuchMethodException {
 		throw new NoSuchMethodException();
 	}
 }

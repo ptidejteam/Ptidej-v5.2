@@ -13,7 +13,6 @@ package padl.creator.cppfile.eclipse.plugin.internal;
 import java.util.Stack;
 import org.eclipse.cdt.core.dom.ast.ASTVisitor;
 import org.eclipse.cdt.core.dom.ast.DOMException;
-import org.eclipse.cdt.core.dom.ast.IASTDeclSpecifier;
 import org.eclipse.cdt.core.dom.ast.IASTDeclaration;
 import org.eclipse.cdt.core.dom.ast.IASTProblemDeclaration;
 import org.eclipse.cdt.core.dom.ast.IASTSimpleDeclaration;
@@ -56,8 +55,9 @@ public class VisitorGlobalFunctionsAndVariables extends ASTVisitor {
 
 		this.stackOfNamespaces = new Stack<IContainer>();
 		// By default, I put everything into a default package.
-		this.stackOfNamespaces.push((IContainer) this.codeLevelModel
-			.getConstituentFromID(Constants.DEFAULT_PACKAGE_ID));
+		this.stackOfNamespaces.push(
+			(IContainer) this.codeLevelModel
+				.getConstituentFromID(Constants.DEFAULT_PACKAGE_ID));
 	}
 	public int leave(final ICPPASTNamespaceDefinition aDeclaration) {
 		this.stackOfNamespaces.pop();
@@ -107,23 +107,16 @@ public class VisitorGlobalFunctionsAndVariables extends ASTVisitor {
 	}
 	public int visit(final IASTProblemDeclaration aDeclaration) {
 		// Declaration with problems
-		ProxyConsole
-			.getInstance()
-			.errorOutput()
-			.print(VisitorGlobalFunctionsAndVariables.class.getName());
+		ProxyConsole.getInstance().errorOutput().print(
+			VisitorGlobalFunctionsAndVariables.class.getName());
 		ProxyConsole.getInstance().errorOutput().print(" reports \"");
-		ProxyConsole
-			.getInstance()
-			.errorOutput()
-			.print(
-				aDeclaration.getRawSignature().substring(
-					0,
-					Math.min(32, aDeclaration.getRawSignature().length())));
+		ProxyConsole.getInstance().errorOutput().print(
+			aDeclaration.getRawSignature().substring(
+				0,
+				Math.min(32, aDeclaration.getRawSignature().length())));
 		ProxyConsole.getInstance().errorOutput().print("\" (");
-		ProxyConsole
-			.getInstance()
-			.errorOutput()
-			.print(((IASTProblemDeclaration) aDeclaration).getProblem());
+		ProxyConsole.getInstance().errorOutput().print(
+			((IASTProblemDeclaration) aDeclaration).getProblem());
 		ProxyConsole.getInstance().errorOutput().println(')');
 		// No need to process anything child of an IASTProblemDeclaration.
 		return ASTVisitor.PROCESS_SKIP;
